@@ -186,7 +186,6 @@ if(jet_mult<3) continue;
 
 
   //jets pt & pseudorapidity  
-  jet_vec[0].SetPxPyPzE(jet_px[0],jet_py[0],jet_pz[0],jet_e[0]);
   float jet1_eta=jet_vec[0].Eta();
   float jet1_pt=jet_vec[0].Pt();
   float jet1_phi=jet_vec[0].Phi();
@@ -195,7 +194,6 @@ if(jet_mult<3) continue;
   
  
 
-  jet_vec[1].SetPxPyPzE(jet_px[1],jet_py[1],jet_pz[1],jet_e[1]);
   float jet2_eta=jet_vec[1].Eta();
   float jet2_pt=jet_vec[1].Pt();
   float jet2_phi=jet_vec[1].Phi();
@@ -204,7 +202,6 @@ if(jet_mult<3) continue;
 
   
  
-  jet_vec[2].SetPxPyPzE(jet_px[2],jet_py[2],jet_pz[2],jet_e[2]);
   float jet3_eta=jet_vec[2].Eta();
   float jet3_pt=jet_vec[2].Pt();
   float jet3_phi=jet_vec[2].Phi();
@@ -214,7 +211,6 @@ if(jet_mult<3) continue;
 
 
 if(jet_mult>3){
-  jet_vec[3].SetPxPyPzE(jet_px[3],jet_py[3],jet_pz[3],jet_e[3]);
   float jet4_eta=jet_vec[3].Eta();
   float jet4_pt=jet_vec[3].Pt();
   float jet4_phi=jet_vec[3].Phi();
