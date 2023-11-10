@@ -101,6 +101,8 @@ void analysis()
   TH1F *h_dR_jet_muon = new TH1F("h_dR_jet_muon","dR between jet and muon distribution (before cross-cleaning)",100,0.,6.);
   TH1F *h_dR_jet_electron = new TH1F("h_dR_jet_electron","dR between jet and electron distribution (before cross-cleaning)",100,0.,6.);
 
+  TH1F *h_dR_jet_muon_after = new TH1F("h_dR_jet_muon_after","dR between jet and muon distribution (after cross-cleaning)",100,0.,6.);
+  TH1F *h_dR_jet_electron_after = new TH1F("h_dR_jet_electron_after","dR between jet and electron distribution (after cross-cleaning)",100,0.,6.);
 
 
   //read all entries and fill the histograms
@@ -232,6 +234,14 @@ if (jet_mult>3)
   float h_pt=h_p.Pt();
   float h_eta=h_p.Eta();
   h_inv_m->Fill(h_m);
+
+
+
+  //dR after cross cleaning
+  double dR1_after=ROOT::Math::VectorUtil::DeltaR(h_p,mn_p);
+  double dR2_after=ROOT::Math::VectorUtil::DeltaR(h_p,en_p);
+  h_dR_jet_muon_after->Fill(dR1_after);
+  h_dR_jet_electron_after->Fill(dR2_after);
 
 
 
@@ -467,5 +477,20 @@ if (jet_mult>3)
   h_dR_jet_electron->GetXaxis()->SetTitle("delta R between jets and electrons");
   h_dR_jet_electron->GetYaxis()->SetTitle("Entries");
   h_dR_jet_electron->Draw("Ehist");
+
+
+  //delta R after cross-cleaning
+  TCanvas *c_dR_after = new TCanvas("dR_after","dR_after",1100,1100);
+  c_dR_after->Divide(1,2);
+  //muon-jet
+  c_dR_after->cd(1);
+  h_dR_jet_muon_after->GetXaxis()->SetTitle("delta R between jets and muons");
+  h_dR_jet_muon_after->GetYaxis()->SetTitle("Entries");
+  h_dR_jet_muon_after->Draw("Ehist");
+  //electron-jet
+  c_dR_after->cd(2);
+  h_dR_jet_electron_after->GetXaxis()->SetTitle("delta R between jets and electrons");
+  h_dR_jet_electron_after->GetYaxis()->SetTitle("Entries");
+  h_dR_jet_electron_after->Draw("Ehist");
 }
 
