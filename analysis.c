@@ -101,8 +101,11 @@ void analysis()
   TH1F *h_dR_jet_muon = new TH1F("h_dR_jet_muon","dR between jet and muon distribution (before cross-cleaning)",100,0.,6.);
   TH1F *h_dR_jet_electron = new TH1F("h_dR_jet_electron","dR between jet and electron distribution (before cross-cleaning)",100,0.,6.);
 
-  TH1F *h_dR_jet_muon_after = new TH1F("h_dR_jet_muon_after","dR between jet and muon distribution (after cross-cleaning)",100,0.,6.);
-  TH1F *h_dR_jet_electron_after = new TH1F("h_dR_jet_electron_after","dR between jet and electron distribution (after cross-cleaning)",100,0.,6.);
+  TH1F *h_dR_jet1_muon_after = new TH1F("h_dR_jet1_muon_after","dR between jet1 and muon distribution (after cross-cleaning)",100,0.,6.);
+  TH1F *h_dR_jet1_electron_after = new TH1F("h_dR_jet1_electron_after","dR between jet1 and electron distribution (after cross-cleaning)",100,0.,6.);
+
+  TH1F *h_dR_jet2_muon_after = new TH1F("h_dR_jet2_muon_after","dR between jet2 and muon distribution (after cross-cleaning)",100,0.,6.);
+  TH1F *h_dR_jet2_electron_after = new TH1F("h_dR_jet2_electron_after","dR between jet2 and electron distribution (after cross-cleaning)",100,0.,6.);
 
 
   //read all entries and fill the histograms
@@ -191,6 +194,7 @@ if(jet_mult<3) continue;
   float jet1_eta=jet_vec[0].Eta();
   float jet1_pt=jet_vec[0].Pt();
   float jet1_phi=jet_vec[0].Phi();
+  //float jet1_e=jet_vec[0].E();
   h_jet1_eta->Fill(jet1_eta);
   h_jet1_pt->Fill(jet1_pt);  
   
@@ -199,6 +203,7 @@ if(jet_mult<3) continue;
   float jet2_eta=jet_vec[1].Eta();
   float jet2_pt=jet_vec[1].Pt();
   float jet2_phi=jet_vec[1].Phi();
+  //float jet1_e=jet_vec[0].E();
   h_jet2_eta->Fill(jet2_eta);
   h_jet2_pt->Fill(jet2_pt);
 
@@ -238,11 +243,18 @@ if (jet_mult>3)
 
 
   //dR after cross cleaning
-  double dR1_after=ROOT::Math::VectorUtil::DeltaR(h_p,mn_p);
-  double dR2_after=ROOT::Math::VectorUtil::DeltaR(h_p,en_p);
-  h_dR_jet_muon_after->Fill(dR1_after);
-  h_dR_jet_electron_after->Fill(dR2_after);
-
+  TLorentzVector p_jet1;
+  p_jet1.SetPtEtaPhiE(jet_vec[0].Pt(),jet_vec[0].Eta(),jet_vec[0].Phi(),jet_vec[0].E());
+  double dR1_after=ROOT::Math::VectorUtil::DeltaR(p_jet1,mn_p);
+  double dR2_after=ROOT::Math::VectorUtil::DeltaR(p_jet1,en_p);
+  h_dR_jet1_muon_after->Fill(dR1_after);
+  h_dR_jet1_electron_after->Fill(dR2_after);
+  TLorentzVector p_jet2;
+  p_jet2.SetPtEtaPhiE(jet_vec[1].Pt(),jet_vec[1].Eta(),jet_vec[1].Phi(),jet_vec[1].E());
+  double dR12_after=ROOT::Math::VectorUtil::DeltaR(p_jet2,mn_p);
+  double dR22_after=ROOT::Math::VectorUtil::DeltaR(p_jet2,en_p);
+  h_dR_jet2_muon_after->Fill(dR12_after);
+  h_dR_jet2_electron_after->Fill(dR22_after);
 
 
   //MET
@@ -408,7 +420,7 @@ if (jet_mult>3)
 
   //d_phi W and H bosons 
   TCanvas *c_w_h = new TCanvas("w_h","w_h",1000,1000);
-  h_d_phi_w_h->SetStats(111111);
+  h_d_phi_w_h->SetStats(11111);
   h_d_phi_w_h->Draw("Ehist");
 
 
@@ -479,18 +491,28 @@ if (jet_mult>3)
   h_dR_jet_electron->Draw("Ehist");
 
 
+
   //delta R after cross-cleaning
   TCanvas *c_dR_after = new TCanvas("dR_after","dR_after",1100,1100);
-  c_dR_after->Divide(1,2);
-  //muon-jet
+  c_dR_after->Divide(2,2);
+  //muon-jet1
   c_dR_after->cd(1);
-  h_dR_jet_muon_after->GetXaxis()->SetTitle("delta R between jets and muons");
-  h_dR_jet_muon_after->GetYaxis()->SetTitle("Entries");
-  h_dR_jet_muon_after->Draw("Ehist");
-  //electron-jet
+  h_dR_jet1_muon_after->GetXaxis()->SetTitle("delta R between jets and muons");
+  h_dR_jet1_muon_after->GetYaxis()->SetTitle("Entries");
+  h_dR_jet1_muon_after->Draw("Ehist");
+  //electron-jet1
   c_dR_after->cd(2);
-  h_dR_jet_electron_after->GetXaxis()->SetTitle("delta R between jets and electrons");
-  h_dR_jet_electron_after->GetYaxis()->SetTitle("Entries");
-  h_dR_jet_electron_after->Draw("Ehist");
+  h_dR_jet1_electron_after->GetXaxis()->SetTitle("delta R between jets and electrons");
+  h_dR_jet1_electron_after->GetYaxis()->SetTitle("Entries");
+  h_dR_jet1_electron_after->Draw("Ehist");
+  //muon-jet2
+  c_dR_after->cd(3);
+  h_dR_jet2_muon_after->GetXaxis()->SetTitle("delta R between jets2 and muons");
+  h_dR_jet2_muon_after->GetYaxis()->SetTitle("Entries");
+  h_dR_jet2_muon_after->Draw("Ehist");
+  //electron-jet2
+  c_dR_after->cd(4);
+  h_dR_jet2_electron_after->GetXaxis()->SetTitle("delta R between jets2 and electrons");
+  h_dR_jet2_electron_after->GetYaxis()->SetTitle("Entries");
+  h_dR_jet2_electron_after->Draw("Ehist");
 }
-
