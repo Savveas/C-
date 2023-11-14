@@ -33,22 +33,16 @@ void MyClass::Loop()
 
    Long64_t nentries = fChain->GetEntriesFast();
 
+
    //muon 
    TH1F *h_mn_pt = new TH1F("h_mn_pt","muon pt distribution",100,0.,500.);
    TH1F *h_mn_eta = new TH1F("h_mn_eta","muon pseudorapidity distribution",100,-5.,5.);
    TH1F *h_mn_phi = new TH1F("h_mn_phi","muon phi distribution",100,-5.,5.);
-   
-
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       Long64_t ientry = LoadTree(jentry);
-      
-      
-       for (Int_t mn_i = 0; mn_i < mn; mn_i++)
-   Long64_t nbytes = 0, nb = 0;
-   for (Long64_t jentry=0; jentry<nentries;jentry++) {
-      Long64_t ientry = LoadTree(jentry);
-      for (Int_t mn_i = 0; mn_i < mn; mn_i++) {
+      for (Int_t mn_i = 0; mn_i < mn; mn_i++)
+      {
          TLorentzVector mn_p;
          mn_p.SetPxPyPzE(mn_px[0],mn_py[0],mn_pz[0],mn_en[0]);
          double mn_eta=mn_p.Eta();
@@ -60,8 +54,6 @@ void MyClass::Loop()
          h_mn_phi->Fill(mn_phi);
       }
       
-      
-   
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       // if (Cut(ientry) < 0) continue;
@@ -86,5 +78,4 @@ void MyClass::Loop()
    h_mn_phi->GetXaxis()->SetTitle("Muon Phi");
    h_mn_phi->GetYaxis()->SetTitle("Entries");
    h_mn_phi->Draw("Ehist");  
-}
 }

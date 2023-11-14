@@ -1,10 +1,5 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-<<<<<<< HEAD
-// Tue Nov 14 16:15:16 2023 by ROOT version 6.28/08
-=======
-// Mon Nov 13 14:14:46 2023 by ROOT version 6.28/08
->>>>>>> d9f0d6c (MyClass)
 // from TTree data/Event Summary
 // found on file: analysis_1.root
 //////////////////////////////////////////////////////////
@@ -102,30 +97,6 @@ public :
    Float_t         en_enSigmaRhoUp[5];   //[en]
    Float_t         en_enSigmaRhoDown[5];   //[en]
    Float_t         en_enSigmaPhiDown[5];   //[en]
-   Float_t         en_px[10];   //[en]
-   Float_t         en_py[10];   //[en]
-   Float_t         en_pz[10];   //[en]
-   Float_t         en_en[10];   //[en]
-   Int_t           en_id[10];   //[en]
-   Float_t         en_cor_en[10];   //[en]
-   Float_t         en_EtaSC[10];   //[en]
-   Float_t         en_R9[10];   //[en]
-   Int_t           en_gainSeed[10];   //[en]
-   Bool_t          en_passId[10];   //[en]
-   Bool_t          en_passIdLoose[10];   //[en]
-   Bool_t          en_passIso[10];   //[en]
-   Float_t         en_relIso[10];   //[en]
-   Float_t         en_enSigmaValue[10];   //[en]
-   Float_t         en_enScaleValue[10];   //[en]
-   Float_t         en_enScaleStatUp[10];   //[en]
-   Float_t         en_enScaleStatDown[10];   //[en]
-   Float_t         en_enScaleSystUp[10];   //[en]
-   Float_t         en_enScaleSystDown[10];   //[en]
-   Float_t         en_enScaleGainUp[10];   //[en]
-   Float_t         en_enScaleGainDown[10];   //[en]
-   Float_t         en_enSigmaRhoUp[10];   //[en]
-   Float_t         en_enSigmaRhoDown[10];   //[en]
-   Float_t         en_enSigmaPhiDown[10];   //[en]
    Int_t           jet;
    Float_t         jet_px[25];   //[jet]
    Float_t         jet_py[25];   //[jet]
