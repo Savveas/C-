@@ -78,7 +78,6 @@ public :
    Float_t         mn_trkLayersWithMeasurement[5];   //[mn]
    Float_t         mn_pixelLayersWithMeasurement[5];   //[mn]
    Int_t           en;
-<<<<<<< HEAD
    Float_t         en_px[5];   //[en]
    Float_t         en_py[5];   //[en]
    Float_t         en_pz[5];   //[en]
@@ -103,7 +102,6 @@ public :
    Float_t         en_enSigmaRhoUp[5];   //[en]
    Float_t         en_enSigmaRhoDown[5];   //[en]
    Float_t         en_enSigmaPhiDown[5];   //[en]
-=======
    Float_t         en_px[10];   //[en]
    Float_t         en_py[10];   //[en]
    Float_t         en_pz[10];   //[en]
@@ -128,7 +126,6 @@ public :
    Float_t         en_enSigmaRhoUp[10];   //[en]
    Float_t         en_enSigmaRhoDown[10];   //[en]
    Float_t         en_enSigmaPhiDown[10];   //[en]
->>>>>>> d9f0d6c (MyClass)
    Int_t           jet;
    Float_t         jet_px[25];   //[jet]
    Float_t         jet_py[25];   //[jet]
