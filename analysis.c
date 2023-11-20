@@ -4,7 +4,9 @@
 #include "TBrowser.h"
 #include "TH1.h"
 #include "TH2.h"
-
+#include "TCanvas.h"
+#include "TH1F.h"
+#include "TLorentzVector.h"
 // test
 
 void analysis()

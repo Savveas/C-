@@ -1,13 +1,62 @@
 #define MyClass_cxx
-#include "MyClass.h"
 #include <TFile.h>
+#include <TH1.h>
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
 
 void plots(){
-    TFile f("histos.root");
-    gStyle->SetPalette(kRainBow);
+  TFile *inputfile=TFile::Open("histos.root","READ");
+  
+  
+  TH1F *h_mn_pt = (TH1F*)inputfile->Get("h_mn_pt");
+  TH1F *h_mn_eta = (TH1F*)inputfile->Get("h_mn_eta");
+  TH1F *h_mn_phi = (TH1F*)inputfile->Get("h_mn_phi");
+  TH2F *h_mn_pt_eta = (TH2F*)inputfile->Get("h_mn_pt_eta");
+  TH2F *h_mn_en_phi = (TH2F*)inputfile->Get("h_mn_en_phi");
+  TH1F *h_en_pt = (TH1F*)inputfile->Get("h_en_pt");
+  TH1F *h_en_eta = (TH1F*)inputfile->Get("h_en_eta");
+  TH1F *h_en_phi = (TH1F*)inputfile->Get("h_mn_phi");
+  TH2F *h_en_pt_eta = (TH2F*)inputfile->Get("h_mn_pt_eta");
+  TH1F *h_jet1_pt = (TH1F*)inputfile->Get("h_jet1_pt");
+  TH1F *h_jet1_eta = (TH1F*)inputfile->Get("h_jet1_eta");
+  TH1F *h_jet1_phi = (TH1F*)inputfile->Get("h_jet1_phi");
+  TH1F *h_jet2_pt = (TH1F*)inputfile->Get("h_jet2_pt");
+  TH1F *h_jet2_eta = (TH1F*)inputfile->Get("h_jet2_eta");
+  TH1F *h_jet2_phi = (TH1F*)inputfile->Get("h_jet2_phi");
+  TH1F *h_jet3_pt = (TH1F*)inputfile->Get("h_jet3_pt");
+  TH1F *h_jet3_eta = (TH1F*)inputfile->Get("h_jet3_eta");
+  TH1F *h_jet3_phi = (TH1F*)inputfile->Get("h_jet3_phi");
+  TH1F *h_jet4_pt = (TH1F*)inputfile->Get("h_jet4_pt");
+  TH1F *h_jet4_eta = (TH1F*)inputfile->Get("h_jet4_eta");
+  TH1F *h_jet4_phi = (TH1F*)inputfile->Get("h_jet4_phi");
+  TH1F *h_met_pt = (TH1F*)inputfile->Get("h_met_pt");
+  TH2F *h_met_mn_pt = (TH2F*)inputfile->Get("h_met_mn_pt");
+  TH2F *h_met_en_pt = (TH2F*)inputfile->Get("h_met_en_pt");
+  TH1F *h_mt = (TH1F*)inputfile->Get("h_mt");
+  TH1F *h_d_phi_w_h = (TH1F*)inputfile->Get("h_d_phi_w_h");
+  TH1F *h_h_pt = (TH1F*)inputfile->Get("h_h_pt");
+  TH1F *h_h_phi = (TH1F*)inputfile->Get("h_h_phi");
+  TH1F *h_h_eta = (TH1F*)inputfile->Get("h_h_eta");
+  TH1F *h_inv_m = (TH1F*)inputfile->Get("h_inv_m");
+  TH1F *h_w_pt = (TH1F*)inputfile->Get("h_w_pt");
+  TH1F *h_w_phi = (TH1F*)inputfile->Get("h_w_phi");
+  TH1F *h_w_eta = (TH1F*)inputfile->Get("h_w_eta");
+  TH1F *h_w_m = (TH1F*)inputfile->Get("h_w_m");
+  TH1F *h_dR_jet_muon = (TH1F*)inputfile->Get("h_dR_jet_muon");
+  TH1F *h_dR_jet_electron = (TH1F*)inputfile->Get("h_dR_jet_electron");
+  TH1F *h_dR_jet1_muon_after = (TH1F*)inputfile->Get("h_dR_jet1_muon_after");
+  TH1F *h_dR_jet2_muon_after = (TH1F*)inputfile->Get("h_dR_jet2_muon_after");
+  TH1F *h_dR_jet3_muon_after = (TH1F*)inputfile->Get("h_dR_jet3_muon_after");
+  TH1F *h_dR_jet4_muon_after = (TH1F*)inputfile->Get("h_dR_jet4_muon_after");
+  TH1F *h_dR_jet1_electron_after = (TH1F*)inputfile->Get("h_dR_jet1_muon_after");
+  TH1F *h_dR_jet2_electron_after = (TH1F*)inputfile->Get("h_dR_jet2_muon_after");
+  TH1F *h_dR_jet3_electron_after = (TH1F*)inputfile->Get("h_dR_jet3_muon_after");
+  TH1F *h_dR_jet4_electron_after = (TH1F*)inputfile->Get("h_dR_jet4_muon_after");
+
+
+
+  gStyle->SetPalette(kRainBow);
 
 
   //muons
@@ -251,8 +300,4 @@ void plots(){
   h_dR_jet4_electron_after->GetXaxis()->SetTitle("delta R between jets2 and electrons");
   h_dR_jet4_electron_after->GetYaxis()->SetTitle("Entries");
   h_dR_jet4_electron_after->Draw("Ehist");
-
-
-
-
 }
