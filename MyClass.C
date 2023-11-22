@@ -65,6 +65,23 @@ void MyClass::Loop()
    TH1F *h_jet4_phi = new TH1F("h_jet4_phi","jet phi distribution",100,-5.,5.);
    TH1F *h_jet4_m = new TH1F("h_jet4_m","jet mass distributions",100,0.,100);
 
+   TH1F *h_b_jet1_pt = new TH1F("h_b_jet1_pt","bjet1 distribution",100,0.,500.);
+   TH1F *h_b_jet1_eta = new TH1F("h_b_jet1_eta","bjet1 pseudorapidity distribution",100,-5.,5.);
+   TH1F *h_b_jet1_phi = new TH1F("h_b_jet1_phi","bjet1 phi distribution",100,-5.,5.);
+   TH1F *h_b_jet1_m = new TH1F("h_b_jet1_m","bjet1 mass distributions",100,0.,100);
+   TH1F *h_b_jet2_pt = new TH1F("h_b_jet2_pt","bjet2 distribution",100,0.,500.);
+   TH1F *h_b_jet2_eta = new TH1F("h_b_jet2_eta","bjet2 pseudorapidity distribution",100,-5.,5.);
+   TH1F *h_b_jet2_phi = new TH1F("h_b_jet2_phi","bjet2 phi distribution",100,-5.,5.);
+   TH1F *h_b_jet2_m = new TH1F("h_b_jet2_m","bjet2 mass distributions",100,0.,100);
+   TH1F *h_b_jet3_pt = new TH1F("h_b_jet3_pt","bjet3 distribution",100,0.,500.);
+   TH1F *h_b_jet3_eta = new TH1F("h_b_jet3_eta","bjet3 pseudorapidity distribution",100,-5.,5.);
+   TH1F *h_b_jet3_phi = new TH1F("h_b_jet3_phi","bjet3 phi distribution",100,-5.,5.);
+   TH1F *h_b_jet3_m = new TH1F("h_b_jet3_m","bjet3 mass distributions",100,0.,100);
+   TH1F *h_b_jet4_pt = new TH1F("h_b_jet4_pt","bjet4 distribution",100,0.,500.);
+   TH1F *h_b_jet4_eta = new TH1F("h_b_jet4_eta","bjet4 pseudorapidity distribution",100,-5.,5.);
+   TH1F *h_b_jet4_phi = new TH1F("h_b_jet4_phi","bjet4 phi distribution",100,-5.,5.);
+   TH1F *h_b_jet4_m = new TH1F("h_b_jet4_m","bjet4 mass distributions",100,0.,100);
+
    TH1F *h_met_pt = new TH1F("h_met_pt","met_pt distribution",100,0.,500.);
 
    TH2F *h_met_mn_pt = new TH2F("h_met_mn_pt","MET-muon pt distribution",100,0.,500.,100,0.,500);
@@ -86,9 +103,9 @@ void MyClass::Loop()
 
    TH1F *h_dR_jet_muon = new TH1F("h_dR_jet_muon","dR between jet and muon distribution (before cross-cleaning)",100,0.,6.);
    TH1F *h_dR_jet_electron = new TH1F("h_dR_jet_electron","dR between jet and electron distribution (before cross-cleaning)",100,0.,6.);
-
-   TH1F *h_dR_jet1_muon_after = new TH1F("h_dR_jet_muon_after","dR between jet and muon distribution (after cross-cleaning)",100,0.,6.);
-   TH1F *h_dR_jet1_electron_after = new TH1F("h_dR_jet_electron_after","dR between jet and electron distribution (after cross-cleaning)",100,0.,6.);
+/*
+   TH1F *h_dR_jet1_muon_after = new TH1F("h_dR_jet1_muon_after","dR between jet and muon distribution (after cross-cleaning)",100,0.,6.);
+   TH1F *h_dR_jet1_electron_after = new TH1F("h_dR_jet1_electron_after","dR between jet and electron distribution (after cross-cleaning)",100,0.,6.);
    
    TH1F *h_dR_jet2_muon_after = new TH1F("h_dR_jet2_muon_after","dR between jet2 and muon distribution (after cross-cleaning)",100,0.,6.);
    TH1F *h_dR_jet2_electron_after = new TH1F("h_dR_jet2_electron_after","dR between jet2 and electron distribution (after cross-cleaning)",100,0.,6.);
@@ -98,28 +115,15 @@ void MyClass::Loop()
 
    TH1F *h_dR_jet4_muon_after = new TH1F("h_dR_jet4_muon_after","dR between jet4 and muon distribution (after cross-cleaning)",100,0.,6.);
    TH1F *h_dR_jet4_electron_after = new TH1F("h_dR_jet4_electron_after","dR between jet4 and electron distribution (after cross-cleaning)",100,0.,6.);
-
-  TH1F *h_jet_mult=new TH1F("h_dR_jet_mult","jet multiplicity",100,0.,100.);
+*/
+   TH1F *h_dR_jet_muon_after=new TH1F("h_dR_jet_muon_after","dR between jets and muons",100,0.,6.);
+   TH1F *h_dR_jet_electron_after=new TH1F("h_dR_jet_electron_after","dR between jets and electron",100,0.,6.);
+   TH1F *h_jet_mult=new TH1F("h_jet_mult","jet multiplicity",100,0.,10.);
 
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
       nb = fChain->GetEntry(jentry);   nbytes += nb;
       Long64_t ientry = LoadTree(jentry);
-      //for (Int_t mn_i = 0; mn_i < mn; mn_i++)
-      //{
-      //muons
-      //TLorentzVector mn_p;
-      //mn_p.SetPxPyPzE(mn_px[0],mn_py[0],mn_pz[0],mn_en[0]);
-      //double mn_eta=mn_p.Eta();
-      //double mn_phi=mn_p.Phi();
-      //double mn_pt=mn_p.Pt();
-      //float d_phi = std::abs(mn_phi-met_phi);
-      //h_mn_eta->Fill(mn_eta);
-      //h_mn_pt->Fill(mn_pt);
-      //h_mn_phi->Fill(mn_phi);
-      //h_mn_pt_eta->Fill(mn_pt,mn_eta);
-      //h_met_mn_pt->Fill(met_pt,mn_pt);
-      //}
       if(mn==0 || en==0) continue;
 
 
@@ -176,11 +180,11 @@ for (Int_t ijet= 0; ijet < jet; ijet++)
 
   //check muon jet overlap
   bool overlap(false);
-  double dR1=ROOT::Math::VectorUtil::DeltaR(pjet,mn_p);
-  double dR2=ROOT::Math::VectorUtil::DeltaR(pjet,en_p);
-  h_dR_jet_muon->Fill(dR1);
-  h_dR_jet_electron->Fill(dR2);
-if (dR1 < 0.4 || dR2 < 0.4)
+  double dR_jet_muon=ROOT::Math::VectorUtil::DeltaR(pjet,mn_p);
+  double dR_jet_electron=ROOT::Math::VectorUtil::DeltaR(pjet,en_p);
+  h_dR_jet_muon->Fill(dR_jet_muon);
+  h_dR_jet_electron->Fill(dR_jet_electron);
+if (dR_jet_muon < 0.4 || dR_jet_electron < 0.4)
 {
   overlap = true;
 }
@@ -189,12 +193,30 @@ if (overlap)
   continue;
 }
   jet_vec.push_back(pjet);
+
+  
   //b-jet indetification
   if (jet_btag1[ijet]>0.6324) bjet_vec.push_back(pjet);  
 }  
-int jet_mult;
+  int jet_mult;
   jet_mult=jet_vec.size();
   h_jet_mult->Fill(jet_mult);
+
+  int bjet_mult;
+  bjet_mult=bjet_vec.size();
+  
+
+
+  //dR after cross cleaning
+  TLorentzVector p_jet_after;
+for (int ijet_after = 0; ijet_after <jet_mult; ijet_after++)
+{
+  p_jet_after.SetPtEtaPhiE(jet_vec[ijet_after].Pt(),jet_vec[ijet_after].Eta(),jet_vec[ijet_after].Phi(),jet_vec[ijet_after].E());
+  double dR_mn_jet_after=ROOT::Math::VectorUtil::DeltaR(p_jet_after,mn_p);
+  double dR_en_jet_after=ROOT::Math::VectorUtil::DeltaR(p_jet_after,en_p);
+  h_dR_jet_muon_after->Fill(dR_mn_jet_after);
+  h_dR_jet_electron_after->Fill(dR_en_jet_after);
+}
 if(jet_mult<3) continue;
 
 
@@ -246,6 +268,57 @@ if(jet_mult>3){
 
 
 
+if(bjet_mult<3) continue;
+  
+
+  //bjets pt & pseudorapidity  
+  float bjet1_eta=bjet_vec[0].Eta();
+  float bjet1_pt=bjet_vec[0].Pt();
+  float bjet1_phi=bjet_vec[0].Phi();
+  float bjet1_m=bjet_vec[0].M();
+  h_b_jet1_eta->Fill(bjet1_eta);
+  h_b_jet1_pt->Fill(bjet1_pt);  
+  h_b_jet1_phi->Fill(bjet1_phi);
+  h_b_jet1_m->Fill(bjet1_m);
+
+  
+ 
+
+  float bjet2_eta=bjet_vec[1].Eta();
+  float bjet2_pt=bjet_vec[1].Pt();
+  float bjet2_phi=bjet_vec[1].Phi();
+  float bjet2_m=bjet_vec[1].M();
+  h_b_jet2_eta->Fill(bjet2_eta);
+  h_b_jet2_pt->Fill(bjet2_pt);
+  h_b_jet2_phi->Fill(bjet2_phi);
+  h_b_jet2_m->Fill(bjet2_m);
+
+  
+ 
+  float bjet3_eta=bjet_vec[2].Eta();
+  float bjet3_pt=bjet_vec[2].Pt();
+  float bjet3_phi=bjet_vec[2].Phi();
+  float bjet3_m=bjet_vec[2].M();
+  h_b_jet3_eta->Fill(bjet3_eta);
+  h_b_jet3_pt->Fill(bjet3_pt);
+  h_b_jet3_phi->Fill(bjet3_phi);
+  h_b_jet3_m->Fill(bjet3_m);
+
+
+
+if(bjet_mult>3){
+  float bjet4_eta=bjet_vec[3].Eta();
+  float bjet4_pt=bjet_vec[3].Pt();
+  float bjet4_phi=bjet_vec[3].Phi();
+  float bjet4_m=bjet_vec[3].M();
+  h_b_jet4_eta->Fill(bjet4_eta);
+  h_b_jet4_pt->Fill(bjet4_pt);
+  h_b_jet4_phi->Fill(bjet4_phi);
+  h_b_jet4_m->Fill(bjet4_m);
+}
+
+
+
   //invariant mass
   TLorentzVector h_p=jet_vec[0]+jet_vec[1]+jet_vec[2];
 if (jet_mult>3)
@@ -259,36 +332,6 @@ if (jet_mult>3)
   float h_eta=h_p.Eta();
   h_inv_m->Fill(h_m);
 
-
-
-  //dR after cross cleaning
-  TLorentzVector p_jet1;
-  p_jet1.SetPtEtaPhiE(jet_vec[0].Pt(),jet_vec[0].Eta(),jet_vec[0].Phi(),jet_vec[0].E());
-  double dR1_after=ROOT::Math::VectorUtil::DeltaR(p_jet1,mn_p);
-  double dR2_after=ROOT::Math::VectorUtil::DeltaR(p_jet1,en_p);
-  h_dR_jet1_muon_after->Fill(dR1_after);
-  h_dR_jet1_electron_after->Fill(dR2_after);
-  TLorentzVector p_jet2;
-  p_jet2.SetPtEtaPhiE(jet_vec[1].Pt(),jet_vec[1].Eta(),jet_vec[1].Phi(),jet_vec[1].E());
-  double dR12_after=ROOT::Math::VectorUtil::DeltaR(p_jet2,mn_p);
-  double dR22_after=ROOT::Math::VectorUtil::DeltaR(p_jet2,en_p);
-  h_dR_jet2_muon_after->Fill(dR12_after);
-  h_dR_jet2_electron_after->Fill(dR22_after);
-  TLorentzVector p_jet3;
-  p_jet3.SetPtEtaPhiE(jet_vec[2].Pt(),jet_vec[2].Eta(),jet_vec[2].Phi(),jet_vec[2].E());
-  double dR13_after=ROOT::Math::VectorUtil::DeltaR(p_jet3,mn_p);
-  double dR23_after=ROOT::Math::VectorUtil::DeltaR(p_jet3,en_p);
-  h_dR_jet3_muon_after->Fill(dR13_after);
-  h_dR_jet3_electron_after->Fill(dR23_after);
-if (jet_mult>3)
-  {
-  TLorentzVector p_jet4;
-  p_jet4.SetPtEtaPhiE(jet_vec[3].Pt(),jet_vec[3].Eta(),jet_vec[3].Phi(),jet_vec[3].E());
-  double dR14_after=ROOT::Math::VectorUtil::DeltaR(p_jet4,mn_p);
-  double dR24_after=ROOT::Math::VectorUtil::DeltaR(p_jet4,en_p);
-  h_dR_jet4_muon_after->Fill(dR14_after);
-  h_dR_jet4_electron_after->Fill(dR24_after);
-  }
 
 
   //MET
@@ -353,6 +396,22 @@ if (jet_mult>3)
    h_jet4_eta->Write();
    h_jet4_phi->Write();
    h_jet4_m->Write();
+   h_b_jet1_pt->Write(); 
+   h_b_jet1_eta->Write();
+   h_b_jet1_phi->Write();
+   h_b_jet1_m->Write();
+   h_b_jet2_pt->Write();
+   h_b_jet2_eta->Write();
+   h_b_jet2_phi->Write();
+   h_b_jet2_m->Write();
+   h_b_jet3_pt->Write();
+   h_b_jet3_eta->Write();
+   h_b_jet3_phi->Write();
+   h_b_jet3_m->Write();
+   h_b_jet4_pt->Write();
+   h_b_jet4_eta->Write();
+   h_b_jet4_phi->Write();
+   h_b_jet4_m->Write();
    h_met_pt->Write();
    h_met_mn_pt->Write();
    h_met_en_pt->Write();
@@ -368,14 +427,8 @@ if (jet_mult>3)
    h_w_m->Write();
    h_dR_jet_muon->Write();
    h_dR_jet_electron->Write();
-   h_dR_jet1_muon_after->Write();
-   h_dR_jet1_electron_after->Write();
-   h_dR_jet2_muon_after->Write();
-   h_dR_jet2_electron_after->Write();
-   h_dR_jet3_muon_after->Write();
-   h_dR_jet3_electron_after->Write();
-   h_dR_jet4_muon_after->Write();
-   h_dR_jet4_electron_after->Write();
+   h_dR_jet_muon_after->Write();
+   h_dR_jet_electron_after->Write();
+   h_jet_mult->Write();
    f.Close();
-
 }
