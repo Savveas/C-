@@ -19,30 +19,37 @@ void plots(){
   TH1F *h_jet1_pt = (TH1F*)inputfile->Get("h_jet1_pt");
   TH1F *h_jet1_eta = (TH1F*)inputfile->Get("h_jet1_eta");
   TH1F *h_jet1_phi = (TH1F*)inputfile->Get("h_jet1_phi");
+  TH1F *h_jet1_m = (TH1F*)inputfile->Get("h_jet1_m");
   TH1F *h_jet2_pt = (TH1F*)inputfile->Get("h_jet2_pt");
   TH1F *h_jet2_eta = (TH1F*)inputfile->Get("h_jet2_eta");
   TH1F *h_jet2_phi = (TH1F*)inputfile->Get("h_jet2_phi");
+  TH1F *h_jet2_m = (TH1F*)inputfile->Get("h_jet2_m");
   TH1F *h_jet3_pt = (TH1F*)inputfile->Get("h_jet3_pt");
   TH1F *h_jet3_eta = (TH1F*)inputfile->Get("h_jet3_eta");
   TH1F *h_jet3_phi = (TH1F*)inputfile->Get("h_jet3_phi");
+  TH1F *h_jet3_m = (TH1F*)inputfile->Get("h_jet3_m");
   TH1F *h_jet4_pt = (TH1F*)inputfile->Get("h_jet4_pt");
   TH1F *h_jet4_eta = (TH1F*)inputfile->Get("h_jet4_eta");
   TH1F *h_jet4_phi = (TH1F*)inputfile->Get("h_jet4_phi");
+  TH1F *h_jet4_m = (TH1F*)inputfile->Get("h_jet4_m");
 
 
   TH1F *h_b_jet1_pt = (TH1F*)inputfile->Get("h_b_jet1_pt");
   TH1F *h_b_jet1_eta = (TH1F*)inputfile->Get("h_b_jet1_eta");
   TH1F *h_b_jet1_phi = (TH1F*)inputfile->Get("h_b_jet1_phi");
+  TH1F *h_b_jet1_m = (TH1F*)inputfile->Get("h_b_jet1_m");
   TH1F *h_b_jet2_pt = (TH1F*)inputfile->Get("h_b_jet2_pt");
   TH1F *h_b_jet2_eta = (TH1F*)inputfile->Get("h_b_jet2_eta");
   TH1F *h_b_jet2_phi = (TH1F*)inputfile->Get("h_b_jet2_phi");
+  TH1F *h_b_jet2_m = (TH1F*)inputfile->Get("h_b_jet2_m");
   TH1F *h_b_jet3_pt = (TH1F*)inputfile->Get("h_b_jet3_pt");
   TH1F *h_b_jet3_eta = (TH1F*)inputfile->Get("h_b_jet3_eta");
   TH1F *h_b_jet3_phi = (TH1F*)inputfile->Get("h_b_jet3_phi");
+  TH1F *h_b_jet3_m = (TH1F*)inputfile->Get("h_b_jet3_m");
   TH1F *h_b_jet4_pt = (TH1F*)inputfile->Get("h_b_jet4_pt");
   TH1F *h_b_jet4_eta = (TH1F*)inputfile->Get("h_b_jet4_eta");
   TH1F *h_b_jet4_phi = (TH1F*)inputfile->Get("h_b_jet4_phi");
-
+  TH1F *h_b_jet4_m = (TH1F*)inputfile->Get("h_b_jet4_m");
   
   TH1F *h_met_pt = (TH1F*)inputfile->Get("h_met_pt");
   TH1F *h_mt = (TH1F*)inputfile->Get("h_mt");
@@ -133,6 +140,7 @@ void plots(){
   h_jet1_pt->Draw("Ehist");
   h_b_jet1_pt->GetXaxis()->SetTitle("Jet 1 Transverse Momentum (GeV/c)");
   h_b_jet1_pt->GetYaxis()->SetTitle("Entries");
+  h_b_jet1_pt->SetLineColor(kRed);
   h_b_jet1_pt->Draw("Ehist,same");
   c_jets->cd(2);
   h_jet2_pt->GetXaxis()->SetTitle("Jet 2 Transverse Momentum (GeV/c)");
@@ -140,6 +148,7 @@ void plots(){
   h_jet2_pt->Draw("Ehist");
   h_b_jet2_pt->GetXaxis()->SetTitle("BJet 2 Transverse Momentum (GeV/c)");
   h_b_jet2_pt->GetYaxis()->SetTitle("Entries");
+  h_b_jet2_pt->SetLineColor(kRed);
   h_b_jet2_pt->Draw("Ehist,same");
   c_jets->cd(3);
   h_jet3_pt->GetXaxis()->SetTitle("Jet 3 Transverse Momentum (GeV/c)");
@@ -147,6 +156,7 @@ void plots(){
   h_jet3_pt->Draw("Ehist");
   h_b_jet3_pt->GetXaxis()->SetTitle("Jet 3 Transverse Momentum (GeV/c)");
   h_b_jet3_pt->GetYaxis()->SetTitle("Entries");
+  h_b_jet3_pt->SetLineColor(kRed);
   h_b_jet3_pt->Draw("Ehist,same");
   c_jets->cd(4);
   h_jet4_pt->GetXaxis()->SetTitle("Jet 4 Transverse Momentum (GeV/c)");
@@ -154,6 +164,7 @@ void plots(){
   h_jet4_pt->Draw("Ehist");
   h_b_jet4_pt->GetXaxis()->SetTitle("Jet 4 Transverse Momentum (GeV/c)");
   h_b_jet4_pt->GetYaxis()->SetTitle("Entries");
+  h_b_jet4_pt->SetLineColor(kRed);
   h_b_jet4_pt->Draw("Ehist,same");
   //eta
   TCanvas *c_jets_eta= new TCanvas("jets_eta","jets_eta",1100,1000);
@@ -162,18 +173,104 @@ void plots(){
   h_jet1_eta->GetXaxis()->SetTitle("Jet 1 Pseudorapidity");
   h_jet1_eta->GetYaxis()->SetTitle("Entries");
   h_jet1_eta->Draw("Ehist");
+  h_b_jet1_eta->GetXaxis()->SetTitle("bJet 1 Pseudorapidity");
+  h_b_jet1_eta->GetYaxis()->SetTitle("Entries");
+  h_b_jet1_eta->SetLineColor(kRed);
+  h_b_jet1_eta->Draw("Ehist,same");
   c_jets_eta->cd(2);
   h_jet2_eta->Draw("Ehist");
   h_jet2_eta->GetXaxis()->SetTitle("Jet 2 Pseudorapidity");
   h_jet2_eta->GetYaxis()->SetTitle("Entries");
+  h_b_jet2_eta->GetXaxis()->SetTitle("bJet 2 Pseudorapidity");
+  h_b_jet2_eta->GetYaxis()->SetTitle("Entries");
+  h_b_jet2_eta->SetLineColor(kRed);
+  h_b_jet2_eta->Draw("Ehist,same");
   c_jets_eta->cd(3);
   h_jet3_eta->GetXaxis()->SetTitle("Jet 3 Pseudorapidity");
   h_jet3_eta->GetYaxis()->SetTitle("Entries");
   h_jet3_eta->Draw("Ehist");
+  h_b_jet3_eta->GetXaxis()->SetTitle("bJet 3 Pseudorapidity");
+  h_b_jet3_eta->GetYaxis()->SetTitle("Entries");
+  h_b_jet3_eta->SetLineColor(kRed);
+  h_b_jet3_eta->Draw("Ehist,same");
   c_jets_eta->cd(4);
   h_jet4_eta->GetXaxis()->SetTitle("Jet 4 Pseudorapidity");
   h_jet4_eta->GetYaxis()->SetTitle("Entries");
   h_jet4_eta->Draw("Ehist");
+  h_b_jet4_eta->GetXaxis()->SetTitle("bJet 4 Pseudorapidity");
+  h_b_jet4_eta->GetYaxis()->SetTitle("Entries");
+  h_b_jet4_eta->SetLineColor(kRed);
+  h_b_jet4_eta->Draw("Ehist,same");
+  //phi
+  TCanvas *c_jets_phi= new TCanvas("jets_phi","jets_phi",1100,1000);
+  c_jets_phi->Divide(2,2);
+  c_jets_phi->cd(1);
+  h_jet1_phi->GetXaxis()->SetTitle("Jet 1 Phi");
+  h_jet1_phi->GetYaxis()->SetTitle("Entries");
+  h_jet1_phi->Draw("Ehist");
+  h_b_jet1_phi->GetXaxis()->SetTitle("bJet 1 Phi");
+  h_b_jet1_phi->GetYaxis()->SetTitle("Entries");
+  h_b_jet1_phi->SetLineColor(kRed);
+  h_b_jet1_phi->Draw("Ehist,same");
+  c_jets_phi->cd(2);
+  h_jet2_phi->Draw("Ehist");
+  h_jet2_phi->GetXaxis()->SetTitle("Jet 2 Phi");
+  h_jet2_phi->GetYaxis()->SetTitle("Entries");
+  h_b_jet2_phi->GetXaxis()->SetTitle("bJet 2 Phi");
+  h_b_jet2_phi->GetYaxis()->SetTitle("Entries");
+  h_b_jet2_phi->SetLineColor(kRed);
+  h_b_jet2_phi->Draw("Ehist,same");
+  c_jets_phi->cd(3);
+  h_jet3_phi->GetXaxis()->SetTitle("Jet 3 Phi");
+  h_jet3_phi->GetYaxis()->SetTitle("Entries");
+  h_jet3_phi->Draw("Ehist");
+  h_b_jet3_phi->GetXaxis()->SetTitle("bJet 3 Phi");
+  h_b_jet3_phi->GetYaxis()->SetTitle("Entries");
+  h_b_jet3_phi->SetLineColor(kRed);
+  h_b_jet3_phi->Draw("Ehist,same");
+  c_jets_phi->cd(4);
+  h_jet4_phi->GetXaxis()->SetTitle("Jet 4 Phi");
+  h_jet4_phi->GetYaxis()->SetTitle("Entries");
+  h_jet4_phi->Draw("Ehist");
+  h_b_jet4_phi->GetXaxis()->SetTitle("bJet 4 Phi");
+  h_b_jet4_phi->GetYaxis()->SetTitle("Entries");
+  h_b_jet4_phi->SetLineColor(kRed);
+  h_b_jet4_phi->Draw("Ehist,same");
+  //mass
+  TCanvas *c_jets_m= new TCanvas("jets_eta","jets_eta",1100,1000);
+  c_jets_m->Divide(2,2);
+  c_jets_m->cd(1);
+  h_jet1_m->GetXaxis()->SetTitle("Jet 1 Mass");
+  h_jet1_m->GetYaxis()->SetTitle("Entries");
+  h_jet1_m->Draw("Ehist");
+  h_b_jet1_m->GetXaxis()->SetTitle("bJet 1 Mass");
+  h_b_jet1_m->GetYaxis()->SetTitle("Entries");
+  h_b_jet1_m->SetLineColor(kRed);
+  h_b_jet1_m->Draw("Ehist,same");
+  c_jets_m->cd(2);
+  h_jet2_m->Draw("Ehist");
+  h_jet2_m->GetXaxis()->SetTitle("Jet 2 Mass");
+  h_jet2_m->GetYaxis()->SetTitle("Entries");
+  h_b_jet2_m->GetXaxis()->SetTitle("bJet 2 Mass");
+  h_b_jet2_m->GetYaxis()->SetTitle("Entries");
+  h_b_jet2_m->SetLineColor(kRed);
+  h_b_jet2_m->Draw("Ehist,same");
+  c_jets_m->cd(3);
+  h_jet3_m->GetXaxis()->SetTitle("Jet 3 Mass");
+  h_jet3_m->GetYaxis()->SetTitle("Entries");
+  h_jet3_m->Draw("Ehist");
+  h_b_jet3_m->GetXaxis()->SetTitle("bJet 3 Mass");
+  h_b_jet3_m->GetYaxis()->SetTitle("Entries");
+  h_b_jet3_m->SetLineColor(kRed);
+  h_b_jet3_m->Draw("Ehist,same");
+  c_jets_m->cd(4);
+  h_jet4_m->GetXaxis()->SetTitle("Jet 4 Mass");
+  h_jet4_m->GetYaxis()->SetTitle("Entries");
+  h_jet4_m->Draw("Ehist");
+  h_b_jet4_m->GetXaxis()->SetTitle("bJet 4 Mass");
+  h_b_jet4_m->GetYaxis()->SetTitle("Entries");
+  h_b_jet4_m->SetLineColor(kRed);
+  h_b_jet4_m->Draw("Ehist,same");
   
 
 
@@ -282,10 +379,12 @@ void plots(){
   c_dR->cd(1);
   h_dR_jet_muon_after->GetXaxis()->SetTitle("delta R between jets and muons after cross cleaning");
   h_dR_jet_muon_after->GetYaxis()->SetTitle("Entries");
+  h_dR_jet_muon_after->SetLineColor(kRed);
   h_dR_jet_muon_after->Draw("Ehist,same");
   //electron-jet
   c_dR->cd(2);
   h_dR_jet_electron_after->GetXaxis()->SetTitle("delta R between jets and electrons after cross cleaning");
   h_dR_jet_electron_after->GetYaxis()->SetTitle("Entries");
+  h_dR_jet_electron_after->SetLineColor(kRed);
   h_dR_jet_electron_after->Draw("Ehist,same");
 }
