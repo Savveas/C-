@@ -5,7 +5,7 @@
 #include <TCanvas.h>
 
 void plots(){
-  TFile *inputfile=TFile::Open("histos.root","READ");
+  TFile *inputfile=TFile::Open("histos_signal.root");
   
   
   TH1F *h_mn_pt = (TH1F*)inputfile->Get("h_mn_pt");
@@ -54,10 +54,13 @@ void plots(){
   TH1F *h_met_pt = (TH1F*)inputfile->Get("h_met_pt");
   TH1F *h_mt = (TH1F*)inputfile->Get("h_mt");
   TH1F *h_d_phi_w_h = (TH1F*)inputfile->Get("h_d_phi_w_h");
+  TH1F *h_d_phi_w_b_h = (TH1F*)inputfile->Get("h_d_phi_w_b_h");
+
   TH1F *h_h_pt = (TH1F*)inputfile->Get("h_h_pt");
   TH1F *h_h_phi = (TH1F*)inputfile->Get("h_h_phi");
   TH1F *h_h_eta = (TH1F*)inputfile->Get("h_h_eta");
   TH1F *h_inv_m = (TH1F*)inputfile->Get("h_inv_m");
+  TH1F *h_b_inv_m = (TH1F*)inputfile->Get("h_b_inv_m");
   TH1F *h_w_pt = (TH1F*)inputfile->Get("h_w_pt");
   TH1F *h_w_phi = (TH1F*)inputfile->Get("h_w_phi");
   TH1F *h_w_eta = (TH1F*)inputfile->Get("h_w_eta");
@@ -77,6 +80,8 @@ void plots(){
   TH1F *h_dR_jet_muon_after =(TH1F*)inputfile->Get("h_dR_jet_muon_after");
   TH1F *h_dR_jet_electron_after =(TH1F*)inputfile->Get("h_dR_jet_electron_after");
   TH1F *h_jet_mult = (TH1F*)inputfile->Get("h_jet_mult");
+  TH1F *h_b_jet_mult = (TH1F*)inputfile->Get("h_b_jet_mult");
+
 
 
   
@@ -281,9 +286,6 @@ void plots(){
   h_met_pt->GetXaxis()->SetTitle("MET Transverse Momentum (GeV)");
   h_met_pt->GetYaxis()->SetTitle("Entries");
   h_met_pt->Draw("Ehist");
-  
-
-
   //Mt
   c_MET->cd(2);
   h_mt->GetXaxis()->SetTitle("Transverse Mass (GeV)");
@@ -299,6 +301,8 @@ void plots(){
   TCanvas *c_w_h = new TCanvas("w_h","w_h",1000,1000);
   h_d_phi_w_h->SetStats(11111);
   h_d_phi_w_h->Draw("Ehist");
+  h_d_phi_w_b_h->SetLineColor(kRed);
+  h_d_phi_w_b_h->Draw("Ehist,same");
 
 
 
@@ -325,6 +329,10 @@ void plots(){
   h_inv_m->GetXaxis()->SetTitle("Higgs mass");
   h_inv_m->GetYaxis()->SetTitle("Entries");
   h_inv_m->Draw("Ehist");
+  h_b_inv_m->GetXaxis()->SetTitle("Higgs mass (after b-tag)");
+  h_b_inv_m->GetYaxis()->SetTitle("Entries");
+  h_b_inv_m->SetLineColor(kRed);
+  h_b_inv_m->Draw("Ehist,same");
 
 
 
@@ -354,10 +362,14 @@ void plots(){
 
 
   //jet_mult
-  TCanvas *c_jet_mult = new TCanvas ("jet_mult","jet_mult",1100,1000);
+  TCanvas *c_jet_mult = new TCanvas ("jet_mult","jet_mult",2000,1500);
   h_jet_mult->GetXaxis()->SetTitle("jet multiplicity");
   h_jet_mult->GetYaxis()->SetTitle("Entries");
   h_jet_mult->Draw("Ehist");
+  h_b_jet_mult->GetXaxis()->SetTitle("bjet multiplicity");
+  h_b_jet_mult->GetYaxis()->SetTitle("Entries");
+  h_b_jet_mult->SetLineColor(kRed);
+  h_b_jet_mult->Draw("Ehist,same");
 
 
   //delta R before cross-cleaning
@@ -373,7 +385,6 @@ void plots(){
   h_dR_jet_electron->GetXaxis()->SetTitle("delta R between jets and electrons");
   h_dR_jet_electron->GetYaxis()->SetTitle("Entries");
   h_dR_jet_electron->Draw("Ehist");
-
   //delta R after cross-cleaning
   //muon-jet
   c_dR->cd(1);

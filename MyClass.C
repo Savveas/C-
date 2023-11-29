@@ -32,7 +32,7 @@ void MyClass::Loop()
    if (fChain == 0) return;
 
    Long64_t nentries = fChain->GetEntriesFast();
-   TFile f("histos.root","recreate");
+   TFile f("histos_signal.root","recreate");
    //muon 
    TH1F *h_mn_pt = new TH1F("h_mn_pt","muon pt distribution",100,0.,500.);
    TH1F *h_mn_eta = new TH1F("h_mn_eta","muon pseudorapidity distribution",100,-5.,5.);
@@ -90,11 +90,13 @@ void MyClass::Loop()
    TH1F *h_mt = new TH1F("h_mt","transverse mass distribution",100,0.,400.);
 
    TH1F *h_d_phi_w_h = new TH1F("h_d_phi_w_h","d_phi between W boson and H boson",100,0.,M_PI);
+   TH1F *h_d_phi_w_b_h = new TH1F("h_d_phi_w_b_h","d_phi between W boson and b_tagged H boson",100,0.,M_PI);
 
    TH1F *h_h_pt = new TH1F("h_h_pt","h_pt distribution",100,0.,500.);
    TH1F *h_h_phi = new TH1F("h_h_phi","h_phi distribution",100,-5.,5.);
    TH1F *h_h_eta = new TH1F("h_h_eta","h_eta distribution",100,-5.,5.);
    TH1F *h_inv_m = new TH1F("h_inv_m","invariant mass",100,0,1000);
+   TH1F *h_b_inv_m = new TH1F("h_b_inv_m","invariant mass (after b_tagging)",100,0,1000);
 
    TH1F *h_w_pt = new TH1F("h_w_pt","w_pt distribution",100,0.,500.);
    TH1F *h_w_phi = new TH1F("h_w_phi","w_phi distribution",100,-5.,5.);
@@ -119,6 +121,7 @@ void MyClass::Loop()
    TH1F *h_dR_jet_muon_after=new TH1F("h_dR_jet_muon_after","dR between jets and muons",100,0.,6.);
    TH1F *h_dR_jet_electron_after=new TH1F("h_dR_jet_electron_after","dR between jets and electron",100,0.,6.);
    TH1F *h_jet_mult=new TH1F("h_jet_mult","jet multiplicity",100,0.,10.);
+   TH1F *h_b_jet_mult=new TH1F("h_b_jet_mult","b_jet multiplicity",100,0.,10.);
 
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -204,6 +207,7 @@ if (overlap)
 
   int bjet_mult;
   bjet_mult=bjet_vec.size();
+  h_b_jet_mult->Fill(bjet_mult);
   
 
 
@@ -321,16 +325,29 @@ if(bjet_mult>3){
 
   //invariant mass
   TLorentzVector h_p=jet_vec[0]+jet_vec[1]+jet_vec[2];
+  TLorentzVector h_b_p=bjet_vec[0]+bjet_vec[1]+bjet_vec[2];
+  
 if (jet_mult>3)
 {
   h_p+=jet_vec[3];
 }
+if (bjet_mult>3)
+{
+  h_b_p+=bjet_vec[3];
+}
+
 
   float h_m=h_p.M();
   float h_phi=h_p.Phi();
   float h_pt=h_p.Pt();
   float h_eta=h_p.Eta();
   h_inv_m->Fill(h_m);
+
+  float h_b_m=h_b_p.M();
+  float h_b_phi=h_b_p.Phi();
+  float h_b_pt=h_b_p.Pt();
+  float h_b_eta=h_b_p.Eta();
+  h_b_inv_m->Fill(h_b_m);
 
 
 
@@ -356,9 +373,13 @@ if (jet_mult>3)
   //D_phi
   float d_phi_w_h;
   d_phi_w_h=abs(w_p.DeltaPhi(h_p));
+  float d_phi_w_b_h;
+  d_phi_w_b_h=abs(w_p.DeltaPhi(h_b_p));
+  
 
 
   h_d_phi_w_h->Fill(d_phi_w_h);
+  h_d_phi_w_b_h->Fill(d_phi_w_b_h);
 
 
 
@@ -417,10 +438,12 @@ if (jet_mult>3)
    h_met_en_pt->Write();
    h_mt->Write();
    h_d_phi_w_h->Write();
+   h_d_phi_w_b_h->Write();
    h_h_pt->Write();
    h_h_phi->Write();
    h_h_eta->Write();
    h_inv_m->Write();
+   h_b_inv_m->Write();
    h_w_pt->Write();
    h_w_phi->Write();
    h_w_eta->Write();
@@ -430,5 +453,6 @@ if (jet_mult>3)
    h_dR_jet_muon_after->Write();
    h_dR_jet_electron_after->Write();
    h_jet_mult->Write();
+   h_b_jet_mult->Write();
    f.Close();
 }
