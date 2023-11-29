@@ -249,9 +249,9 @@ MyClass::MyClass(TTree *tree) : fChain(0)
    if (tree == 0) {
       TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("analysis_1.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("analysis_1.root");
+         f = new TFile("analysis_total.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("analysis_1.root:/mainNtuplizer");
+      TDirectory * dir = (TDirectory*)f->Get("analysis_total.root:/mainNtuplizer");
       dir->GetObject("data",tree);
 
    }
