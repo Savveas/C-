@@ -95,8 +95,8 @@ if (fChain == 0) return;
   TH1F *h_h_pt = new TH1F("h_h_pt","h_pt distribution",100,0.,500.);
   TH1F *h_h_phi = new TH1F("h_h_phi","h_phi distribution",100,-5.,5.);
   TH1F *h_h_eta = new TH1F("h_h_eta","h_eta distribution",100,-5.,5.);
-  TH1F *h_inv_m = new TH1F("h_inv_m","invariant mass",100,0,1000);
-  TH1F *h_b_inv_m = new TH1F("h_b_inv_m","invariant mass (after b_tagging)",100,0,1000);
+  TH1F *h_inv_m = new TH1F("h_inv_m","invariant mass",1000,0,1000);
+  TH1F *h_b_inv_m = new TH1F("h_b_inv_m","invariant mass (after b_tagging)",3000,0,1000);
 
   TH1F *h_w_pt = new TH1F("h_w_pt","w_pt distribution",100,0.,500.);
   TH1F *h_w_phi = new TH1F("h_w_phi","w_phi distribution",100,-5.,5.);
@@ -110,6 +110,12 @@ if (fChain == 0) return;
   TH1F *h_dR_jet_electron_after=new TH1F("h_dR_jet_electron_after","dR between jets and electron",100,0.,6.);
   TH1F *h_jet_mult=new TH1F("h_jet_mult","jet multiplicity",10,0.,10.);
   TH1F *h_b_jet_mult=new TH1F("h_b_jet_mult","b_jet multiplicity",10,0.,10.);
+
+
+  TH1F *h_lep_pt = new TH1F("h_lep_pt","Lepton pt distribution",100,0.,500.);
+  TH1F *h_lep_phi = new TH1F("h_lep_phi","Lepton phi distribution",100,-5.,5.);
+  TH1F *h_lep_eta = new TH1F("h_lep_eta","Lepton pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_lep_m = new TH1F("h_lep_m","Lepton mass distribution",100,0.,0.3);
 
   Long64_t nbytes = 0, nb = 0;
 
@@ -199,10 +205,15 @@ if (d_phi>M_PI){
   Double_t MT;
   MT=sqrt(2*mn_pt*met_pt*(1-cos(d_phi)));
   h_mt->Fill(MT);
- 
+  double lep_eta=p_lepton.Eta();
+  double lep_pt=p_lepton.Pt();
+  double lep_phi=p_lepton.Phi();
+  double lep_m=p_lepton.M();
+  h_lep_pt->Fill(lep_pt);
+  h_lep_phi->Fill(lep_phi);
+  h_lep_m->Fill(lep_m);
+  h_lep_eta->Fill(lep_eta);
 }
-      
-      
   //electron
   TLorentzVector en_p;
   en_p.SetPxPyPzE(en_px[0],en_py[0],en_pz[0],en_en[0]);
@@ -514,6 +525,10 @@ std::cout << " Nevents at step 3 (at least 3 b-jets) = " << count_N3 << " and ef
   h_w_phi->Write();
   h_w_eta->Write();
   h_w_m->Write();
+  h_lep_pt->Write();
+  h_lep_phi->Write();
+  h_lep_eta->Write();
+  h_lep_m->Write();
   h_dR_jet_muon->Write();
   h_dR_jet_electron->Write();
   h_dR_jet_muon_after->Write();

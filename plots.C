@@ -37,6 +37,12 @@ void plots(){
   TH1F *h_jet4_m = (TH1F*)inputfile->Get("h_jet4_m");
 
 
+  TH1F *h_lep_pt = (TH1F*)inputfile->Get("h_lep_pt");
+  TH1F *h_lep_eta = (TH1F*)inputfile->Get("h_lep_eta");
+  TH1F *h_lep_phi = (TH1F*)inputfile->Get("h_lep_phi");
+  TH1F *h_lep_m = (TH1F*)inputfile->Get("h_lep_m");
+
+
   TH1F *h_b_jet1_pt = (TH1F*)inputfile->Get("h_b_jet1_pt");
   TH1F *h_b_jet1_eta = (TH1F*)inputfile->Get("h_b_jet1_eta");
   TH1F *h_b_jet1_phi = (TH1F*)inputfile->Get("h_b_jet1_phi");
@@ -82,7 +88,7 @@ void plots(){
 
   //muons
   TCanvas *c_muons = new TCanvas ("muons","muons",1000,1000);
-  c_muons->Divide(1,3);
+  c_muons->Divide(3,1);
   //pt
   c_muons->cd(1);
   h_mn_pt->GetXaxis()->SetTitle("Transverse Momentum (GeV/c)");
@@ -123,7 +129,29 @@ void plots(){
 
 
 
-
+  //leptons
+  TCanvas *c_leptons = new TCanvas ("leptons","leptons",1000,1000);
+  c_leptons->Divide(4,1); 
+  //pt
+  c_leptons->cd(1);
+  h_lep_pt->GetXaxis()->SetTitle("Lepton Transverse Momentum (GeV/c)");
+  h_lep_pt->GetYaxis()->SetTitle("Entries");
+  h_lep_pt->Draw("Ehist");
+  //eta
+  c_leptons->cd(2);
+  h_lep_eta->GetXaxis()->SetTitle("Lepton Pseudorapidity");
+  h_lep_eta->GetYaxis()->SetTitle("Entries");
+  h_lep_eta->Draw("Ehist");
+  //phi
+  c_leptons->cd(3);
+  h_lep_phi->GetXaxis()->SetTitle("Lepton Phi");
+  h_lep_phi->GetYaxis()->SetTitle("Entries");
+  h_lep_phi->Draw("Ehist");  
+  //mass
+  c_leptons->cd(3);
+  h_lep_m->GetXaxis()->SetTitle("Lepton Mass");
+  h_lep_m->GetYaxis()->SetTitle("Entries");
+  h_lep_m->Draw("Ehist"); 
   
 
 
@@ -363,7 +391,8 @@ void plots(){
   h_b_jet_mult->GetYaxis()->SetTitle("Entries");
   h_b_jet_mult->SetLineColor(kRed);
   h_b_jet_mult->Draw("Ehist,same");
-
+  h_jet_mult->SetStats(111);
+  h_b_jet_mult->SetStats(111);
 
   //delta R before cross-cleaning
   TCanvas *c_dR = new TCanvas("dR","dR",2000,1000);
