@@ -42,42 +42,42 @@ if (fChain == 0) return;
 
   TH2F *h_mn_en_phi = new TH2F("h_mn_en_phi","electron-muon phi ditribution",100,-5.,5.,100,-5.,5.);
 
-  TH1F *h_en_pt = new TH1F("h_en_pt","electron pt distribution",100,0.,500.); 
+  TH1F *h_en_pt = new TH1F("h_en_pt","electron pt distribution",500,0.,500.); 
   TH1F *h_en_eta = new TH1F("h_en_eta","electron pseudorapidity distribution",100,-5.,5.);
   TH1F *h_en_phi = new TH1F("h_en_phi","electron phi distribution",100,-5.,5.);
 
   TH2F *h_en_pt_eta = new TH2F("h_en_pt_eta","electron pt-eta distribution",100,0.,500.,100,-3.,3.);
 
-  TH1F *h_jet1_pt = new TH1F("h_jet1_pt","jet1 distribution",100,0.,500.);
+  TH1F *h_jet1_pt = new TH1F("h_jet1_pt","jet1 distribution",500,0.,500.);
   TH1F *h_jet1_eta = new TH1F("h_jet1_eta","jet pseudorapidity distribution",100,-5.,5.);
   TH1F *h_jet1_phi = new TH1F("h_jet1_phi","jet phi distribution",100,-5.,5.);
   TH1F *h_jet1_m = new TH1F("h_jet1_m","jet mass distributions",100,0.,100);
-  TH1F *h_jet2_pt = new TH1F("h_jet2_pt","jet2 distribution",100,0.,500.);
+  TH1F *h_jet2_pt = new TH1F("h_jet2_pt","jet2 distribution",500,0.,500.);
   TH1F *h_jet2_eta = new TH1F("h_jet2_eta","jet2 pseudorapidity distribution",100,-5.,5.);
   TH1F *h_jet2_phi = new TH1F("h_jet2_phi","jet phi distribution",100,-5.,5.);
   TH1F *h_jet2_m = new TH1F("h_jet2_m","jet mass distributions",100,0.,100);
-  TH1F *h_jet3_pt = new TH1F("h_jet3_pt","jet3 distribution",100,0.,500.);
+  TH1F *h_jet3_pt = new TH1F("h_jet3_pt","jet3 distribution",500,0.,500.);
   TH1F *h_jet3_eta = new TH1F("h_jet3_eta","jet3 pseudorapidity distribution",100,-5.,5.);
   TH1F *h_jet3_phi = new TH1F("h_jet3_phi","jet phi distribution",100,-5.,5.);
   TH1F *h_jet3_m = new TH1F("h_jet3_m","jet mass distributions",100,0.,100);
-  TH1F *h_jet4_pt = new TH1F("h_jet4_pt","jet4 distribution",100,0.,500.);
+  TH1F *h_jet4_pt = new TH1F("h_jet4_pt","jet4 distribution",500,0.,500.);
   TH1F *h_jet4_eta = new TH1F("h_jet4_eta","jet4 pseudorapidity distribution",100,-5.,5.);
   TH1F *h_jet4_phi = new TH1F("h_jet4_phi","jet phi distribution",100,-5.,5.);
   TH1F *h_jet4_m = new TH1F("h_jet4_m","jet mass distributions",100,0.,100);
 
-  TH1F *h_b_jet1_pt = new TH1F("h_b_jet1_pt","bjet1 distribution",100,0.,500.);
+  TH1F *h_b_jet1_pt = new TH1F("h_b_jet1_pt","bjet1 distribution",500,0.,500.);
   TH1F *h_b_jet1_eta = new TH1F("h_b_jet1_eta","bjet1 pseudorapidity distribution",100,-5.,5.);
   TH1F *h_b_jet1_phi = new TH1F("h_b_jet1_phi","bjet1 phi distribution",100,-5.,5.);
   TH1F *h_b_jet1_m = new TH1F("h_b_jet1_m","bjet1 mass distributions",100,0.,100);
-  TH1F *h_b_jet2_pt = new TH1F("h_b_jet2_pt","bjet2 distribution",100,0.,500.);
+  TH1F *h_b_jet2_pt = new TH1F("h_b_jet2_pt","bjet2 distribution",500,0.,500.);
   TH1F *h_b_jet2_eta = new TH1F("h_b_jet2_eta","bjet2 pseudorapidity distribution",100,-5.,5.);
   TH1F *h_b_jet2_phi = new TH1F("h_b_jet2_phi","bjet2 phi distribution",100,-5.,5.);
   TH1F *h_b_jet2_m = new TH1F("h_b_jet2_m","bjet2 mass distributions",100,0.,100);
-  TH1F *h_b_jet3_pt = new TH1F("h_b_jet3_pt","bjet3 distribution",100,0.,500.);
+  TH1F *h_b_jet3_pt = new TH1F("h_b_jet3_pt","bjet3 distribution",500,0.,500.);
   TH1F *h_b_jet3_eta = new TH1F("h_b_jet3_eta","bjet3 pseudorapidity distribution",100,-5.,5.);
   TH1F *h_b_jet3_phi = new TH1F("h_b_jet3_phi","bjet3 phi distribution",100,-5.,5.);
   TH1F *h_b_jet3_m = new TH1F("h_b_jet3_m","bjet3 mass distributions",100,0.,100);
-  TH1F *h_b_jet4_pt = new TH1F("h_b_jet4_pt","bjet4 distribution",100,0.,500.);
+  TH1F *h_b_jet4_pt = new TH1F("h_b_jet4_pt","bjet4 distribution",500,0.,500.);
   TH1F *h_b_jet4_eta = new TH1F("h_b_jet4_eta","bjet4 pseudorapidity distribution",100,-5.,5.);
   TH1F *h_b_jet4_phi = new TH1F("h_b_jet4_phi","bjet4 phi distribution",100,-5.,5.);
   TH1F *h_b_jet4_m = new TH1F("h_b_jet4_m","bjet4 mass distributions",100,0.,100);
@@ -103,15 +103,21 @@ if (fChain == 0) return;
   TH1F *h_w_eta = new TH1F("h_w_eta","w_eta distribution",100,-5.,5.);
   TH1F *h_w_m = new TH1F("h_w_m","w_m distribution",100,0.,300.);
 
-  TH1F *h_dR_jet_muon = new TH1F("h_dR_jet_muon","dR between jet and muon distribution (before cross-cleaning)",100,0.,6.);
-  TH1F *h_dR_jet_electron = new TH1F("h_dR_jet_electron","dR between jet and electron distribution (before cross-cleaning)",100,0.,6.);
+  TH1F *h_dR_jet_muon = new TH1F("h_dR_jet_muon","dR between jet and muon distribution ",100,0.,6.);
+  TH1F *h_dR_jet_electron = new TH1F("h_dR_jet_electron","dR between jet and electron distribution ",100,0.,6.);
 
   TH1F *h_dR_jet_muon_after=new TH1F("h_dR_jet_muon_after","dR between jets and muons",100,0.,6.);
   TH1F *h_dR_jet_electron_after=new TH1F("h_dR_jet_electron_after","dR between jets and electron",100,0.,6.);
-  TH1F *h_jet_mult=new TH1F("h_jet_mult","jet multiplicity",100,0.,10.);
-  TH1F *h_b_jet_mult=new TH1F("h_b_jet_mult","b_jet multiplicity",100,0.,10.);
+  TH1F *h_jet_mult=new TH1F("h_jet_mult","jet multiplicity",10,0.,10.);
+  TH1F *h_b_jet_mult=new TH1F("h_b_jet_mult","b_jet multiplicity",10,0.,10.);
 
   Long64_t nbytes = 0, nb = 0;
+
+  int count_N1(0);
+  int count_N2(0);
+  int count_N3(0);
+  int count_N4(0);
+
 for (Long64_t jentry=0; jentry<nentries;jentry++) {
   nb = fChain->GetEntry(jentry);   nbytes += nb;
   Long64_t ientry = LoadTree(jentry);
@@ -127,9 +133,9 @@ for (int i=0; i<mn; i++) {
 	p_muon.SetPxPyPzE(mn_px[i],mn_py[i],mn_pz[i],mn_en[i]);
 	
 	// pt/eta cuts (detector acceptance cuts: pT>20 GeV and |eta|<2.4
-	if (p_muon.Pt()<20. || fabs(p_muon.Eta())>2.4) continue;
+if (p_muon.Pt()<20. || fabs(p_muon.Eta())>2.4) continue;
 	// Require muon to pass good Identification and Isolation:
-	if ( !(mn_passId[i]) || !(mn_passIso[i]) ) continue; 
+if ( !(mn_passId[i]) || !(mn_passIso[i]) ) continue; 
 
 	// store muons in new vector:
 	vec_leptons.push_back(p_muon);
@@ -138,6 +144,7 @@ for (int i=0; i<mn; i++) {
 }
 
   int Nmuons=vec_muons.size(); // Muon multiplicity
+
 
 for (int i=0; i<en; i++) {
 
@@ -149,71 +156,77 @@ for (int i=0; i<en; i++) {
 	// Require electron to pass good Identification and Isolation:
 	if ( !(en_passId[i]) || !(en_passIso[i]) ) continue; 
 
+  
+
 	// store muons in new vector:
 	vec_leptons.push_back(p_electron);
   vec_electrons.push_back(p_electron);
-
 }
+   
 
-  int Nelectrons=vec_electrons.size(); // Muon multiplicity
-if(Nmuons==0 || mn==0) continue;
+  int Nelectrons=vec_electrons.size(); // Electron multiplicity
+  int Nleptons=vec_leptons.size(); // Lepton multiplicity
 
-
-if(Nelectrons==0 || en==0) continue;
-      
-
+    
 for (int i=0; i<Nmuons; i++) vec_leptons.push_back(vec_muons[i]);
 for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
-  
-      //muon
-      TLorentzVector mn_p;
-      mn_p.SetPxPyPzE(mn_px[0],mn_py[0],mn_pz[0],mn_en[0]);
-      double mn_eta=mn_p.Eta();
-      double mn_phi=mn_p.Phi();
-      double mn_pt=mn_p.Pt();
-      float d_phi = std::abs(mn_phi-met_phi);
-      h_mn_eta->Fill(mn_eta);
-      h_mn_pt->Fill(mn_pt);
-      h_mn_phi->Fill(mn_phi);
-      h_mn_pt_eta->Fill(mn_pt,mn_eta);
-      h_met_mn_pt->Fill(met_pt,mn_pt);
-      
-      
-      
-  //Transverse Mass (MT)
-      if (d_phi>M_PI){
-	d_phi=d_phi-(2*M_PI);
-      }
-      Double_t MT;
-      MT=sqrt(2*mn_pt*met_pt*(1-cos(d_phi)));
-      h_mt->Fill(MT);
-      
-      
-      
-      //electron
-      TLorentzVector en_p;
-      en_p.SetPxPyPzE(en_px[0],en_py[0],en_pz[0],en_en[0]);
-      double en_eta=en_p.Eta();
-      double en_phi=en_p.Phi();
-      double en_pt=en_p.Pt();
-      h_en_eta->Fill(en_eta);
-      h_en_pt->Fill(en_pt);
-      h_en_phi->Fill(en_phi);
-      h_en_pt_eta->Fill(en_pt,en_eta);
-      h_met_en_pt->Fill(met_pt,en_pt);
-      h_mn_en_phi->Fill(mn_phi,en_phi);
 
+ // Require at least 1 lepton
+if (Nleptons == 0) continue;
+
+ count_N1++;
+
+  //muon
+  TLorentzVector mn_p;
+  mn_p.SetPxPyPzE(mn_px[0],mn_py[0],mn_pz[0],mn_en[0]);
+  double mn_eta=mn_p.Eta();
+  double mn_phi=mn_p.Phi();
+  double mn_pt=mn_p.Pt();
+  float d_phi = std::abs(mn_phi-met_phi);
+  h_mn_eta->Fill(mn_eta);
+  h_mn_pt->Fill(mn_pt);
+  h_mn_phi->Fill(mn_phi);
+  h_mn_pt_eta->Fill(mn_pt,mn_eta);
+  h_met_mn_pt->Fill(met_pt,mn_pt);
+      
+for(int j=0; j<Nleptons; j++){
+  //Transverse Mass (MT)
+  TLorentzVector p_lepton;
+  p_lepton.SetPtEtaPhiE(vec_leptons[j].Pt(),vec_leptons[j].Eta(),vec_leptons[j].Phi(),vec_leptons[j].E());
+if (d_phi>M_PI){
+	d_phi=d_phi-(2*M_PI);
+}
+  Double_t MT;
+  MT=sqrt(2*mn_pt*met_pt*(1-cos(d_phi)));
+  h_mt->Fill(MT);
+ 
+}
+      
+      
+  //electron
+  TLorentzVector en_p;
+  en_p.SetPxPyPzE(en_px[0],en_py[0],en_pz[0],en_en[0]);
+  double en_eta=en_p.Eta();
+  double en_phi=en_p.Phi();
+  double en_pt=en_p.Pt();
+  h_en_eta->Fill(en_eta);
+  h_en_pt->Fill(en_pt);
+  h_en_phi->Fill(en_phi);
+  h_en_pt_eta->Fill(en_pt,en_eta);
+  h_met_en_pt->Fill(met_pt,en_pt);
+  h_mn_en_phi->Fill(mn_phi,en_phi);
 
 
   //Cross cleaning
-vector<TLorentzVector> jet_vec;
-vector<TLorentzVector> bjet_vec;
+  vector<TLorentzVector> jet_vec;
+  vector<TLorentzVector> Njet_vec;
+  vector<TLorentzVector> bjet_vec;
 for (Int_t ijet= 0; ijet < jet; ijet++)
 {
   TLorentzVector pjet;
   pjet.SetPxPyPzE(jet_px[ijet],jet_py[ijet],jet_pz[ijet],jet_en[ijet]);
-
-
+  Njet_vec.push_back(pjet);
+  
 
   //check muon jet overlap
   bool overlap(false);
@@ -235,18 +248,11 @@ if (overlap)
   //b-jet indetification
   if (jet_btag1[ijet]>0.6324) bjet_vec.push_back(pjet);  
 }  
+  //dR after cross cleaning
+  TLorentzVector p_jet_after;
   int jet_mult;
   jet_mult=jet_vec.size();
   h_jet_mult->Fill(jet_mult);
-
-  int bjet_mult;
-  bjet_mult=bjet_vec.size();
-  h_b_jet_mult->Fill(bjet_mult);
-  
-
-
-  //dR after cross cleaning
-  TLorentzVector p_jet_after;
 for (int ijet_after = 0; ijet_after <jet_mult; ijet_after++)
 {
   p_jet_after.SetPtEtaPhiE(jet_vec[ijet_after].Pt(),jet_vec[ijet_after].Eta(),jet_vec[ijet_after].Phi(),jet_vec[ijet_after].E());
@@ -255,7 +261,24 @@ for (int ijet_after = 0; ijet_after <jet_mult; ijet_after++)
   h_dR_jet_muon_after->Fill(dR_mn_jet_after);
   h_dR_jet_electron_after->Fill(dR_en_jet_after);
 }
+
+  int Njets=Njet_vec.size();
+
+  
+
+// Require at least 3 jets
+
 if(jet_mult<3) continue;
+  count_N2++;
+
+  int bjet_mult;
+  bjet_mult=bjet_vec.size();
+  h_b_jet_mult->Fill(bjet_mult);
+
+if (bjet_mult<3) continue;
+  count_N3++;
+
+
 
 
   //jets pt & pseudorapidity  
@@ -423,70 +446,79 @@ if (bjet_mult>3)
   h_h_eta->Fill(h_eta);
 
 
-   if (ientry < 0) break;
+if (ientry < 0) break;
    // if (Cut(ientry) < 0) continue;
-   }
-   h_mn_pt->Write();
-   h_mn_eta->Write();
-   h_mn_phi->Write();
-   h_mn_pt_eta->Write();
-   h_mn_en_phi->Write();
-   h_en_pt->Write();
-   h_en_eta->Write();
-   h_en_phi->Write();
-   h_en_pt_eta->Write();
-   h_jet1_pt->Write();
-   h_jet1_eta->Write();
-   h_jet1_phi->Write();
-   h_jet1_m->Write();
-   h_jet2_pt->Write();
-   h_jet2_eta->Write();
-   h_jet2_phi->Write();
-   h_jet2_m->Write();
-   h_jet3_pt->Write();
-   h_jet3_eta->Write();
-   h_jet3_phi->Write();
-   h_jet3_m->Write();
-   h_jet4_pt->Write();
-   h_jet4_eta->Write();
-   h_jet4_phi->Write();
-   h_jet4_m->Write();
-   h_b_jet1_pt->Write(); 
-   h_b_jet1_eta->Write();
-   h_b_jet1_phi->Write();
-   h_b_jet1_m->Write();
-   h_b_jet2_pt->Write();
-   h_b_jet2_eta->Write();
-   h_b_jet2_phi->Write();
-   h_b_jet2_m->Write();
-   h_b_jet3_pt->Write();
-   h_b_jet3_eta->Write();
-   h_b_jet3_phi->Write();
-   h_b_jet3_m->Write();
-   h_b_jet4_pt->Write();
-   h_b_jet4_eta->Write();
-   h_b_jet4_phi->Write();
-   h_b_jet4_m->Write();
-   h_met_pt->Write();
-   h_met_mn_pt->Write();
-   h_met_en_pt->Write();
-   h_mt->Write();
-   h_d_phi_w_h->Write();
-   h_d_phi_w_b_h->Write();
-   h_h_pt->Write();
-   h_h_phi->Write();
-   h_h_eta->Write();
-   h_inv_m->Write();
-   h_b_inv_m->Write();
-   h_w_pt->Write();
-   h_w_phi->Write();
-   h_w_eta->Write();
-   h_w_m->Write();
-   h_dR_jet_muon->Write();
-   h_dR_jet_electron->Write();
-   h_dR_jet_muon_after->Write();
-   h_dR_jet_electron_after->Write();
-   h_jet_mult->Write();
-   h_b_jet_mult->Write();
-   f.Close();
+} // end EVENT loop
+
+std::cout << " Number of entries = " << nentries << std::endl;
+std::cout << " Nevents at step 1 (at least 1 lepton) = " << count_N1 << " and eff_1 = " << (float)count_N1/(float)nentries << std::endl;
+std::cout << " Nevents at step 2 (at least 3 jets) = " << count_N2 << " and eff_2 =" << (float)count_N2/(float)count_N1 << std::endl;
+std::cout << " Nevents at step 3 (at least 3 b-jets) = " << count_N3 << " and eff_3 = " << (float)count_N3/(float)count_N1 << std::endl;
+
+
+
+
+  h_mn_pt->Write();
+  h_mn_eta->Write();
+  h_mn_phi->Write();
+  h_mn_pt_eta->Write();
+  h_mn_en_phi->Write();
+  h_en_pt->Write();
+  h_en_eta->Write();
+  h_en_phi->Write();
+  h_en_pt_eta->Write();
+  h_jet1_pt->Write();
+  h_jet1_eta->Write();
+  h_jet1_phi->Write();
+  h_jet1_m->Write();
+  h_jet2_pt->Write();
+  h_jet2_eta->Write();
+  h_jet2_phi->Write();
+  h_jet2_m->Write();
+  h_jet3_pt->Write();
+  h_jet3_eta->Write();
+  h_jet3_phi->Write();
+  h_jet3_m->Write();
+  h_jet4_pt->Write();
+  h_jet4_eta->Write();
+  h_jet4_phi->Write();
+  h_jet4_m->Write();
+  h_b_jet1_pt->Write(); 
+  h_b_jet1_eta->Write();
+  h_b_jet1_phi->Write();
+  h_b_jet1_m->Write();
+  h_b_jet2_pt->Write();
+  h_b_jet2_eta->Write();
+  h_b_jet2_phi->Write();
+  h_b_jet2_m->Write();
+  h_b_jet3_pt->Write();
+  h_b_jet3_eta->Write();
+  h_b_jet3_phi->Write();
+  h_b_jet3_m->Write();
+  h_b_jet4_pt->Write();
+  h_b_jet4_eta->Write();
+  h_b_jet4_phi->Write();
+  h_b_jet4_m->Write();
+  h_met_pt->Write();
+  h_met_mn_pt->Write();
+  h_met_en_pt->Write();
+  h_mt->Write();
+  h_d_phi_w_h->Write();
+  h_d_phi_w_b_h->Write();
+  h_h_pt->Write();
+  h_h_phi->Write();
+  h_h_eta->Write();
+  h_inv_m->Write();
+  h_b_inv_m->Write();
+  h_w_pt->Write();
+  h_w_phi->Write();
+  h_w_eta->Write();
+  h_w_m->Write();
+  h_dR_jet_muon->Write();
+  h_dR_jet_electron->Write();
+  h_dR_jet_muon_after->Write();
+  h_dR_jet_electron_after->Write();
+  h_jet_mult->Write();
+  h_b_jet_mult->Write();
+  f.Close();
 }

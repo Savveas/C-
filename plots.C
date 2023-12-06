@@ -6,16 +6,19 @@
 
 void plots(){
   TFile *inputfile=TFile::Open("histos_signal.root");
+  //TFile *inputfile=TFile::Open("histos_back.root");
   
   
   TH1F *h_mn_pt = (TH1F*)inputfile->Get("h_mn_pt");
   TH1F *h_mn_eta = (TH1F*)inputfile->Get("h_mn_eta");
   TH1F *h_mn_phi = (TH1F*)inputfile->Get("h_mn_phi");
   
+
   TH1F *h_en_pt = (TH1F*)inputfile->Get("h_en_pt");
   TH1F *h_en_eta = (TH1F*)inputfile->Get("h_en_eta");
   TH1F *h_en_phi = (TH1F*)inputfile->Get("h_mn_phi");
   
+
   TH1F *h_jet1_pt = (TH1F*)inputfile->Get("h_jet1_pt");
   TH1F *h_jet1_eta = (TH1F*)inputfile->Get("h_jet1_eta");
   TH1F *h_jet1_phi = (TH1F*)inputfile->Get("h_jet1_phi");
@@ -51,10 +54,12 @@ void plots(){
   TH1F *h_b_jet4_phi = (TH1F*)inputfile->Get("h_b_jet4_phi");
   TH1F *h_b_jet4_m = (TH1F*)inputfile->Get("h_b_jet4_m");
   
+
   TH1F *h_met_pt = (TH1F*)inputfile->Get("h_met_pt");
   TH1F *h_mt = (TH1F*)inputfile->Get("h_mt");
   TH1F *h_d_phi_w_h = (TH1F*)inputfile->Get("h_d_phi_w_h");
   TH1F *h_d_phi_w_b_h = (TH1F*)inputfile->Get("h_d_phi_w_b_h");
+
 
   TH1F *h_h_pt = (TH1F*)inputfile->Get("h_h_pt");
   TH1F *h_h_phi = (TH1F*)inputfile->Get("h_h_phi");
@@ -67,24 +72,12 @@ void plots(){
   TH1F *h_w_m = (TH1F*)inputfile->Get("h_w_m");
   TH1F *h_dR_jet_muon = (TH1F*)inputfile->Get("h_dR_jet_muon");
   TH1F *h_dR_jet_electron = (TH1F*)inputfile->Get("h_dR_jet_electron");
- /*
-  TH1F *h_dR_jet1_muon_after = (TH1F*)inputfile->Get("h_dR_jet1_muon_after");
-  TH1F *h_dR_jet2_muon_after = (TH1F*)inputfile->Get("h_dR_jet2_muon_after");
-  TH1F *h_dR_jet3_muon_after = (TH1F*)inputfile->Get("h_dR_jet3_muon_after");
-  TH1F *h_dR_jet4_muon_after = (TH1F*)inputfile->Get("h_dR_jet4_muon_after");
-  TH1F *h_dR_jet1_electron_after = (TH1F*)inputfile->Get("h_dR_jet1_muon_after");
-  TH1F *h_dR_jet2_electron_after = (TH1F*)inputfile->Get("h_dR_jet2_muon_after");
-  TH1F *h_dR_jet3_electron_after = (TH1F*)inputfile->Get("h_dR_jet3_muon_after");
-  TH1F *h_dR_jet4_electron_after = (TH1F*)inputfile->Get("h_dR_jet4_muon_after");
-*/
+
+
   TH1F *h_dR_jet_muon_after =(TH1F*)inputfile->Get("h_dR_jet_muon_after");
   TH1F *h_dR_jet_electron_after =(TH1F*)inputfile->Get("h_dR_jet_electron_after");
   TH1F *h_jet_mult = (TH1F*)inputfile->Get("h_jet_mult");
   TH1F *h_b_jet_mult = (TH1F*)inputfile->Get("h_b_jet_mult");
-
-
-
-  
 
 
   //muons
@@ -373,8 +366,8 @@ void plots(){
 
 
   //delta R before cross-cleaning
-  TCanvas *c_dR = new TCanvas("dR","dR",1100,1100);
-  c_dR->Divide(1,2);
+  TCanvas *c_dR = new TCanvas("dR","dR",2000,1000);
+  c_dR->Divide(2,1);
   //muon-jet
   c_dR->cd(1);
   h_dR_jet_muon->GetXaxis()->SetTitle("delta R between jets and muons");
