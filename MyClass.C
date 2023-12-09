@@ -3,6 +3,7 @@
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
+#include <TLorentzVector.h>
 
 void MyClass::Loop()
 {
@@ -33,6 +34,7 @@ if (fChain == 0) return;
 
   Long64_t nentries = fChain->GetEntriesFast();
   TFile f("histos_signal.root","recreate");
+  //TFile f("histos_back.root","recreate");
   //muon 
   TH1F *h_mn_pt = new TH1F("h_mn_pt","muon pt distribution",100,0.,500.);
   TH1F *h_mn_eta = new TH1F("h_mn_eta","muon pseudorapidity distribution",100,-5.,5.);
@@ -95,8 +97,8 @@ if (fChain == 0) return;
   TH1F *h_h_pt = new TH1F("h_h_pt","h_pt distribution",100,0.,500.);
   TH1F *h_h_phi = new TH1F("h_h_phi","h_phi distribution",100,-5.,5.);
   TH1F *h_h_eta = new TH1F("h_h_eta","h_eta distribution",100,-5.,5.);
-  TH1F *h_inv_m = new TH1F("h_inv_m","invariant mass",1000,0,1000);
-  TH1F *h_b_inv_m = new TH1F("h_b_inv_m","invariant mass (after b_tagging)",3000,0,1000);
+  TH1F *h_inv_m = new TH1F("h_inv_m","invariant mass",200,0,1000);
+  TH1F *h_b_inv_m = new TH1F("h_b_inv_m","invariant mass (after b_tagging)",200,0,1000);
 
   TH1F *h_w_pt = new TH1F("h_w_pt","w_pt distribution",100,0.,500.);
   TH1F *h_w_phi = new TH1F("h_w_phi","w_phi distribution",100,-5.,5.);
@@ -179,6 +181,7 @@ for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
 
  // Require at least 1 lepton
 if (Nleptons == 0) continue;
+if (mn==0 || en==0) continue;
 
  count_N1++;
 
@@ -195,25 +198,7 @@ if (Nleptons == 0) continue;
   h_mn_pt_eta->Fill(mn_pt,mn_eta);
   h_met_mn_pt->Fill(met_pt,mn_pt);
       
-for(int j=0; j<Nleptons; j++){
-  //Transverse Mass (MT)
-  TLorentzVector p_lepton;
-  p_lepton.SetPtEtaPhiE(vec_leptons[j].Pt(),vec_leptons[j].Eta(),vec_leptons[j].Phi(),vec_leptons[j].E());
-if (d_phi>M_PI){
-	d_phi=d_phi-(2*M_PI);
-}
-  Double_t MT;
-  MT=sqrt(2*mn_pt*met_pt*(1-cos(d_phi)));
-  h_mt->Fill(MT);
-  double lep_eta=p_lepton.Eta();
-  double lep_pt=p_lepton.Pt();
-  double lep_phi=p_lepton.Phi();
-  double lep_m=p_lepton.M();
-  h_lep_pt->Fill(lep_pt);
-  h_lep_phi->Fill(lep_phi);
-  h_lep_m->Fill(lep_m);
-  h_lep_eta->Fill(lep_eta);
-}
+
   //electron
   TLorentzVector en_p;
   en_p.SetPxPyPzE(en_px[0],en_py[0],en_pz[0],en_en[0]);
@@ -257,7 +242,7 @@ if (overlap)
 
   
   //b-jet indetification
-  if (jet_btag1[ijet]>0.6324) bjet_vec.push_back(pjet);  
+  if (jet_btag1[ijet]>0.4941) bjet_vec.push_back(pjet);  
 }  
   //dR after cross cleaning
   TLorentzVector p_jet_after;
@@ -274,8 +259,6 @@ for (int ijet_after = 0; ijet_after <jet_mult; ijet_after++)
 }
 
   int Njets=Njet_vec.size();
-
-  
 
 // Require at least 3 jets
 
@@ -354,7 +337,6 @@ if(bjet_mult<3) continue;
   h_b_jet1_m->Fill(bjet1_m);
 
   
- 
 
   float bjet2_eta=bjet_vec[1].Eta();
   float bjet2_pt=bjet_vec[1].Pt();
@@ -404,6 +386,25 @@ if (bjet_mult>3)
   h_b_p+=bjet_vec[3];
 }
 
+  for(int j=0; j<Nleptons; j++){
+  //Transverse Mass (MT)
+  TLorentzVector p_lepton;
+  p_lepton.SetPtEtaPhiE(vec_leptons[j].Pt(),vec_leptons[j].Eta(),vec_leptons[j].Phi(),vec_leptons[j].E());
+if (d_phi>M_PI){
+	d_phi=d_phi-(2*M_PI);
+}
+  Double_t MT;
+  MT=sqrt(2*mn_pt*met_pt*(1-cos(d_phi)));
+  h_mt->Fill(MT);
+  double lep_eta=p_lepton.Eta();
+  double lep_pt=p_lepton.Pt();
+  double lep_phi=p_lepton.Phi();
+  double lep_m=p_lepton.M();
+  h_lep_pt->Fill(lep_pt);
+  h_lep_phi->Fill(lep_phi);
+  h_lep_m->Fill(lep_m);
+  h_lep_eta->Fill(lep_eta);
+}
 
   float h_m=h_p.M();
   float h_phi=h_p.Phi();
