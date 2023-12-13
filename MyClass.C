@@ -130,6 +130,8 @@ for (Long64_t jentry=0; jentry<nentries;jentry++) {
   nb = fChain->GetEntry(jentry);   nbytes += nb;
   Long64_t ientry = LoadTree(jentry);
 
+ // Require at least 1 lepton
+
 
   vector<TLorentzVector> vec_muons;
   vector<TLorentzVector> vec_electrons;
@@ -152,7 +154,7 @@ if ( !(mn_passId[i]) || !(mn_passIso[i]) ) continue;
 }
 
   int Nmuons=vec_muons.size(); // Muon multiplicity
-
+  
 
 for (int i=0; i<en; i++) {
 
@@ -160,9 +162,9 @@ for (int i=0; i<en; i++) {
 	p_electron.SetPxPyPzE(en_px[i],en_py[i],en_pz[i],en_en[i]);
 	
 	// pt/eta cuts (detector acceptance cuts: pT>20 GeV and |eta|<2.4
-	if (p_electron.Pt()<20. || fabs(p_electron.Eta())>2.4) continue;
+if (p_electron.Pt()<20. || fabs(p_electron.Eta())>2.4) continue;
 	// Require electron to pass good Identification and Isolation:
-	if ( !(en_passId[i]) || !(en_passIso[i]) ) continue; 
+if ( !(en_passId[i]) || !(en_passIso[i]) ) continue; 
 
   
 
@@ -170,20 +172,18 @@ for (int i=0; i<en; i++) {
 	vec_leptons.push_back(p_electron);
   vec_electrons.push_back(p_electron);
 }
-   
+
 
   int Nelectrons=vec_electrons.size(); // Electron multiplicity
   int Nleptons=vec_leptons.size(); // Lepton multiplicity
-
-    
-for (int i=0; i<Nmuons; i++) vec_leptons.push_back(vec_muons[i]);
-for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
-
- // Require at least 1 lepton
 if (Nleptons == 0) continue;
 if (mn==0 || en==0) continue;
 
  count_N1++;
+    
+for (int i=0; i<Nmuons; i++) vec_leptons.push_back(vec_muons[i]);
+for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
+
 
   //muon
   TLorentzVector mn_p;
