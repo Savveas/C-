@@ -157,22 +157,22 @@ void plots(){
 
 
   //muons
-  TCanvas *c_muons = new TCanvas ("muons","muons",1000,1000);
-  c_muons->Divide(3,1);
+  TCanvas *c_muons_pt = new TCanvas ("muons_pt","muons_pt",1000,1000);
   //pt
-  c_muons->cd(1);
   hsig_mn_pt->GetXaxis()->SetTitle("Transverse Momentum (GeV/c)");
   hsig_mn_pt->GetYaxis()->SetTitle("Entries");
   hsig_mn_pt->Draw("Ehist");
   hsig_mn_pt->Scale(1./hsig_mn_pt->Integral());
-  c_muons->cd(1);
   hbkg_mn_pt->SetLineColor(kRed);
   hbkg_mn_pt->GetXaxis()->SetTitle("Transverse Momentum (GeV/c)");
   hbkg_mn_pt->GetYaxis()->SetTitle("Entries");
   hbkg_mn_pt->Draw("Ehist,sames");
   hbkg_mn_pt->Scale(1./hbkg_mn_pt->Integral());
+
+
+
   //eta
-  c_muons->cd(2);
+  TCanvas *c_muons_eta = new TCanvas ("muons_eta","muons_eta",1000,1000);
   hbkg_mn_eta->SetLineColor(kRed);
   hbkg_mn_eta->GetXaxis()->SetTitle("Muon Pseudorapidity");
   hbkg_mn_eta->GetYaxis()->SetTitle("Entries");
@@ -182,11 +182,11 @@ void plots(){
   hsig_mn_eta->GetYaxis()->SetTitle("Entries");
   hsig_mn_eta->Scale(1./hsig_mn_eta->Integral());
   hsig_mn_eta->Draw("Ehist,sames");
-  
- 
-  
+
+
+
+  TCanvas *c_muons_phi = new TCanvas ("muons_phi","muons_phi",1000,1000);
   //phi
-  c_muons->cd(3);
   hsig_mn_phi->GetXaxis()->SetTitle("Muon Phi");
   hsig_mn_phi->GetYaxis()->SetTitle("Entries");
   hsig_mn_phi->Scale(1./hsig_mn_phi->Integral());
@@ -196,15 +196,12 @@ void plots(){
   hbkg_mn_phi->GetYaxis()->SetTitle("Entries");
   hbkg_mn_phi->Scale(1./hbkg_mn_phi->Integral());
   hbkg_mn_phi->Draw("Ehist,sames"); 
- 
 
 
 
   //electrons
-  TCanvas *c_electrons = new TCanvas ("electrons","electrons",1000,1000);
-  c_electrons->Divide(1,3); 
+  TCanvas *c_electrons_pt = new TCanvas ("electrons_pt","electrons_pt",1000,1000);
   //pt
-  c_electrons->cd(1);
   hsig_en_pt->GetXaxis()->SetTitle("Electron Transverse Momentum (GeV/c)");
   hsig_en_pt->GetYaxis()->SetTitle("Entries");
   hsig_en_pt->Scale(1./hsig_en_pt->Integral());
@@ -214,8 +211,11 @@ void plots(){
   hbkg_en_pt->Scale(1./hbkg_en_pt->Integral());
   hbkg_en_pt->Draw("Ehist,sames");
   hbkg_en_pt->SetLineColor(kRed);
+
+
+
+  TCanvas *c_electrons_eta = new TCanvas ("electrons_eta","electrons_eta",1000,1000);
   //eta
-  c_electrons->cd(2);
   hbkg_en_eta->SetLineColor(kRed);
   hbkg_en_eta->GetXaxis()->SetTitle("Electron Pseudorapidity");
   hbkg_en_eta->GetYaxis()->SetTitle("Entries");
@@ -226,8 +226,10 @@ void plots(){
   hsig_en_eta->Scale(1./hsig_en_eta->Integral());
   hsig_en_eta->Draw("Ehist,sames");
   
+
+
+  TCanvas *c_electrons_phi = new TCanvas ("electrons_phi","electrons_phi",1000,1000);
   //phi
-  c_electrons->cd(3);
   hsig_en_phi->GetXaxis()->SetTitle("Electron Phi");
   hsig_en_phi->GetYaxis()->SetTitle("Entries");
   hsig_en_phi->Scale(1./hsig_en_phi->Integral());
@@ -241,10 +243,8 @@ void plots(){
 
 
   //leptons
-  TCanvas *c_leptons = new TCanvas ("leptons","leptons",1000,1000);
-  c_leptons->Divide(3,1); 
+  TCanvas *c_leptons_pt = new TCanvas ("leptons_pt","leptons_pt",1000,1000);
   //pt
-  c_leptons->cd(1);
   hbkg_lep_pt->SetLineColor(kRed);
   hbkg_lep_pt->GetXaxis()->SetTitle("Lepton Transverse Momentum (GeV/c)");
   hbkg_lep_pt->GetYaxis()->SetTitle("Entries");
@@ -255,20 +255,25 @@ void plots(){
   hsig_lep_pt->Scale(1./hsig_lep_pt->Integral());
   hsig_lep_pt->Draw("Ehist,sames");
   
+
+
+  TCanvas *c_leptons_eta = new TCanvas ("leptons_eta","leptons_eta",1000,1000);
   //eta
-  c_leptons->cd(2);
   hbkg_lep_eta->SetLineColor(kRed);
   hbkg_lep_eta->GetXaxis()->SetTitle("Lepton Pseudorapidity");
   hbkg_lep_eta->GetYaxis()->SetTitle("Entries");
   hsig_lep_eta->Scale(1./hsig_lep_eta->Integral());
-  hbkg_lep_eta->Draw("Ehist");
   hsig_lep_eta->GetXaxis()->SetTitle("Lepton Pseudorapidity");
   hsig_lep_eta->GetYaxis()->SetTitle("Entries");
-  hsig_lep_eta->Scale(1./hsig_lep_eta->Integral());
+  hbkg_lep_eta->Scale(1./hbkg_lep_eta->Integral());
+  hbkg_lep_eta->Draw("Ehist");
   hsig_lep_eta->Draw("Ehist,sames");
+ 
   
+
+
+  TCanvas *c_leptons_phi = new TCanvas ("leptons_phi","leptons_phi",1000,1000);
   //phi
-  c_leptons->cd(3);
   hbkg_lep_phi->SetLineColor(kRed);
   hbkg_lep_phi->GetXaxis()->SetTitle("Lepton Phi");
   hbkg_lep_phi->GetYaxis()->SetTitle("Entries");

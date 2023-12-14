@@ -33,12 +33,12 @@ void MyClass::Loop()
 if (fChain == 0) return;
 
   Long64_t nentries = fChain->GetEntriesFast();
-  //TFile f("histos_signal.root","recreate");
-  TFile f("histos_back.root","recreate");
+  TFile f("histos_signal.root","recreate");
+  //TFile f("histos_back.root","recreate");
   //muon 
-  TH1F *h_mn_pt = new TH1F("h_mn_pt","muon pt distribution",100,0.,500.);
-  TH1F *h_mn_eta = new TH1F("h_mn_eta","muon pseudorapidity distribution",100,-5.,5.);
-  TH1F *h_mn_phi = new TH1F("h_mn_phi","muon phi distribution",100,-5.,5.);  
+  TH1F *h_mn_pt = new TH1F("h_mn_pt","muon pt distribution",100,0.,200.);
+  TH1F *h_mn_eta = new TH1F("h_mn_eta","muon pseudorapidity distribution",100,-M_PI,M_PI);
+  TH1F *h_mn_phi = new TH1F("h_mn_phi","muon phi distribution",100,-M_PI,M_PI);  
 
   TH2F *h_mn_pt_eta = new TH2F("h_mn_pt_eta","muon pt-eta distribution",100,0.,500.,100,-3.,3.);
 
@@ -50,37 +50,37 @@ if (fChain == 0) return;
 
   TH2F *h_en_pt_eta = new TH2F("h_en_pt_eta","electron pt-eta distribution",100,0.,500.,100,-3.,3.);
 
-  TH1F *h_jet1_pt = new TH1F("h_jet1_pt","jet1 distribution",500,0.,500.);
-  TH1F *h_jet1_eta = new TH1F("h_jet1_eta","jet pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_jet1_pt = new TH1F("h_jet1_pt","jet1 distribution",100,0.,500.);
+  TH1F *h_jet1_eta = new TH1F("h_jet1_eta","jet pseudorapidity distribution",5,-5.,5.);
   TH1F *h_jet1_phi = new TH1F("h_jet1_phi","jet phi distribution",100,-5.,5.);
   TH1F *h_jet1_m = new TH1F("h_jet1_m","jet mass distributions",100,0.,100);
-  TH1F *h_jet2_pt = new TH1F("h_jet2_pt","jet2 distribution",500,0.,500.);
-  TH1F *h_jet2_eta = new TH1F("h_jet2_eta","jet2 pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_jet2_pt = new TH1F("h_jet2_pt","jet2 distribution",100,0.,500.);
+  TH1F *h_jet2_eta = new TH1F("h_jet2_eta","jet2 pseudorapidity distribution",5,-5.,5.);
   TH1F *h_jet2_phi = new TH1F("h_jet2_phi","jet phi distribution",100,-5.,5.);
   TH1F *h_jet2_m = new TH1F("h_jet2_m","jet mass distributions",100,0.,100);
-  TH1F *h_jet3_pt = new TH1F("h_jet3_pt","jet3 distribution",500,0.,500.);
-  TH1F *h_jet3_eta = new TH1F("h_jet3_eta","jet3 pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_jet3_pt = new TH1F("h_jet3_pt","jet3 distribution",100,0.,500.);
+  TH1F *h_jet3_eta = new TH1F("h_jet3_eta","jet3 pseudorapidity distribution",5,-5.,5.);
   TH1F *h_jet3_phi = new TH1F("h_jet3_phi","jet phi distribution",100,-5.,5.);
   TH1F *h_jet3_m = new TH1F("h_jet3_m","jet mass distributions",100,0.,100);
-  TH1F *h_jet4_pt = new TH1F("h_jet4_pt","jet4 distribution",500,0.,500.);
-  TH1F *h_jet4_eta = new TH1F("h_jet4_eta","jet4 pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_jet4_pt = new TH1F("h_jet4_pt","jet4 distribution",100,0.,500.);
+  TH1F *h_jet4_eta = new TH1F("h_jet4_eta","jet4 pseudorapidity distribution",5,-5.,5.);
   TH1F *h_jet4_phi = new TH1F("h_jet4_phi","jet phi distribution",100,-5.,5.);
   TH1F *h_jet4_m = new TH1F("h_jet4_m","jet mass distributions",100,0.,100);
 
-  TH1F *h_b_jet1_pt = new TH1F("h_b_jet1_pt","bjet1 distribution",500,0.,500.);
-  TH1F *h_b_jet1_eta = new TH1F("h_b_jet1_eta","bjet1 pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_b_jet1_pt = new TH1F("h_b_jet1_pt","bjet1 distribution",100,0.,500.);
+  TH1F *h_b_jet1_eta = new TH1F("h_b_jet1_eta","bjet1 pseudorapidity distribution",5,-5.,5.);
   TH1F *h_b_jet1_phi = new TH1F("h_b_jet1_phi","bjet1 phi distribution",100,-5.,5.);
   TH1F *h_b_jet1_m = new TH1F("h_b_jet1_m","bjet1 mass distributions",100,0.,100);
-  TH1F *h_b_jet2_pt = new TH1F("h_b_jet2_pt","bjet2 distribution",500,0.,500.);
-  TH1F *h_b_jet2_eta = new TH1F("h_b_jet2_eta","bjet2 pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_b_jet2_pt = new TH1F("h_b_jet2_pt","bjet2 distribution",100,0.,500.);
+  TH1F *h_b_jet2_eta = new TH1F("h_b_jet2_eta","bjet2 pseudorapidity distribution",5,-5.,5.);
   TH1F *h_b_jet2_phi = new TH1F("h_b_jet2_phi","bjet2 phi distribution",100,-5.,5.);
   TH1F *h_b_jet2_m = new TH1F("h_b_jet2_m","bjet2 mass distributions",100,0.,100);
-  TH1F *h_b_jet3_pt = new TH1F("h_b_jet3_pt","bjet3 distribution",500,0.,500.);
-  TH1F *h_b_jet3_eta = new TH1F("h_b_jet3_eta","bjet3 pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_b_jet3_pt = new TH1F("h_b_jet3_pt","bjet3 distribution",100,0.,500.);
+  TH1F *h_b_jet3_eta = new TH1F("h_b_jet3_eta","bjet3 pseudorapidity distribution",5,-5.,5.);
   TH1F *h_b_jet3_phi = new TH1F("h_b_jet3_phi","bjet3 phi distribution",100,-5.,5.);
   TH1F *h_b_jet3_m = new TH1F("h_b_jet3_m","bjet3 mass distributions",100,0.,100);
-  TH1F *h_b_jet4_pt = new TH1F("h_b_jet4_pt","bjet4 distribution",500,0.,500.);
-  TH1F *h_b_jet4_eta = new TH1F("h_b_jet4_eta","bjet4 pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_b_jet4_pt = new TH1F("h_b_jet4_pt","bjet4 distribution",100,0.,500.);
+  TH1F *h_b_jet4_eta = new TH1F("h_b_jet4_eta","bjet4 pseudorapidity distribution",5,-5.,5.);
   TH1F *h_b_jet4_phi = new TH1F("h_b_jet4_phi","bjet4 phi distribution",100,-5.,5.);
   TH1F *h_b_jet4_m = new TH1F("h_b_jet4_m","bjet4 mass distributions",100,0.,100);
 
@@ -89,7 +89,7 @@ if (fChain == 0) return;
   TH2F *h_met_mn_pt = new TH2F("h_met_mn_pt","MET-muon pt distribution",100,0.,500.,100,0.,500);
   TH2F *h_met_en_pt = new TH2F("h_met_en_pt","MET-electron pt distribution",100,0.,500.,100,0.,500);
 
-  TH1F *h_mt = new TH1F("h_mt","transverse mass distribution",100,0.,400.);
+  TH1F *h_mt = new TH1F("h_mt","transverse mass distribution",100,0.,5.);
 
   TH1F *h_d_phi_w_h = new TH1F("h_d_phi_w_h","d_phi between W boson and H boson",100,0.,M_PI);
   TH1F *h_d_phi_w_b_h = new TH1F("h_d_phi_w_b_h","d_phi between W boson and b_tagged H boson",100,0.,M_PI);
@@ -102,7 +102,7 @@ if (fChain == 0) return;
 
   TH1F *h_w_pt = new TH1F("h_w_pt","w_pt distribution",100,0.,500.);
   TH1F *h_w_phi = new TH1F("h_w_phi","w_phi distribution",100,-5.,5.);
-  TH1F *h_w_eta = new TH1F("h_w_eta","w_eta distribution",100,-5.,5.);
+  TH1F *h_w_eta = new TH1F("h_w_eta","w_eta distribution",100,-M_PI,M_PI);
   TH1F *h_w_m = new TH1F("h_w_m","w_m distribution",100,0.,300.);
 
   TH1F *h_dR_jet_muon = new TH1F("h_dR_jet_muon","dR between jet and muon distribution ",100,0.,6.);
@@ -114,9 +114,9 @@ if (fChain == 0) return;
   TH1F *h_b_jet_mult=new TH1F("h_b_jet_mult","b_jet multiplicity",10,0.,10.);
 
 
-  TH1F *h_lep_pt = new TH1F("h_lep_pt","Lepton pt distribution",100,0.,500.);
-  TH1F *h_lep_phi = new TH1F("h_lep_phi","Lepton phi distribution",100,-5.,5.);
-  TH1F *h_lep_eta = new TH1F("h_lep_eta","Lepton pseudorapidity distribution",100,-5.,5.);
+  TH1F *h_lep_pt = new TH1F("h_lep_pt","Lepton pt distribution",100,0.,450.);
+  TH1F *h_lep_phi = new TH1F("h_lep_phi","Lepton phi distribution",10,-M_PI,M_PI);
+  TH1F *h_lep_eta = new TH1F("h_lep_eta","Lepton pseudorapidity distribution",10,-M_PI,M_PI);
   TH1F *h_lep_m = new TH1F("h_lep_m","Lepton mass distribution",100,0.,0.3);
 
   Long64_t nbytes = 0, nb = 0;
@@ -149,7 +149,7 @@ if ( !(mn_passId[i]) || !(mn_passIso[i]) ) continue;
 
 	// store muons in new vector:
 	vec_leptons.push_back(p_muon);
-  vec_muons.push_back(p_muon);
+  vec_muons.push_back(p_muon);  
 
 }
 
@@ -179,15 +179,19 @@ if ( !(en_passId[i]) || !(en_passIso[i]) ) continue;
 if (Nleptons == 0) continue;
 if (mn==0 || en==0) continue;
 
- count_N1++;
+  count_N1++;
+  TLorentzVector mn_p;
     
-for (int i=0; i<Nmuons; i++) vec_leptons.push_back(vec_muons[i]);
-for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
-
+for (int i=0; i<Nmuons; i++){
+  
+  vec_leptons.push_back(vec_muons[i]);
 
   //muon
-  TLorentzVector mn_p;
-  mn_p.SetPxPyPzE(mn_px[0],mn_py[0],mn_pz[0],mn_en[0]);
+  mn_p.SetPtEtaPhiE(vec_muons[i].Pt(),vec_muons[i].Eta(),vec_muons[i].Phi(),vec_muons[i].E());
+}
+
+
+
   double mn_eta=mn_p.Eta();
   double mn_phi=mn_p.Phi();
   double mn_pt=mn_p.Pt();
@@ -197,11 +201,21 @@ for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
   h_mn_phi->Fill(mn_phi);
   h_mn_pt_eta->Fill(mn_pt,mn_eta);
   h_met_mn_pt->Fill(met_pt,mn_pt);
-      
+
+
+
+
+  TLorentzVector en_p;
+for (int i=0; i<Nelectrons; i++){
+  
+  vec_leptons.push_back(vec_electrons[i]);
 
   //electron
-  TLorentzVector en_p;
-  en_p.SetPxPyPzE(en_px[0],en_py[0],en_pz[0],en_en[0]);
+  en_p.SetPtEtaPhiE(vec_electrons[i].Pt(),vec_electrons[i].Eta(),vec_electrons[i].Phi(),vec_electrons[i].E());
+}
+
+
+
   double en_eta=en_p.Eta();
   double en_phi=en_p.Phi();
   double en_pt=en_p.Pt();
