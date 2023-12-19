@@ -9,23 +9,30 @@ void plots(){
   TFile *inputfile_back=TFile::Open("histos_back.root");
   
   
+
   TH1F *hsig_mn_pt = (TH1F*)inputfile->Get("h_mn_pt");
   TH1F *hsig_mn_eta = (TH1F*)inputfile->Get("h_mn_eta");
   TH1F *hsig_mn_phi = (TH1F*)inputfile->Get("h_mn_phi");
+
+
 
   TH1F *hbkg_mn_pt = (TH1F*)inputfile_back->Get("h_mn_pt");
   TH1F *hbkg_mn_eta = (TH1F*)inputfile_back->Get("h_mn_eta");
   TH1F *hbkg_mn_phi = (TH1F*)inputfile_back->Get("h_mn_phi");
   
 
+
   TH1F *hsig_en_pt = (TH1F*)inputfile->Get("h_en_pt");
   TH1F *hsig_en_eta = (TH1F*)inputfile->Get("h_en_eta");
   TH1F *hsig_en_phi = (TH1F*)inputfile->Get("h_en_phi");
+
+
 
   TH1F *hbkg_en_pt = (TH1F*)inputfile_back->Get("h_en_pt");
   TH1F *hbkg_en_eta = (TH1F*)inputfile_back->Get("h_en_eta");
   TH1F *hbkg_en_phi = (TH1F*)inputfile_back->Get("h_en_phi");
   
+
 
   TH1F *hsig_jet1_pt = (TH1F*)inputfile->Get("h_jet1_pt");
   TH1F *hsig_jet1_eta = (TH1F*)inputfile->Get("h_jet1_eta");
@@ -43,6 +50,8 @@ void plots(){
   TH1F *hsig_jet4_eta = (TH1F*)inputfile->Get("h_jet4_eta");
   TH1F *hsig_jet4_phi = (TH1F*)inputfile->Get("h_jet4_phi");
   TH1F *hsig_jet4_m = (TH1F*)inputfile->Get("h_jet4_m");
+
+
 
   TH1F *hbkg_jet1_pt = (TH1F*)inputfile_back->Get("h_jet1_pt");
   TH1F *hbkg_jet1_eta = (TH1F*)inputfile_back->Get("h_jet1_eta");
@@ -68,10 +77,13 @@ void plots(){
   TH1F *hsig_lep_phi = (TH1F*)inputfile->Get("h_lep_phi");
   TH1F *hsig_lep_m = (TH1F*)inputfile->Get("h_lep_m");
 
+
+
   TH1F *hbkg_lep_pt = (TH1F*)inputfile_back->Get("h_lep_pt");
   TH1F *hbkg_lep_eta = (TH1F*)inputfile_back->Get("h_lep_eta");
   TH1F *hbkg_lep_phi = (TH1F*)inputfile_back->Get("h_lep_phi");
   TH1F *hbkg_lep_m = (TH1F*)inputfile_back->Get("h_lep_m");
+
 
 
   TH1F *hsig_b_jet1_pt = (TH1F*)inputfile->Get("h_b_jet1_pt");
@@ -91,6 +103,8 @@ void plots(){
   TH1F *hsig_b_jet4_phi = (TH1F*)inputfile->Get("h_b_jet4_phi");
   TH1F *hsig_b_jet4_m = (TH1F*)inputfile->Get("h_b_jet4_m");
 
+
+
   TH1F *hbkg_b_jet1_pt = (TH1F*)inputfile_back->Get("h_b_jet1_pt");
   TH1F *hbkg_b_jet1_eta = (TH1F*)inputfile_back->Get("h_b_jet1_eta");
   TH1F *hbkg_b_jet1_phi = (TH1F*)inputfile_back->Get("h_b_jet1_phi");
@@ -109,15 +123,19 @@ void plots(){
   TH1F *hbkg_b_jet4_m = (TH1F*)inputfile_back->Get("h_b_jet4_m");
   
 
+
   TH1F *hsig_met_pt = (TH1F*)inputfile->Get("h_met_pt");
   TH1F *hsig_mt = (TH1F*)inputfile->Get("h_mt");
   TH1F *hsig_d_phi_w_h = (TH1F*)inputfile->Get("h_d_phi_w_h");
   TH1F *hsig_d_phi_w_b_h = (TH1F*)inputfile->Get("h_d_phi_w_b_h");
 
+
+
   TH1F *hbkg_met_pt = (TH1F*)inputfile_back->Get("h_met_pt");
   TH1F *hbkg_mt = (TH1F*)inputfile_back->Get("h_mt");
   TH1F *hbkg_d_phi_w_h = (TH1F*)inputfile_back->Get("h_d_phi_w_h");
   TH1F *hbkg_d_phi_w_b_h = (TH1F*)inputfile_back->Get("h_d_phi_w_b_h");
+
 
 
   TH1F *hsig_h_pt = (TH1F*)inputfile->Get("h_h_pt");
@@ -132,6 +150,8 @@ void plots(){
   TH1F *hsig_dR_jet_muon = (TH1F*)inputfile->Get("h_dR_jet_muon");
   TH1F *hsig_dR_jet_electron = (TH1F*)inputfile->Get("h_dR_jet_electron");
 
+
+
   TH1F *hbkg_h_pt = (TH1F*)inputfile_back->Get("h_h_pt");
   TH1F *hbkg_h_phi = (TH1F*)inputfile_back->Get("h_h_phi");
   TH1F *hbkg_h_eta = (TH1F*)inputfile_back->Get("h_h_eta");
@@ -145,10 +165,13 @@ void plots(){
   TH1F *hbkg_dR_jet_electron = (TH1F*)inputfile_back->Get("h_dR_jet_electron");
 
 
+
   TH1F *hsig_dR_jet_muon_after =(TH1F*)inputfile->Get("h_dR_jet_muon_after");
   TH1F *hsig_dR_jet_electron_after =(TH1F*)inputfile->Get("h_dR_jet_electron_after");
   TH1F *hsig_jet_mult = (TH1F*)inputfile->Get("h_jet_mult");
   TH1F *hsig_b_jet_mult = (TH1F*)inputfile->Get("h_b_jet_mult");
+
+
 
   TH1F *hbkg_dR_jet_muon_after =(TH1F*)inputfile_back->Get("h_dR_jet_muon_after");
   TH1F *hbkg_dR_jet_electron_after =(TH1F*)inputfile_back->Get("h_dR_jet_electron_after");
@@ -156,23 +179,39 @@ void plots(){
   TH1F *hbkg_b_jet_mult = (TH1F*)inputfile_back->Get("h_b_jet_mult");
 
 
+
+  TH1F *hsig_dR_av =(TH1F*)inputfile->Get("h_dR_av");
+  TH1F *hbkg_dR_av =(TH1F*)inputfile_back->Get("h_dR_av");
+
+
+
+  TH1F *hsig_minDelta_m=(TH1F*)inputfile->Get("h_minDelta_m");
+  TH1F *hbkg_minDelta_m=(TH1F*)inputfile_back->Get("h_minDelta_m");
+
+
+
+  TH1F *hsig_delta_phi=(TH1F*)inputfile->Get("h_delta_phi");
+  TH1F *hbkg_delta_phi=(TH1F*)inputfile_back->Get("h_delta_phi");
+
+
+
   //muons
-  TCanvas *c_muons_pt = new TCanvas ("muons_pt","muons_pt",1000,1000);
+  TCanvas *c_muons = new TCanvas ("muons","muons",1000,1000);
+  c_muons->Divide(3,1);
   //pt
+  c_muons->cd(1);
   hsig_mn_pt->GetXaxis()->SetTitle("Transverse Momentum (GeV/c)");
   hsig_mn_pt->GetYaxis()->SetTitle("Entries");
   hsig_mn_pt->Draw("Ehist");
   hsig_mn_pt->Scale(1./hsig_mn_pt->Integral());
+  c_muons->cd(1);
   hbkg_mn_pt->SetLineColor(kRed);
   hbkg_mn_pt->GetXaxis()->SetTitle("Transverse Momentum (GeV/c)");
   hbkg_mn_pt->GetYaxis()->SetTitle("Entries");
   hbkg_mn_pt->Draw("Ehist,sames");
   hbkg_mn_pt->Scale(1./hbkg_mn_pt->Integral());
-
-
-
   //eta
-  TCanvas *c_muons_eta = new TCanvas ("muons_eta","muons_eta",1000,1000);
+  c_muons->cd(2);
   hbkg_mn_eta->SetLineColor(kRed);
   hbkg_mn_eta->GetXaxis()->SetTitle("Muon Pseudorapidity");
   hbkg_mn_eta->GetYaxis()->SetTitle("Entries");
@@ -182,11 +221,8 @@ void plots(){
   hsig_mn_eta->GetYaxis()->SetTitle("Entries");
   hsig_mn_eta->Scale(1./hsig_mn_eta->Integral());
   hsig_mn_eta->Draw("Ehist,sames");
-
-
-
-  TCanvas *c_muons_phi = new TCanvas ("muons_phi","muons_phi",1000,1000);
   //phi
+  c_muons->cd(3);
   hsig_mn_phi->GetXaxis()->SetTitle("Muon Phi");
   hsig_mn_phi->GetYaxis()->SetTitle("Entries");
   hsig_mn_phi->Scale(1./hsig_mn_phi->Integral());
@@ -196,12 +232,15 @@ void plots(){
   hbkg_mn_phi->GetYaxis()->SetTitle("Entries");
   hbkg_mn_phi->Scale(1./hbkg_mn_phi->Integral());
   hbkg_mn_phi->Draw("Ehist,sames"); 
+ 
 
 
 
   //electrons
-  TCanvas *c_electrons_pt = new TCanvas ("electrons_pt","electrons_pt",1000,1000);
+  TCanvas *c_electrons = new TCanvas ("electrons","electrons",1000,1000);
+  c_electrons->Divide(1,3); 
   //pt
+  c_electrons->cd(1);
   hsig_en_pt->GetXaxis()->SetTitle("Electron Transverse Momentum (GeV/c)");
   hsig_en_pt->GetYaxis()->SetTitle("Entries");
   hsig_en_pt->Scale(1./hsig_en_pt->Integral());
@@ -211,11 +250,8 @@ void plots(){
   hbkg_en_pt->Scale(1./hbkg_en_pt->Integral());
   hbkg_en_pt->Draw("Ehist,sames");
   hbkg_en_pt->SetLineColor(kRed);
-
-
-
-  TCanvas *c_electrons_eta = new TCanvas ("electrons_eta","electrons_eta",1000,1000);
   //eta
+  c_electrons->cd(2);
   hbkg_en_eta->SetLineColor(kRed);
   hbkg_en_eta->GetXaxis()->SetTitle("Electron Pseudorapidity");
   hbkg_en_eta->GetYaxis()->SetTitle("Entries");
@@ -225,11 +261,8 @@ void plots(){
   hsig_en_eta->GetYaxis()->SetTitle("Entries");
   hsig_en_eta->Scale(1./hsig_en_eta->Integral());
   hsig_en_eta->Draw("Ehist,sames");
-  
-
-
-  TCanvas *c_electrons_phi = new TCanvas ("electrons_phi","electrons_phi",1000,1000);
   //phi
+  c_electrons->cd(3);
   hsig_en_phi->GetXaxis()->SetTitle("Electron Phi");
   hsig_en_phi->GetYaxis()->SetTitle("Entries");
   hsig_en_phi->Scale(1./hsig_en_phi->Integral());
@@ -243,8 +276,10 @@ void plots(){
 
 
   //leptons
-  TCanvas *c_leptons_pt = new TCanvas ("leptons_pt","leptons_pt",1000,1000);
+  TCanvas *c_leptons = new TCanvas ("leptons","leptons",1000,1000);
+  c_leptons->Divide(3,1); 
   //pt
+  c_leptons->cd(1);
   hbkg_lep_pt->SetLineColor(kRed);
   hbkg_lep_pt->GetXaxis()->SetTitle("Lepton Transverse Momentum (GeV/c)");
   hbkg_lep_pt->GetYaxis()->SetTitle("Entries");
@@ -254,26 +289,19 @@ void plots(){
   hsig_lep_pt->GetYaxis()->SetTitle("Entries");
   hsig_lep_pt->Scale(1./hsig_lep_pt->Integral());
   hsig_lep_pt->Draw("Ehist,sames");
-  
-
-
-  TCanvas *c_leptons_eta = new TCanvas ("leptons_eta","leptons_eta",1000,1000);
   //eta
+  c_leptons->cd(2);
   hbkg_lep_eta->SetLineColor(kRed);
   hbkg_lep_eta->GetXaxis()->SetTitle("Lepton Pseudorapidity");
   hbkg_lep_eta->GetYaxis()->SetTitle("Entries");
   hsig_lep_eta->Scale(1./hsig_lep_eta->Integral());
+  hbkg_lep_eta->Draw("Ehist");
   hsig_lep_eta->GetXaxis()->SetTitle("Lepton Pseudorapidity");
   hsig_lep_eta->GetYaxis()->SetTitle("Entries");
-  hbkg_lep_eta->Scale(1./hbkg_lep_eta->Integral());
-  hbkg_lep_eta->Draw("Ehist");
+  hsig_lep_eta->Scale(1./hsig_lep_eta->Integral());
   hsig_lep_eta->Draw("Ehist,sames");
- 
-  
-
-
-  TCanvas *c_leptons_phi = new TCanvas ("leptons_phi","leptons_phi",1000,1000);
   //phi
+  c_leptons->cd(3);
   hbkg_lep_phi->SetLineColor(kRed);
   hbkg_lep_phi->GetXaxis()->SetTitle("Lepton Phi");
   hbkg_lep_phi->GetYaxis()->SetTitle("Entries");
@@ -283,9 +311,7 @@ void plots(){
   hsig_lep_phi->GetYaxis()->SetTitle("Entries");
   hsig_lep_phi->Scale(1./hsig_lep_phi->Integral());
   hsig_lep_phi->Draw("Ehist,sames");
-    
-
-  
+      
 
 
   //jets
@@ -370,9 +396,6 @@ void plots(){
   hbkg_b_jet4_pt->Scale(1./hbkg_b_jet4_pt->Integral());
   hbkg_b_jet4_pt->Draw("Ehist,sames");
   hbkg_b_jet4_pt->SetLineColor(kRed);
-
-
-
   //eta
   TCanvas *c_jets_eta= new TCanvas("jet pseudorapidity","jet pseudorapidity",1000,1000);
   hsig_jet1_eta->GetXaxis()->SetTitle("Jet 1 Pseudorapidity");
@@ -437,90 +460,104 @@ void plots(){
   TCanvas *c_jets4_eta= new TCanvas("jet4 pseudorapidity","jet4 pseudorapidity",1000,1000);
   hsig_jet4_eta->GetXaxis()->SetTitle("Jet 4 Pseudorapidity");
   hsig_jet4_eta->GetYaxis()->SetTitle("Entries");
+  hsig_jet4_eta->Scale(1./hsig_jet4_eta->Integral());
   hsig_jet4_eta->Draw("Ehist");
   hbkg_jet4_eta->GetXaxis()->SetTitle("Jet 4 Pseudorapidity");
   hbkg_jet4_eta->GetYaxis()->SetTitle("Entries");
+  hbkg_jet4_eta->Scale(1./hbkg_jet4_eta->Integral());
   hbkg_jet4_eta->Draw("Ehist,sames");
   hbkg_jet4_eta->SetLineColor(kRed);
   TCanvas *c_b_jets4_eta= new TCanvas("b-jet4 pseudorapidity","b-jet4 pseudorapidity",1000,1000);
   hsig_b_jet4_eta->GetXaxis()->SetTitle("bJet 4 Pseudorapidity");
   hsig_b_jet4_eta->GetYaxis()->SetTitle("Entries");
+  hsig_b_jet4_eta->Scale(1./hsig_b_jet4_eta->Integral());
   hsig_b_jet4_eta->Draw("Ehist");
   hbkg_b_jet4_eta->GetXaxis()->SetTitle("bJet 4 Pseudorapidity");
   hbkg_b_jet4_eta->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet4_eta->SetLineColor(kRed);
+  hbkg_b_jet4_eta->Scale(1./hbkg_b_jet4_eta->Integral());
   hbkg_b_jet4_eta->Draw("Ehist,sames");
-
-
-
   //phi
   TCanvas *c_jets_phi= new TCanvas("jets_phi","jets_phi",1000,1000);
   hsig_jet1_phi->GetXaxis()->SetTitle("Jet 1 Phi");
   hsig_jet1_phi->GetYaxis()->SetTitle("Entries");
+  hsig_jet1_phi->Scale(1./hsig_jet1_phi->Integral());
   hsig_jet1_phi->Draw("Ehist");
   hbkg_jet1_phi->GetXaxis()->SetTitle("Jet 1 Phi");
   hbkg_jet1_phi->GetYaxis()->SetTitle("Entries");
+  hbkg_jet1_phi->Scale(1./hbkg_jet1_phi->Integral());
   hbkg_jet1_phi->Draw("Ehist,sames");
   hbkg_jet1_phi->SetLineColor(kRed);
   TCanvas *c_b_jets_phi= new TCanvas("b-jets_phi","b-jets_phi",1000,1000);
   hsig_b_jet1_phi->GetXaxis()->SetTitle("bJet 1 Phi");
   hsig_b_jet1_phi->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet1_phi->SetLineColor(kRed);
+  hbkg_b_jet1_phi->Scale(1./hbkg_b_jet1_phi->Integral());
   hsig_b_jet1_phi->Draw("Ehist");
   hbkg_b_jet1_phi->GetXaxis()->SetTitle("bJet 1 Phi");
   hbkg_b_jet1_phi->GetYaxis()->SetTitle("Entries");
+  hbkg_b_jet1_phi->Scale(1./hbkg_b_jet1_phi->Integral());
   hbkg_b_jet1_phi->Draw("Ehist,sames");
   TCanvas *c_jets2_phi= new TCanvas("jets2_phi","jets2_phi",1000,1000);  
   hsig_jet2_phi->GetXaxis()->SetTitle("Jet 2 Phi");
   hsig_jet2_phi->GetYaxis()->SetTitle("Entries");
+  hsig_jet2_phi->Scale(1./hsig_jet2_phi->Integral());
   hsig_jet2_phi->Draw("Ehist");
   hbkg_jet2_phi->GetXaxis()->SetTitle("Jet 2 Phi");
   hbkg_jet2_phi->GetYaxis()->SetTitle("Entries");
   hbkg_jet2_phi->SetLineColor(kRed);
+  hbkg_jet2_phi->Scale(1./hbkg_jet2_phi->Integral());
   hbkg_jet2_phi->Draw("Ehist,sames");
   TCanvas *c_b_jets2_phi= new TCanvas("b-jets2_phi","b-jets2_phi",1000,1000);
   hsig_b_jet2_phi->GetXaxis()->SetTitle("bJet 2 Phi");
   hsig_b_jet2_phi->GetYaxis()->SetTitle("Entries");
+  hsig_b_jet2_phi->Scale(1./hsig_b_jet2_phi->Integral());
   hsig_b_jet2_phi->Draw("Ehist");
   hbkg_b_jet2_phi->GetXaxis()->SetTitle("bJet 2 Phi");
   hbkg_b_jet2_phi->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet2_phi->SetLineColor(kRed);
+  hbkg_b_jet2_phi->Scale(1./hbkg_b_jet2_phi->Integral());
   hbkg_b_jet2_phi->Draw("Ehist,sames");
   TCanvas *c_jets3_phi= new TCanvas("jets3_phi","jets3_phi",1000,1000);
   hsig_jet3_phi->GetXaxis()->SetTitle("Jet 3 Phi");
   hsig_jet3_phi->GetYaxis()->SetTitle("Entries");
+  hsig_jet3_phi->Scale(1./hsig_jet3_phi->Integral());
   hsig_jet3_phi->Draw("Ehist");
   hbkg_jet3_phi->GetXaxis()->SetTitle("Jet 3 Phi");
   hbkg_jet3_phi->GetYaxis()->SetTitle("Entries");
+  hbkg_jet3_phi->Scale(1./hbkg_jet3_phi->Integral());
   hbkg_jet3_phi->Draw("Ehist,sames");
   hbkg_jet3_phi->SetLineColor(kRed);
   TCanvas *c_b_jets3_phi= new TCanvas("b-jets3_phi","b-jets3_phi",1000,1000);
   hsig_b_jet3_phi->GetXaxis()->SetTitle("bJet 3 Phi");
   hsig_b_jet3_phi->GetYaxis()->SetTitle("Entries");
+  hsig_b_jet3_phi->Scale(1./hsig_b_jet3_phi->Integral());
   hsig_b_jet3_phi->Draw("Ehist");
   hbkg_b_jet3_phi->GetXaxis()->SetTitle("bJet 3 Phi");
   hbkg_b_jet3_phi->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet3_phi->SetLineColor(kRed);
+  hbkg_b_jet2_phi->Scale(1./hbkg_b_jet2_phi->Integral());
   hbkg_b_jet3_phi->Draw("Ehist,sames");
   TCanvas *c_jets4_phi= new TCanvas("jets4_phi","jets4_phi",1000,1000);
   hsig_jet4_phi->GetXaxis()->SetTitle("Jet 4 Phi");
   hsig_jet4_phi->GetYaxis()->SetTitle("Entries");
+  hsig_jet4_phi->Scale(1./hsig_jet4_phi->Integral());
   hsig_jet4_phi->Draw("Ehist");
   hbkg_jet4_phi->GetXaxis()->SetTitle("Jet 4 Phi");
   hbkg_jet4_phi->GetYaxis()->SetTitle("Entries");
+  hbkg_jet4_phi->Scale(1./hbkg_jet4_phi->Integral());
   hbkg_jet4_phi->Draw("Ehist,sames");
   hbkg_jet4_phi->SetLineColor(kRed);
   TCanvas *c_b_jets4_phi= new TCanvas("b-jets4_phi","b-jets4_phi",1000,1000);
   hsig_b_jet4_phi->GetXaxis()->SetTitle("bJet 4 Phi");
   hsig_b_jet4_phi->GetYaxis()->SetTitle("Entries");
+  hsig_b_jet4_phi->Scale(1./hsig_b_jet4_phi->Integral());
   hsig_b_jet4_phi->Draw("Ehist");
   hbkg_b_jet4_phi->GetXaxis()->SetTitle("bJet 4 Phi");
   hbkg_b_jet4_phi->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet4_phi->SetLineColor(kRed);
+  hbkg_b_jet4_phi->Scale(1./hbkg_b_jet4_phi->Integral());
   hbkg_b_jet4_phi->Draw("Ehist,sames");
-
-
-
   //mass
   TCanvas *c_jets_m= new TCanvas("jets_mass","jets_mass",1000,1000);
   hsig_jet1_m->GetXaxis()->SetTitle("Jet 1 Mass");
@@ -593,18 +630,22 @@ void plots(){
   TCanvas *c_MET = new TCanvas("MET","MET",1000,1000);
   hsig_met_pt->GetXaxis()->SetTitle("MET Transverse Momentum (GeV)");
   hsig_met_pt->GetYaxis()->SetTitle("Entries");
+  hsig_met_pt->Scale(1./hsig_met_pt->Integral());
   hsig_met_pt->Draw("Ehist");
   hbkg_met_pt->GetXaxis()->SetTitle("MET Transverse Momentum (GeV)");
   hbkg_met_pt->GetYaxis()->SetTitle("Entries");
+  hbkg_met_pt->Scale(1./hbkg_met_pt->Integral());
   hbkg_met_pt->Draw("Ehist,sames");
   hbkg_met_pt->SetLineColor(kRed);
   //Mt
   TCanvas *c_Mt = new TCanvas("MT","MT",1000,1000);
   hsig_mt->GetXaxis()->SetTitle("Transverse Mass (GeV)");
   hsig_mt->GetYaxis()->SetTitle("Entries");
+  hsig_mt->Scale(1./hsig_mt->Integral());
   hsig_mt->Draw("Ehist");
   hbkg_mt->GetXaxis()->SetTitle("Transverse Mass (GeV)");
   hbkg_mt->GetYaxis()->SetTitle("Entries");
+  hbkg_mt->Scale(1./hbkg_mt->Integral());
   hbkg_mt->Draw("Ehist,sames");
   hbkg_mt->SetLineColor(kRed);
 
@@ -613,12 +654,16 @@ void plots(){
   //d_phi W and H bosons 
   TCanvas *c_w_h = new TCanvas("w_h","w_h",1000,1000);
   hsig_d_phi_w_h->SetStats(11111);
+  hsig_d_phi_w_h->Scale(1./hsig_d_phi_w_h->Integral());
   hsig_d_phi_w_h->Draw("Ehist");
   hbkg_d_phi_w_h->SetLineColor(kRed);
+  hbkg_d_phi_w_h->Scale(1./hbkg_d_phi_w_h->Integral());
   hbkg_d_phi_w_h->Draw("Ehist,sames");
   TCanvas *c_w_b_h = new TCanvas("w_b_h","w_b_h",1000,1000);
+  hsig_d_phi_w_b_h->Scale(1./hsig_d_phi_w_b_h->Integral());
   hsig_d_phi_w_b_h->Draw("Ehist");
   hbkg_d_phi_w_b_h->SetLineColor(kRed);
+  hbkg_d_phi_w_b_h->Scale(1./hbkg_d_phi_w_b_h->Integral());
   hbkg_d_phi_w_b_h->Draw("Ehist,sames");
 
 
@@ -628,44 +673,54 @@ void plots(){
   //pt
   hsig_h_pt->GetXaxis()->SetTitle("Higgs Transverse Momentum (GeV)");
   hsig_h_pt->GetYaxis()->SetTitle("Entries");
+  hsig_h_pt->Scale(1./hsig_h_pt->Integral());
   hsig_h_pt->Draw("Ehist");
   hbkg_h_pt->GetXaxis()->SetTitle("Higgs Transverse Momentum (GeV)");
   hbkg_h_pt->GetYaxis()->SetTitle("Entries");
+  hbkg_h_pt->Scale(1./hbkg_h_pt->Integral());
   hbkg_h_pt->Draw("Ehist,sames");
   hbkg_h_pt->SetLineColor(kRed);
   //phi
   TCanvas *c_h_phi = new TCanvas("higgs_phi","higgs_phi",1000,1000);
   hsig_h_phi->GetXaxis()->SetTitle("Higgs phi");
   hsig_h_phi->GetYaxis()->SetTitle("Entries");
+  hsig_h_phi->Scale(1./hsig_h_phi->Integral());
   hsig_h_phi->Draw("Ehist");
   hbkg_h_phi->GetXaxis()->SetTitle("Higgs phi");
   hbkg_h_phi->GetYaxis()->SetTitle("Entries");
+  hbkg_h_phi->Scale(1./hbkg_h_phi->Integral());
   hbkg_h_phi->Draw("Ehist,sames");
   hbkg_h_phi->SetLineColor(kRed);
   //eta
   TCanvas *c_h_eta = new TCanvas("higgs_eta","higgs_eta",1000,1000);
   hsig_h_eta->GetXaxis()->SetTitle("Higgs pseudorapidity");
   hsig_h_eta->GetYaxis()->SetTitle("Entries");
+  hsig_h_eta->Scale(1./hsig_h_eta->Integral());
   hsig_h_eta->Draw("Ehist");
   hbkg_h_eta->GetXaxis()->SetTitle("Higgs pseudorapidity");
   hbkg_h_eta->GetYaxis()->SetTitle("Entries");
+  hbkg_h_eta->Scale(1./hbkg_h_eta->Integral());
   hbkg_h_eta->Draw("Ehist,sames");
   hbkg_h_eta->SetLineColor(kRed);
   //mass
   TCanvas *c_h_inv_mass = new TCanvas("higgs","higgs",1000,1000);
   hsig_inv_m->GetXaxis()->SetTitle("Higgs mass");
   hsig_inv_m->GetYaxis()->SetTitle("Entries");
+  hsig_inv_m->Scale(1./hsig_inv_m->Integral());
   hsig_inv_m->Draw("Ehist");
   hbkg_inv_m->GetXaxis()->SetTitle("Higgs mass");
   hbkg_inv_m->GetYaxis()->SetTitle("Entries");
+  hbkg_inv_m->Scale(1./hbkg_inv_m->Integral());
   hbkg_inv_m->Draw("Ehist,sames");
   hbkg_inv_m->SetLineColor(kRed);
   TCanvas *c_b_h_inv_mass = new TCanvas("b-higgs","b-higgs",1000,1000);
   hsig_b_inv_m->GetXaxis()->SetTitle("Higgs mass (after b-tag)");
   hsig_b_inv_m->GetYaxis()->SetTitle("Entries");
+  hsig_b_inv_m->Scale(1./hsig_b_inv_m->Integral());
   hsig_b_inv_m->Draw("Ehist");
   hbkg_b_inv_m->GetXaxis()->SetTitle("Higgs mass (after b-tag)");
   hbkg_b_inv_m->GetYaxis()->SetTitle("Entries");
+  hbkg_b_inv_m->Scale(1./hbkg_b_inv_m->Integral());
   hbkg_b_inv_m->Draw("Ehist,sames");
   hbkg_b_inv_m->SetLineColor(kRed);
 
@@ -678,36 +733,44 @@ void plots(){
   c_W->cd(1);
   hsig_w_pt->GetXaxis()->SetTitle("W Transverse Momentum (GeV)");
   hsig_w_pt->GetYaxis()->SetTitle("Entries");
+  hsig_w_pt->Scale(1./hsig_w_pt->Integral());
   hsig_w_pt->Draw("Ehist");
   hbkg_w_pt->GetXaxis()->SetTitle("W Transverse Momentum (GeV)");
   hbkg_w_pt->GetYaxis()->SetTitle("Entries");
+  hbkg_w_pt->Scale(1./hbkg_w_pt->Integral());
   hbkg_w_pt->Draw("Ehist,sames");
   hbkg_w_pt->SetLineColor(kRed);
   //eta
   c_W->cd(2);
   hsig_w_eta->GetXaxis()->SetTitle("W Pseudorapidity");
   hsig_w_eta->GetYaxis()->SetTitle("Entries");
+  hsig_w_eta->Scale(1./hsig_w_eta->Integral());
   hsig_w_eta->Draw("Ehist");
   hbkg_w_eta->GetXaxis()->SetTitle("W Pseudorapidity");
   hbkg_w_eta->GetYaxis()->SetTitle("Entries");
+  hbkg_w_eta->Scale(1./hbkg_w_eta->Integral());
   hbkg_w_eta->Draw("Ehist,sames");
   hbkg_w_eta->SetLineColor(kRed);
   //phi
   c_W->cd(3);
   hsig_w_phi->GetXaxis()->SetTitle("W phi (rad)");
   hsig_w_phi->GetYaxis()->SetTitle("Entries");
+  hsig_w_phi->Scale(1./hsig_w_phi->Integral());
   hsig_w_phi->Draw("Ehist");
   hbkg_w_phi->GetXaxis()->SetTitle("W phi (rad)");
   hbkg_w_phi->GetYaxis()->SetTitle("Entries");
+  hbkg_w_phi->Scale(1./hbkg_w_phi->Integral());
   hbkg_w_phi->Draw("Ehist,sames");
   hbkg_w_phi->SetLineColor(kRed);
   //mass
   c_W->cd(4);
   hsig_w_m->GetXaxis()->SetTitle("W mass (GeV)");
   hsig_w_m->GetYaxis()->SetTitle("Entries");
+  hsig_w_m->Scale(1./hsig_w_m->Integral());
   hsig_w_m->Draw("Ehist");
   hbkg_w_m->GetXaxis()->SetTitle("W mass (GeV)");
   hbkg_w_m->GetYaxis()->SetTitle("Entries");
+  hbkg_w_m->Scale(1./hbkg_w_m->Integral());
   hbkg_w_m->Draw("Ehistsames");
   hbkg_w_m->SetLineColor(kRed);
 
@@ -717,18 +780,22 @@ void plots(){
   TCanvas *c_jet_mult = new TCanvas ("jet_mult","jet_mult",1500,1500);
   hsig_jet_mult->GetXaxis()->SetTitle("jet multiplicity");
   hsig_jet_mult->GetYaxis()->SetTitle("Entries");
+  hsig_jet_mult->Scale(1./hsig_jet_mult->Integral());
   hsig_jet_mult->Draw("Ehist");
   hbkg_jet_mult->GetXaxis()->SetTitle("jet multiplicity");
   hbkg_jet_mult->GetYaxis()->SetTitle("Entries");
+  hbkg_jet_mult->Scale(1./hbkg_jet_mult->Integral());
   hbkg_jet_mult->Draw("Ehist,sames");
   hbkg_jet_mult->SetLineColor(kRed);
   TCanvas *c_b_jet_mult = new TCanvas ("b-jet_mult","b-jet_mult",1500,1500);
   hbkg_b_jet_mult->GetXaxis()->SetTitle("bjet multiplicity");
   hbkg_b_jet_mult->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet_mult->SetLineColor(kRed);
+  hbkg_b_jet_mult->Scale(1./hbkg_b_jet_mult->Integral());
   hbkg_b_jet_mult->Draw("Ehist");
   hsig_b_jet_mult->GetXaxis()->SetTitle("bjet multiplicity");
   hsig_b_jet_mult->GetYaxis()->SetTitle("Entries");
+  hsig_b_jet_mult->Scale(1./hsig_b_jet_mult->Integral());
   hsig_b_jet_mult->Draw("Ehist,sames");
 
 
@@ -738,40 +805,96 @@ void plots(){
   //muon-jet
   hbkg_dR_jet_muon->GetXaxis()->SetTitle("delta R between jets and muons");
   hbkg_dR_jet_muon->GetYaxis()->SetTitle("Entries");
+  hbkg_dR_jet_muon->Scale(1./hbkg_dR_jet_muon->Integral());
   hbkg_dR_jet_muon->Draw("Ehist");
   hbkg_dR_jet_muon->SetLineColor(kRed);
   hsig_dR_jet_muon->GetXaxis()->SetTitle("delta R between jets and muons");
   hsig_dR_jet_muon->GetYaxis()->SetTitle("Entries");
+  hsig_dR_jet_muon->Scale(1./hsig_dR_jet_muon->Integral());
   hsig_dR_jet_muon->Draw("Ehist,sames");
+  
+
   
   //electron-jet
   TCanvas *c_dR_en_jet = new TCanvas("dR_en_jet","dR_en_jet",1000,1000);
   hbkg_dR_jet_electron->GetXaxis()->SetTitle("delta R between jets and electrons");
   hbkg_dR_jet_electron->GetYaxis()->SetTitle("Entries");
+  hbkg_dR_jet_electron->Scale(1./hbkg_dR_jet_electron->Integral());
   hbkg_dR_jet_electron->Draw("Ehist");
   hbkg_dR_jet_electron->SetLineColor(kRed);
   hsig_dR_jet_electron->GetXaxis()->SetTitle("delta R between jets and electrons");
   hsig_dR_jet_electron->GetYaxis()->SetTitle("Entries");
+  hsig_dR_jet_electron->Scale(1./hsig_dR_jet_electron->Integral());
   hsig_dR_jet_electron->Draw("Ehist,sames");
   
+
+
   //delta R after cross-cleaning
   //muon-jet
   TCanvas *c_dR_mn_jet_after = new TCanvas("dR_mn_jet_after","dR_mn_jet_after",1000,1000);
   hbkg_dR_jet_muon_after->GetXaxis()->SetTitle("delta R between jets and muons after cross cleaning");
   hbkg_dR_jet_muon_after->GetYaxis()->SetTitle("Entries");
   hbkg_dR_jet_muon_after->SetLineColor(kRed);
+  hbkg_dR_jet_muon_after->Scale(1./hbkg_dR_jet_muon_after->Integral());
   hbkg_dR_jet_muon_after->Draw("Ehist");
   hsig_dR_jet_muon_after->GetXaxis()->SetTitle("delta R between jets and muons after cross cleaning");
   hsig_dR_jet_muon_after->GetYaxis()->SetTitle("Entries");
+  hsig_dR_jet_muon_after->Scale(1./hsig_dR_jet_muon_after->Integral());
   hsig_dR_jet_muon_after->Draw("Ehist,sames");
   
+
+
   //electron-jet
   TCanvas *c_dR_en_jet_after = new TCanvas("dR_en_jet_after","dR_en_jet_after",1000,1000);
   hbkg_dR_jet_electron_after->GetXaxis()->SetTitle("delta R between jets and electrons after cross cleaning");
   hbkg_dR_jet_electron_after->GetYaxis()->SetTitle("Entries");
   hbkg_dR_jet_electron_after->SetLineColor(kRed);
+  hbkg_dR_jet_electron_after->Scale(1./hbkg_dR_jet_electron_after->Integral());
   hbkg_dR_jet_electron_after->Draw("Ehist");
   hsig_dR_jet_electron_after->GetXaxis()->SetTitle("delta R between jets and electrons after cross cleaning");
   hsig_dR_jet_electron_after->GetYaxis()->SetTitle("Entries");
+  hsig_dR_jet_electron_after->Scale(1./hsig_dR_jet_electron_after->Integral());
   hsig_dR_jet_electron_after->Draw("Ehist,sames");
+
+
+
+  //dR_av
+  TCanvas *c_dR_av = new TCanvas("dR_av","dR_av",1000,1000);
+  hbkg_dR_av->GetXaxis()->SetTitle("Distance in the eta-phi plane between any b-tag pair, averaged over all possible combinations per event");
+  hbkg_dR_av->GetYaxis()->SetTitle("Entries");
+  hbkg_dR_av->SetLineColor(kRed);
+  hbkg_dR_av->Scale(1./hbkg_dR_av->Integral());
+  hbkg_dR_av->Draw("Ehist");
+  hsig_dR_av->GetXaxis()->SetTitle("Distance in the eta-phi plane between any b-tag pair, averaged over all possible combinations per event");
+  hsig_dR_av->GetYaxis()->SetTitle("Entries");
+  hsig_dR_av->Scale(1./hsig_dR_av->Integral());
+  hsig_dR_av->Draw("Ehist,sames");
+
+
+
+  //minDelta_m
+  TCanvas *c_minDelta_m = new TCanvas("minDelta_m","minDelta_m",1000,1000);
+  hbkg_minDelta_m->GetXaxis()->SetTitle("The minimum difference in m(b1b2) - m(b3b4) among the possible pairing scenarios");
+  hbkg_minDelta_m->GetYaxis()->SetTitle("Entries");
+  hbkg_minDelta_m->SetLineColor(kRed);
+  hbkg_minDelta_m->Scale(1./hbkg_minDelta_m->Integral());
+  hbkg_minDelta_m->Draw("Ehist");
+  hsig_minDelta_m->GetXaxis()->SetTitle("The minimum difference in m(b1b2) - m(b3b4) among the possible pairing scenarios");
+  hsig_minDelta_m->GetYaxis()->SetTitle("Entries");
+  hsig_minDelta_m->Scale(1./hsig_minDelta_m->Integral());
+  hsig_minDelta_m->Draw("Ehist,sames");
+
+
+
+  //delta_phi
+  TCanvas *c_delta_phi = new TCanvas("delta_phi","delta_phi",1000,1000);
+  hbkg_delta_phi->GetXaxis()->SetTitle("Minimum azimuthal opening angle");
+  hbkg_delta_phi->GetYaxis()->SetTitle("Entries");
+  hbkg_delta_phi->SetLineColor(kRed);
+  hbkg_delta_phi->Scale(1./hbkg_delta_phi->Integral());
+  hbkg_delta_phi->Draw("Ehist");
+  hsig_delta_phi->GetXaxis()->SetTitle("Minimum azimuthal opening angle");
+  hsig_delta_phi->GetYaxis()->SetTitle("Entries");
+  hsig_delta_phi->Scale(1./hsig_delta_phi->Integral());
+  hsig_delta_phi->Draw("Ehist,sames");
 }
