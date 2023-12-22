@@ -42,11 +42,19 @@ if (fChain == 0) return;
 
 
 
+
   //N_expected calculations
   float sigma_signal=1.37;
   float sigma_back=365.34;
-  float L_integrated=41.5*10**(3);
+  float L_integrated=41.5*pow(10.,3.);
+  float N_expected_signal=sigma_signal*L_integrated;
+  float N_expected_back=sigma_back*L_integrated;
+  float w_signal=nentries/N_expected_signal;
+  float w_back=nentries/N_expected_back;
+  std::cout << " Signal weight = " << w_signal << std::endl;
+  std::cout << " Backround weight = " << w_back << std::endl;
   
+
 
   //muon 
   TH1F *h_mn_pt = new TH1F("h_mn_pt","muon pt distribution",100,0.,500.);
@@ -55,6 +63,7 @@ if (fChain == 0) return;
 
 
   TH2F *h_mn_pt_eta = new TH2F("h_mn_pt_eta","muon pt-eta distribution",100,0.,500.,100,-3.,3.);
+  TH2F *h_mn_phi_eta = new TH2F("h_mn_phi_eta","muon phi-eta distribution",100,0.,500.,100,-3.,3.);
 
 
   TH2F *h_mn_en_phi = new TH2F("h_mn_en_phi","electron-muon phi ditribution",100,-5.,5.,100,-5.,5.);
@@ -119,6 +128,7 @@ if (fChain == 0) return;
 
 
   TH1F *h_h_pt = new TH1F("h_h_pt","h_pt distribution",100,0.,500.);
+  TH1F *h_b_h_pt = new TH1F("h_b_h_pt","h_b_pt distribution",100,0.,500.);
   TH1F *h_h_phi = new TH1F("h_h_phi","h_phi distribution",100,-5.,5.);
   TH1F *h_h_eta = new TH1F("h_h_eta","h_eta distribution",100,-5.,5.);
   TH1F *h_inv_m = new TH1F("h_inv_m","invariant mass",200,0,1000);
@@ -154,6 +164,9 @@ if (fChain == 0) return;
 
 
   TH1F *h_delta_phi = new TH1F("h_delta_phi","Minimum azimuthal opening angle",100,0.,M_PI);
+
+
+  TH1F *h_Nbjets_after = new TH1F("h_Nbjets_after","Number of jets after the cuts",10,0.,10.);
 
 
 
@@ -242,6 +255,7 @@ if (Nleptons == 0) continue;
     
 
 
+
 for (int i=0; i<Nmuons; i++) vec_leptons.push_back(vec_muons[i]);
 for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
 
@@ -259,6 +273,7 @@ for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
   h_mn_phi->Fill(mn_phi);
   h_mn_pt_eta->Fill(mn_pt,mn_eta);
   h_met_mn_pt->Fill(met_pt,mn_pt);
+  h_mn_phi_eta->Fill(mn_phi,mn_eta);
   
 
 
@@ -274,18 +289,20 @@ for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
   h_en_pt_eta->Fill(en_pt,en_eta);
   h_met_en_pt->Fill(met_pt,en_pt);
   h_mn_en_phi->Fill(mn_phi,en_phi);
+  
+  
 
 
 
   //Cross cleaning
   vector<TLorentzVector> jet_vec;
+  vector<TLorentzVector> jet_vec_after;
   vector<TLorentzVector> Njet_vec;
   vector<TLorentzVector> bjet_vec;
 for (Int_t ijet= 0; ijet < jet; ijet++)
 {
   TLorentzVector pjet;
   pjet.SetPxPyPzE(jet_px[ijet],jet_py[ijet],jet_pz[ijet],jet_en[ijet]);
-  Njet_vec.push_back(pjet);
   
 
 
@@ -326,10 +343,6 @@ for (int ijet_after = 0; ijet_after <jet_mult; ijet_after++)
 
 
 
-  int Njets=Njet_vec.size();
-
-
-
   // Require at least 3 jets
 if(jet_mult<3) continue;
   count_N2++;
@@ -344,7 +357,9 @@ if(jet_mult<3) continue;
 
 if (bjet_mult<3) continue;
   count_N3++;
-
+  //int Nbjets;
+  //Nbjets=bjet_vec.size();
+  h_Nbjets_after->Fill(bjet_mult);
 
 
   //jets pt & pseudorapidity  
@@ -476,6 +491,7 @@ if (d_phi>M_PI){
   float h_b_pt=h_b_p.Pt();
   float h_b_eta=h_b_p.Eta();
   h_b_inv_m->Fill(h_b_m);
+  h_b_h_pt->Fill(h_b_pt);
 
 
 
@@ -530,7 +546,7 @@ if (bjet_mult>3){
   double dR_23 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[2],bjet_vec[3]);
   double dR_av = (dR_01 + dR_02 + dR_12 + dR_23 + dR_03 + dR_13) / 6.;
   h_dR_av->Fill(dR_av);
-}
+
 
 
   //Delta{m_{b,b}}_min
@@ -539,7 +555,7 @@ if (bjet_mult>3){
   float m3 = std::abs((bjet_vec[0].M() + bjet_vec[3].M()) - (bjet_vec[1].M() + bjet_vec[2].M()));
   float minDm = TMath::Min(m3,TMath::Min(m1,m2));
   h_minDelta_m->Fill(minDm);
-
+}
 
 
   //Delta_phi
@@ -614,6 +630,7 @@ if (ientry < 0) break;
   h_d_phi_w_h->Write();
   h_d_phi_w_b_h->Write();
   h_h_pt->Write();
+  h_b_h_pt->Write();
   h_h_phi->Write();
   h_h_eta->Write();
   h_inv_m->Write();
@@ -635,5 +652,7 @@ if (ientry < 0) break;
   h_dR_av->Write();
   h_minDelta_m->Write();
   h_delta_phi->Write();
+  h_Nbjets_after->Write();
+  h_mn_phi_eta->Write();
   f.Close();
 }
