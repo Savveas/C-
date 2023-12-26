@@ -193,7 +193,10 @@ for (Long64_t jentry=0; jentry<nentries;jentry++) {
   vector<TLorentzVector> vec_leptons;
 
 
-
+  float mn_px_after[5];
+  float mn_py_after[5];
+  float mn_pz_after[5];
+  float mn_en_after[5];
 for (int i=0; i<mn; i++) {
 
 
@@ -203,7 +206,7 @@ for (int i=0; i<mn; i++) {
 	
 
 
-	// pt/eta cuts (detector acceptance cuts: pT>20 GeV and |eta|<2.4
+	// pt/eta cuts (detector acceptance cuts: pT>20 GeV and |eta|<2.4)
 if (p_muon.Pt()<20. || fabs(p_muon.Eta())>2.4) continue;
 	// Require muon to pass good Identification and Isolation:
 if ( !(mn_passId[i]) || !(mn_passIso[i]) ) continue; 
@@ -213,7 +216,10 @@ if ( !(mn_passId[i]) || !(mn_passIso[i]) ) continue;
 	// store muons in new vector:
 	vec_leptons.push_back(p_muon);
   vec_muons.push_back(p_muon);
-
+  mn_px_after[i]=p_muon.Px();
+  mn_py_after[i]=p_muon.Py();
+  mn_pz_after[i]=p_muon.Pz();
+  mn_en_after[i]=p_muon.E();
 
 
 }
@@ -221,7 +227,10 @@ if ( !(mn_passId[i]) || !(mn_passIso[i]) ) continue;
   int Nmuons=vec_muons.size(); // Muon multiplicity
   
 
-
+  float en_px_after[5];
+  float en_py_after[5];
+  float en_pz_after[5];
+  float en_en_after[5];
 for (int i=0; i<en; i++) {
 
 
@@ -231,7 +240,7 @@ for (int i=0; i<en; i++) {
 	
 
 
-	// pt/eta cuts (detector acceptance cuts: pT>20 GeV and |eta|<2.4
+	// pt/eta cuts (detector acceptance cuts: pT>20 GeV and |eta|<2.4)
 if (p_electron.Pt()<20. || fabs(p_electron.Eta())>2.4) continue;
 	// Require electron to pass good Identification and Isolation:
 if ( !(en_passId[i]) || !(en_passIso[i]) ) continue; 
@@ -241,6 +250,10 @@ if ( !(en_passId[i]) || !(en_passIso[i]) ) continue;
 	// store muons in new vector:
 	vec_leptons.push_back(p_electron);
   vec_electrons.push_back(p_electron);
+  en_px_after[i]=p_electron.Px();
+  en_py_after[i]=p_electron.Py();
+  en_pz_after[i]=p_electron.Pz();
+  en_en_after[i]=p_electron.E();
 }
 
 
@@ -263,7 +276,7 @@ for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
 
   //muon
   TLorentzVector mn_p;
-  mn_p.SetPxPyPzE(mn_px[0],mn_py[0],mn_pz[0],mn_en[0]);
+  mn_p.SetPxPyPzE(mn_px_after[0],mn_py_after[0],mn_pz_after[0],mn_en_after[0]);
   double mn_eta=mn_p.Eta();
   double mn_phi=mn_p.Phi();
   double mn_pt=mn_p.Pt();
@@ -279,7 +292,7 @@ for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
 
   //electron
   TLorentzVector en_p;
-  en_p.SetPxPyPzE(en_px[0],en_py[0],en_pz[0],en_en[0]);
+  en_p.SetPxPyPzE(en_px_after[0],en_py_after[0],en_pz_after[0],en_en_after[0]);
   double en_eta=en_p.Eta();
   double en_phi=en_p.Phi();
   double en_pt=en_p.Pt();
@@ -472,7 +485,9 @@ if (d_phi>M_PI){
   double lep_phi=p_lepton.Phi();
   double lep_m=p_lepton.M();
   MT=sqrt(2*lep_pt*met_pt*(1-cos(d_phi)));
+if (MT>30){
   h_mt->Fill(MT);
+}
   h_lep_pt->Fill(lep_pt);
   h_lep_phi->Fill(lep_phi);
   h_lep_m->Fill(lep_m);
@@ -496,7 +511,9 @@ if (d_phi>M_PI){
 
 
   //MET
+if (met_pt>25){
   h_met_pt->Fill(met_pt);
+} 
 
 
 
