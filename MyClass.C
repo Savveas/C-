@@ -7,6 +7,21 @@
 
 
 
+// define structure with TLorentzVector, btag values
+  struct btagsort {
+  TLorentzVector vec;
+  float btag1;
+};
+
+
+
+  bool compare_btag(const btagsort& x, const btagsort& y)
+  {
+  return x.btag1 < y.btag1;
+  }
+
+
+
 void MyClass::Loop()
 {
 //   In a ROOT session, you can do:
@@ -37,8 +52,8 @@ if (fChain == 0) return;
 
 
   Long64_t nentries = fChain->GetEntriesFast();
-  //TFile f("histos_signal.root","recreate");
-  TFile f("histos_back.root","recreate");
+  TFile f("histos_signal.root","recreate");
+  //TFile f("histos_back.root","recreate");
 
 
 
@@ -51,8 +66,8 @@ if (fChain == 0) return;
   float N_expected_back=sigma_back*L_integrated;
   float w_signal=nentries/N_expected_signal;
   float w_back=nentries/N_expected_back;
-  std::cout << " Signal weight = " << w_signal << std::endl;
-  std::cout << " Backround weight = " << w_back << std::endl;
+  //std::cout << " Signal weight = " << w_signal << std::endl;
+  //std::cout << " Backround weight = " << w_back << std::endl;
   
 
 
@@ -186,17 +201,12 @@ for (Long64_t jentry=0; jentry<nentries;jentry++) {
   Long64_t ientry = LoadTree(jentry);
 
 
-
   // Require at least 1 lepton
   vector<TLorentzVector> vec_muons;
   vector<TLorentzVector> vec_electrons;
   vector<TLorentzVector> vec_leptons;
 
 
-  float mn_px_after[5];
-  float mn_py_after[5];
-  float mn_pz_after[5];
-  float mn_en_after[5];
 for (int i=0; i<mn; i++) {
 
 
@@ -216,21 +226,13 @@ if ( !(mn_passId[i]) || !(mn_passIso[i]) ) continue;
 	// store muons in new vector:
 	vec_leptons.push_back(p_muon);
   vec_muons.push_back(p_muon);
-  mn_px_after[i]=p_muon.Px();
-  mn_py_after[i]=p_muon.Py();
-  mn_pz_after[i]=p_muon.Pz();
-  mn_en_after[i]=p_muon.E();
-
+ 
 
 }
 
   int Nmuons=vec_muons.size(); // Muon multiplicity
   
 
-  float en_px_after[5];
-  float en_py_after[5];
-  float en_pz_after[5];
-  float en_en_after[5];
 for (int i=0; i<en; i++) {
 
 
@@ -250,12 +252,8 @@ if ( !(en_passId[i]) || !(en_passIso[i]) ) continue;
 	// store muons in new vector:
 	vec_leptons.push_back(p_electron);
   vec_electrons.push_back(p_electron);
-  en_px_after[i]=p_electron.Px();
-  en_py_after[i]=p_electron.Py();
-  en_pz_after[i]=p_electron.Pz();
-  en_en_after[i]=p_electron.E();
+ 
 }
-
 
 
   int Nelectrons=vec_electrons.size(); // Electron multiplicity
@@ -267,32 +265,28 @@ if (Nleptons == 0) continue;
  count_N1++;
     
 
-
-
-for (int i=0; i<Nmuons; i++) vec_leptons.push_back(vec_muons[i]);
-for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
-
-
-
-  //muon
   TLorentzVector mn_p;
-  mn_p.SetPxPyPzE(mn_px_after[0],mn_py_after[0],mn_pz_after[0],mn_en_after[0]);
+  //muon
+if(Nmuons>=1) {
+  mn_p.SetPxPyPzE(vec_muons[0].Px(),vec_muons[0].Py(),vec_muons[0].Pz(),vec_muons[0].E());
   double mn_eta=mn_p.Eta();
   double mn_phi=mn_p.Phi();
   double mn_pt=mn_p.Pt();
-  float d_phi = std::abs(mn_phi-met_phi);
   h_mn_eta->Fill(mn_eta);
   h_mn_pt->Fill(mn_pt);
   h_mn_phi->Fill(mn_phi);
   h_mn_pt_eta->Fill(mn_pt,mn_eta);
   h_met_mn_pt->Fill(met_pt,mn_pt);
   h_mn_phi_eta->Fill(mn_phi,mn_eta);
-  
+}
 
 
-  //electron
+
+
   TLorentzVector en_p;
-  en_p.SetPxPyPzE(en_px_after[0],en_py_after[0],en_pz_after[0],en_en_after[0]);
+if(Nelectrons>=1) {
+  //electron
+  en_p.SetPxPyPzE(vec_electrons[0].Px(),vec_electrons[0].Py(),vec_electrons[0].Pz(),vec_electrons[0].E());
   double en_eta=en_p.Eta();
   double en_phi=en_p.Phi();
   double en_pt=en_p.Pt();
@@ -301,10 +295,9 @@ for (int i=0; i<Nelectrons; i++) vec_leptons.push_back(vec_electrons[i]);
   h_en_phi->Fill(en_phi);
   h_en_pt_eta->Fill(en_pt,en_eta);
   h_met_en_pt->Fill(met_pt,en_pt);
-  h_mn_en_phi->Fill(mn_phi,en_phi);
+  //h_mn_en_phi->Fill(mn_phi,en_phi);
   
-  
-
+}
 
 
   //Cross cleaning
@@ -317,7 +310,6 @@ for (Int_t ijet= 0; ijet < jet; ijet++)
   TLorentzVector pjet;
   pjet.SetPxPyPzE(jet_px[ijet],jet_py[ijet],jet_pz[ijet],jet_en[ijet]);
   
-
 
   //check muon jet overlap
   bool overlap(false);
@@ -335,11 +327,20 @@ if (overlap)
 }
   jet_vec.push_back(pjet);
 
-  
 
   //b-jet indetification
   if (jet_btag1[ijet]>0.4941) bjet_vec.push_back(pjet);  
 }  
+  vector<btagsort> vec_struct_bjet;
+  btagsort dummy_btagsort;
+for (int ibjet = 0 ; ibjet < bjet_vec.size(); ibjet++){
+  dummy_btagsort.vec = bjet_vec[ibjet];
+  dummy_btagsort.btag1 = jet_btag1[ibjet];
+  vec_struct_bjet.push_back(dummy_btagsort);
+}
+  sort(vec_struct_bjet.begin(), vec_struct_bjet.end(), compare_btag);
+
+
   //dR after cross cleaning
   TLorentzVector p_jet_after;
   int jet_mult;
@@ -353,7 +354,6 @@ for (int ijet_after = 0; ijet_after <jet_mult; ijet_after++)
   h_dR_jet_muon_after->Fill(dR_mn_jet_after);
   h_dR_jet_electron_after->Fill(dR_en_jet_after);
 }
-
 
 
   // Require at least 3 jets
@@ -372,7 +372,29 @@ if (bjet_mult<3) continue;
   count_N3++;
   //int Nbjets;
   //Nbjets=bjet_vec.size();
+  
+  //Transverse Mass (MT)
+  TLorentzVector p_lepton;
+  p_lepton.SetPtEtaPhiE(vec_leptons[0].Pt(),vec_leptons[0].Eta(),vec_leptons[0].Phi(),vec_leptons[0].E());
+  float d_phi = std::abs(vec_leptons[0].Phi()-met_phi);
+  if (d_phi>M_PI){
+	d_phi=d_phi-(2*M_PI);
+}
+  Double_t MT;
+  double lep_eta=p_lepton.Eta();
+  double lep_pt=p_lepton.Pt();
+  double lep_phi=p_lepton.Phi();
+  double lep_m=p_lepton.M();
+  MT=sqrt(2*lep_pt*met_pt*(1-cos(d_phi)));
+if (MT<25 || met_pt<30)continue;
+  count_N4++;
+  h_mt->Fill(MT);
+  h_lep_pt->Fill(lep_pt);
+  h_lep_phi->Fill(lep_phi);
+  h_lep_m->Fill(lep_m);
+  h_lep_eta->Fill(lep_eta);
   h_Nbjets_after->Fill(bjet_mult);
+
 
 
   //jets pt & pseudorapidity  
@@ -413,7 +435,7 @@ if(jet_mult>3){
 
 
 
-if(bjet_mult<3) continue;
+//if(bjet_mult<3) continue;
   
 
 
@@ -472,29 +494,6 @@ if (bjet_mult>3)
 
 
 
-  for(int j=0; j<Nleptons; j++){
-  //Transverse Mass (MT)
-  TLorentzVector p_lepton;
-  p_lepton.SetPtEtaPhiE(vec_leptons[j].Pt(),vec_leptons[j].Eta(),vec_leptons[j].Phi(),vec_leptons[j].E());
-if (d_phi>M_PI){
-	d_phi=d_phi-(2*M_PI);
-}
-  Double_t MT;
-  double lep_eta=p_lepton.Eta();
-  double lep_pt=p_lepton.Pt();
-  double lep_phi=p_lepton.Phi();
-  double lep_m=p_lepton.M();
-  MT=sqrt(2*lep_pt*met_pt*(1-cos(d_phi)));
-if (MT>30){
-  h_mt->Fill(MT);
-}
-  h_lep_pt->Fill(lep_pt);
-  h_lep_phi->Fill(lep_phi);
-  h_lep_m->Fill(lep_m);
-  h_lep_eta->Fill(lep_eta);
-}
-
-
 
   float h_m=h_p.M();
   float h_phi=h_p.Phi();
@@ -511,16 +510,14 @@ if (MT>30){
 
 
   //MET
-if (met_pt>25){
   h_met_pt->Fill(met_pt);
-} 
 
 
 
   //W boson
   TLorentzVector met_p;
   met_p.SetPtEtaPhiE(met_pt,0,met_phi,0);
-  TLorentzVector w_p=met_p+mn_p;
+  TLorentzVector w_p=met_p+vec_leptons[0];
   float w_pt=w_p.Pt();
   float w_phi=w_p.Phi();
   float w_eta=w_p.Eta();
@@ -529,7 +526,6 @@ if (met_pt>25){
   h_w_eta->Fill(w_eta);
   h_w_phi->Fill(w_phi);
   h_w_m->Fill(w_m);
-
 
 
   //D_phi
@@ -596,6 +592,7 @@ if (ientry < 0) break;
   std::cout << " Nevents at step 1 (at least 1 lepton) = " << count_N1 << " and eff_1 = " << (float)count_N1/(float)nentries << std::endl;
   std::cout << " Nevents at step 2 (at least 3 jets) = " << count_N2 << " and eff_2 =" << (float)count_N2/(float)count_N1 << std::endl;
   std::cout << " Nevents at step 3 (at least 3 b-jets) = " << count_N3 << " and eff_3 = " << (float)count_N3/(float)count_N1 << std::endl;
+  std::cout << " Nevents at step 4 (MT > 25 and MET >30) = " << count_N4 << " and eff_4 = " << (float)count_N4/(float)count_N1 << std::endl;
 
 
 
