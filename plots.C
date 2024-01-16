@@ -202,6 +202,18 @@ void plots(){
   TH1F *hbkg_Nbjets_after=(TH1F*)inputfile_back->Get("h_Nbjets_after");
 
 
+  TH1F *hsig_btag_0=(TH1F*)inputfile->Get("h_btag_0");
+  TH1F *hbkg_btag_0=(TH1F*)inputfile_back->Get("h_btag_0");
+
+  TH1F *hsig_btag_1=(TH1F*)inputfile->Get("h_btag_1");
+  TH1F *hbkg_btag_1=(TH1F*)inputfile_back->Get("h_btag_1");
+
+  TH1F *hsig_btag_2=(TH1F*)inputfile->Get("h_btag_2");
+  TH1F *hbkg_btag_2=(TH1F*)inputfile_back->Get("h_btag_2");
+
+  TH1F *hsig_btag_3=(TH1F*)inputfile->Get("h_btag_3");
+  TH1F *hbkg_btag_3=(TH1F*)inputfile_back->Get("h_btag_3");
+
 
   //muons
   //pt
@@ -925,4 +937,47 @@ void plots(){
   hsig_Nbjets_after->GetYaxis()->SetTitle("Entries");
   hsig_Nbjets_after->Scale(1./hsig_Nbjets_after->Integral());
   hsig_Nbjets_after->Draw("Ehist,sames");
+
+
+  //bjet1
+  TCanvas *c_btag0 = new TCanvas("btag0","btag0",1000,1000);
+  hbkg_btag_0->GetXaxis()->SetTitle("btag0");
+  hbkg_btag_0->GetYaxis()->SetTitle("Entries");
+  hbkg_btag_0->SetLineColor(kRed);
+  hbkg_btag_0->Scale(1./hbkg_btag_0->Integral());
+  hbkg_btag_0->Draw("Ehist");
+  hsig_btag_0->GetXaxis()->SetTitle("btag0");
+  hsig_btag_0->GetYaxis()->SetTitle("Entries");
+  hsig_btag_0->Scale(1./hsig_btag_0->Integral());
+  hsig_btag_0->Draw("Ehist,sames");
+  TCanvas *c_btag1 = new TCanvas("btag1","btag1",1000,1000);
+  hbkg_btag_1->GetXaxis()->SetTitle("btag1");
+  hbkg_btag_1->GetYaxis()->SetTitle("Entries");
+  hbkg_btag_1->SetLineColor(kRed);
+  hbkg_btag_1->Scale(1./hbkg_btag_1->Integral());
+  hbkg_btag_1->Draw("Ehist");
+  hsig_btag_1->GetXaxis()->SetTitle("btag1");
+  hsig_btag_1->GetYaxis()->SetTitle("Entries");
+  hsig_btag_1->Scale(1./hsig_btag_1->Integral());
+  hsig_btag_1->Draw("Ehist,sames");
+  TCanvas *c_btag2 = new TCanvas("btag2","btag2",1000,1000);
+  hbkg_btag_2->GetXaxis()->SetTitle("btag2");
+  hbkg_btag_2->GetYaxis()->SetTitle("Entries");
+  hbkg_btag_2->SetLineColor(kRed);
+  hbkg_btag_2->Scale(1./hbkg_btag_2->Integral());
+  hbkg_btag_2->Draw("Ehist");
+  hsig_btag_2->GetXaxis()->SetTitle("btag2");
+  hsig_btag_2->GetYaxis()->SetTitle("Entries");
+  hsig_btag_2->Scale(1./hsig_btag_2->Integral());
+  hsig_btag_2->Draw("Ehist,sames");
+  TCanvas *c_btag3 = new TCanvas("btag3","btag3",1000,1000);
+  hbkg_btag_3->GetXaxis()->SetTitle("btag3");
+  hbkg_btag_3->GetYaxis()->SetTitle("Entries");
+  hbkg_btag_3->SetLineColor(kRed);
+  hbkg_btag_3->Scale(1./hbkg_btag_3->Integral());
+  hbkg_btag_3->Draw("Ehist");
+  hsig_btag_3->GetXaxis()->SetTitle("btag3");
+  hsig_btag_3->GetYaxis()->SetTitle("Entries");
+  hsig_btag_3->Scale(1./hsig_btag_3->Integral());
+  hsig_btag_3->Draw("Ehist,sames");
 }

@@ -12,12 +12,9 @@
   TLorentzVector vec;
   float btag1;
 };
-
-
-
   bool compare_btag(const btagsort& x, const btagsort& y)
   {
-  return x.btag1 < y.btag1;
+  return x.btag1 > y.btag1;
   }
 
 
@@ -57,17 +54,32 @@ if (fChain == 0) return;
 
 
 
-
   //N_expected calculations
   float sigma_signal=1.37;
   float sigma_back=365.34;
   float L_integrated=41.5*pow(10.,3.);
+
+
   float N_expected_signal=sigma_signal*L_integrated;
   float N_expected_back=sigma_back*L_integrated;
-  float w_signal=nentries/N_expected_signal;
-  float w_back=nentries/N_expected_back;
-  //std::cout << " Signal weight = " << w_signal << std::endl;
-  //std::cout << " Backround weight = " << w_back << std::endl;
+
+
+  float w_signal=N_expected_signal/nentries;
+  float w_back=N_expected_back/nentries;
+  
+
+
+  float w;
+if (std::string(f.GetName()) == "histos_signal.root") {
+  w = w_signal;
+  std::cout << " Signal weight = " << w_signal << std::endl;
+} else if (std::string(f.GetName()) == "histos_back.root") {
+  w = w_back;
+  std::cout << " Backround weight = " << w_back << std::endl;
+} else {
+  // Default case if the file name doesn't match either
+  w = 1.0;  // Set a default value
+}
   
 
 
@@ -184,6 +196,11 @@ if (fChain == 0) return;
   TH1F *h_Nbjets_after = new TH1F("h_Nbjets_after","Number of jets after the cuts",10,0.,10.);
 
 
+  TH1F *h_btag_0 = new TH1F("h_btag_0","b_tag_0 discriminator",20,0.,1.);
+  TH1F *h_btag_1 = new TH1F("h_btag_1","b_tag_1 discriminator",20,0.,1.);
+  TH1F *h_btag_2 = new TH1F("h_btag_2","b_tag_2 discriminator",20,0.,1.);
+  TH1F *h_btag_3 = new TH1F("h_btag_3","b_tag_3 discriminator",20,0.,1.);
+
 
   Long64_t nbytes = 0, nb = 0;
 
@@ -272,12 +289,12 @@ if(Nmuons>=1) {
   double mn_eta=mn_p.Eta();
   double mn_phi=mn_p.Phi();
   double mn_pt=mn_p.Pt();
-  h_mn_eta->Fill(mn_eta);
-  h_mn_pt->Fill(mn_pt);
-  h_mn_phi->Fill(mn_phi);
-  h_mn_pt_eta->Fill(mn_pt,mn_eta);
-  h_met_mn_pt->Fill(met_pt,mn_pt);
-  h_mn_phi_eta->Fill(mn_phi,mn_eta);
+  h_mn_eta->Fill(mn_eta,w);
+  h_mn_pt->Fill(mn_pt,w);
+  h_mn_phi->Fill(mn_phi,w);
+  h_mn_pt_eta->Fill(mn_pt,mn_eta,w);
+  h_met_mn_pt->Fill(met_pt,mn_pt,w);
+  h_mn_phi_eta->Fill(mn_phi,mn_eta,w);
 }
 
 
@@ -290,12 +307,12 @@ if(Nelectrons>=1) {
   double en_eta=en_p.Eta();
   double en_phi=en_p.Phi();
   double en_pt=en_p.Pt();
-  h_en_eta->Fill(en_eta);
-  h_en_pt->Fill(en_pt);
-  h_en_phi->Fill(en_phi);
-  h_en_pt_eta->Fill(en_pt,en_eta);
-  h_met_en_pt->Fill(met_pt,en_pt);
-  //h_mn_en_phi->Fill(mn_phi,en_phi);
+  h_en_eta->Fill(en_eta,w);
+  h_en_pt->Fill(en_pt,w);
+  h_en_phi->Fill(en_phi,w);
+  h_en_pt_eta->Fill(en_pt,en_eta,w);
+  h_met_en_pt->Fill(met_pt,en_pt,w);
+  //h_mn_en_phi->Fill(mn_phi,en_phi,w);
   
 }
 
@@ -305,6 +322,7 @@ if(Nelectrons>=1) {
   vector<TLorentzVector> jet_vec_after;
   vector<TLorentzVector> Njet_vec;
   vector<TLorentzVector> bjet_vec;
+  vector<float> btag(0);
 for (Int_t ijet= 0; ijet < jet; ijet++)
 {
   TLorentzVector pjet;
@@ -315,8 +333,8 @@ for (Int_t ijet= 0; ijet < jet; ijet++)
   bool overlap(false);
   double dR_jet_muon=ROOT::Math::VectorUtil::DeltaR(pjet,mn_p);
   double dR_jet_electron=ROOT::Math::VectorUtil::DeltaR(pjet,en_p);
-  h_dR_jet_muon->Fill(dR_jet_muon);
-  h_dR_jet_electron->Fill(dR_jet_electron);
+  h_dR_jet_muon->Fill(dR_jet_muon,w);
+  h_dR_jet_electron->Fill(dR_jet_electron,w);
 if (dR_jet_muon < 0.4 || dR_jet_electron < 0.4)
 {
   overlap = true;
@@ -326,34 +344,60 @@ if (overlap)
   continue;
 }
   jet_vec.push_back(pjet);
+  btag.push_back(jet_btag1[ijet]);
+  
 
 
   //b-jet indetification
   if (jet_btag1[ijet]>0.4941) bjet_vec.push_back(pjet);  
 }  
+  //cout<<" savvas "<< btag.size()<< " savvas  "<< jet_vec.size()<<endl;
+  //std::cout << " before sorting " << bjet_vec[ijet] << std::endl;
   vector<btagsort> vec_struct_bjet;
   btagsort dummy_btagsort;
-for (int ibjet = 0 ; ibjet < bjet_vec.size(); ibjet++){
-  dummy_btagsort.vec = bjet_vec[ibjet];
-  dummy_btagsort.btag1 = jet_btag1[ibjet];
+for (int ijet = 0 ; ijet < btag.size(); ijet++){
+  dummy_btagsort.vec = jet_vec[ijet];
+  dummy_btagsort.btag1 = btag[ijet];
   vec_struct_bjet.push_back(dummy_btagsort);
 }
+for(int k=0; k<vec_struct_bjet.size(); k++){
+//if (vec_struct_bjet[k].btag1>0.4941){
+	cout<<"before sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
+//}
+}
   sort(vec_struct_bjet.begin(), vec_struct_bjet.end(), compare_btag);
+for(int k=0; k<vec_struct_bjet.size(); k++){
+//if (vec_struct_bjet[k].btag1>0.4941){
+	cout<<"after sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
+//}
+ float btag1_value = vec_struct_bjet[k].btag1;
+
+if (k == 0) {
+  h_btag_0->Fill(btag1_value);
+} else if (k == 1) {
+  h_btag_1->Fill(btag1_value);
+} else if (k == 2) {
+  h_btag_2->Fill(btag1_value);
+} else if (k == 3) {
+  h_btag_3->Fill(btag1_value);
+}
+}
 
 
   //dR after cross cleaning
   TLorentzVector p_jet_after;
   int jet_mult;
   jet_mult=jet_vec.size();
-  h_jet_mult->Fill(jet_mult);
+  h_jet_mult->Fill(jet_mult,w);
 for (int ijet_after = 0; ijet_after <jet_mult; ijet_after++)
 {
   p_jet_after.SetPtEtaPhiE(jet_vec[ijet_after].Pt(),jet_vec[ijet_after].Eta(),jet_vec[ijet_after].Phi(),jet_vec[ijet_after].E());
   double dR_mn_jet_after=ROOT::Math::VectorUtil::DeltaR(p_jet_after,mn_p);
   double dR_en_jet_after=ROOT::Math::VectorUtil::DeltaR(p_jet_after,en_p);
-  h_dR_jet_muon_after->Fill(dR_mn_jet_after);
-  h_dR_jet_electron_after->Fill(dR_en_jet_after);
+  h_dR_jet_muon_after->Fill(dR_mn_jet_after,w);
+  h_dR_jet_electron_after->Fill(dR_en_jet_after,w);
 }
+
 
 
   // Require at least 3 jets
@@ -364,7 +408,7 @@ if(jet_mult<3) continue;
 
   int bjet_mult;
   bjet_mult=bjet_vec.size();
-  h_b_jet_mult->Fill(bjet_mult);
+  h_b_jet_mult->Fill(bjet_mult,w);
 
 
 
@@ -388,12 +432,12 @@ if (bjet_mult<3) continue;
   MT=sqrt(2*lep_pt*met_pt*(1-cos(d_phi)));
 if (MT<25 || met_pt<30)continue;
   count_N4++;
-  h_mt->Fill(MT);
-  h_lep_pt->Fill(lep_pt);
-  h_lep_phi->Fill(lep_phi);
-  h_lep_m->Fill(lep_m);
-  h_lep_eta->Fill(lep_eta);
-  h_Nbjets_after->Fill(bjet_mult);
+  h_mt->Fill(MT,w);
+  h_lep_pt->Fill(lep_pt,w);
+  h_lep_phi->Fill(lep_phi,w);
+  h_lep_m->Fill(lep_m,w);
+  h_lep_eta->Fill(lep_eta,w);
+  h_Nbjets_after->Fill(bjet_mult,w);
 
 
 
@@ -402,41 +446,37 @@ if (MT<25 || met_pt<30)continue;
   float jet1_pt=jet_vec[0].Pt();
   float jet1_phi=jet_vec[0].Phi();
   float jet1_m=jet_vec[0].M();
-  h_jet1_eta->Fill(jet1_eta);
-  h_jet1_pt->Fill(jet1_pt);  
-  h_jet1_phi->Fill(jet1_phi);
-  h_jet1_m->Fill(jet1_m);
+  h_jet1_eta->Fill(jet1_eta,w);
+  h_jet1_pt->Fill(jet1_pt,w);  
+  h_jet1_phi->Fill(jet1_phi,w);
+  h_jet1_m->Fill(jet1_m,w);
   float jet2_eta=jet_vec[1].Eta();
   float jet2_pt=jet_vec[1].Pt();
   float jet2_phi=jet_vec[1].Phi();
   float jet2_m=jet_vec[1].M();
-  h_jet2_eta->Fill(jet2_eta);
-  h_jet2_pt->Fill(jet2_pt);
-  h_jet2_phi->Fill(jet2_phi);
-  h_jet2_m->Fill(jet2_m);
+  h_jet2_eta->Fill(jet2_eta,w);
+  h_jet2_pt->Fill(jet2_pt,w);
+  h_jet2_phi->Fill(jet2_phi,w);
+  h_jet2_m->Fill(jet2_m,w);
   float jet3_eta=jet_vec[2].Eta();
   float jet3_pt=jet_vec[2].Pt();
   float jet3_phi=jet_vec[2].Phi();
   float jet3_m=jet_vec[2].M();
-  h_jet3_eta->Fill(jet3_eta);
-  h_jet3_pt->Fill(jet3_pt);
-  h_jet3_phi->Fill(jet3_phi);
-  h_jet3_m->Fill(jet3_m);
+  h_jet3_eta->Fill(jet3_eta,w);
+  h_jet3_pt->Fill(jet3_pt,w);
+  h_jet3_phi->Fill(jet3_phi,w);
+  h_jet3_m->Fill(jet3_m,w);
 if(jet_mult>3){
   float jet4_eta=jet_vec[3].Eta();
   float jet4_pt=jet_vec[3].Pt();
   float jet4_phi=jet_vec[3].Phi();
   float jet4_m=jet_vec[3].M();
-  h_jet4_eta->Fill(jet4_eta);
-  h_jet4_pt->Fill(jet4_pt);
-  h_jet4_phi->Fill(jet4_phi);
-  h_jet4_m->Fill(jet4_m);
+  h_jet4_eta->Fill(jet4_eta,w);
+  h_jet4_pt->Fill(jet4_pt,w);
+  h_jet4_phi->Fill(jet4_phi,w);
+  h_jet4_m->Fill(jet4_m,w);
 }
 
-
-
-//if(bjet_mult<3) continue;
-  
 
 
   //bjets pt & pseudorapidity  
@@ -444,35 +484,35 @@ if(jet_mult>3){
   float bjet1_pt=bjet_vec[0].Pt();
   float bjet1_phi=bjet_vec[0].Phi();
   float bjet1_m=bjet_vec[0].M();
-  h_b_jet1_eta->Fill(bjet1_eta);
-  h_b_jet1_pt->Fill(bjet1_pt);  
-  h_b_jet1_phi->Fill(bjet1_phi);
-  h_b_jet1_m->Fill(bjet1_m);
+  h_b_jet1_eta->Fill(bjet1_eta,w);
+  h_b_jet1_pt->Fill(bjet1_pt,w);  
+  h_b_jet1_phi->Fill(bjet1_phi,w);
+  h_b_jet1_m->Fill(bjet1_m,w);
   float bjet2_eta=bjet_vec[1].Eta();
   float bjet2_pt=bjet_vec[1].Pt();
   float bjet2_phi=bjet_vec[1].Phi();
   float bjet2_m=bjet_vec[1].M();
-  h_b_jet2_eta->Fill(bjet2_eta);
-  h_b_jet2_pt->Fill(bjet2_pt);
-  h_b_jet2_phi->Fill(bjet2_phi);
-  h_b_jet2_m->Fill(bjet2_m);
+  h_b_jet2_eta->Fill(bjet2_eta,w);
+  h_b_jet2_pt->Fill(bjet2_pt,w);
+  h_b_jet2_phi->Fill(bjet2_phi,w);
+  h_b_jet2_m->Fill(bjet2_m,w);
   float bjet3_eta=bjet_vec[2].Eta();
   float bjet3_pt=bjet_vec[2].Pt();
   float bjet3_phi=bjet_vec[2].Phi();
   float bjet3_m=bjet_vec[2].M();
-  h_b_jet3_eta->Fill(bjet3_eta);
-  h_b_jet3_pt->Fill(bjet3_pt);
-  h_b_jet3_phi->Fill(bjet3_phi);
-  h_b_jet3_m->Fill(bjet3_m);
+  h_b_jet3_eta->Fill(bjet3_eta,w);
+  h_b_jet3_pt->Fill(bjet3_pt,w);
+  h_b_jet3_phi->Fill(bjet3_phi,w);
+  h_b_jet3_m->Fill(bjet3_m,w);
 if(bjet_mult>3){
   float bjet4_eta=bjet_vec[3].Eta();
   float bjet4_pt=bjet_vec[3].Pt();
   float bjet4_phi=bjet_vec[3].Phi();
   float bjet4_m=bjet_vec[3].M();
-  h_b_jet4_eta->Fill(bjet4_eta);
-  h_b_jet4_pt->Fill(bjet4_pt);
-  h_b_jet4_phi->Fill(bjet4_phi);
-  h_b_jet4_m->Fill(bjet4_m);
+  h_b_jet4_eta->Fill(bjet4_eta,w);
+  h_b_jet4_pt->Fill(bjet4_pt,w);
+  h_b_jet4_phi->Fill(bjet4_phi,w);
+  h_b_jet4_m->Fill(bjet4_m,w);
 }
 
 
@@ -494,7 +534,6 @@ if (bjet_mult>3)
 
 
 
-
   float h_m=h_p.M();
   float h_phi=h_p.Phi();
   float h_pt=h_p.Pt();
@@ -504,13 +543,13 @@ if (bjet_mult>3)
   float h_b_phi=h_b_p.Phi();
   float h_b_pt=h_b_p.Pt();
   float h_b_eta=h_b_p.Eta();
-  h_b_inv_m->Fill(h_b_m);
-  h_b_h_pt->Fill(h_b_pt);
+  h_b_inv_m->Fill(h_b_m,w);
+  h_b_h_pt->Fill(h_b_pt,w);
 
 
 
   //MET
-  h_met_pt->Fill(met_pt);
+  h_met_pt->Fill(met_pt,w);
 
 
 
@@ -522,10 +561,10 @@ if (bjet_mult>3)
   float w_phi=w_p.Phi();
   float w_eta=w_p.Eta();
   float w_m=w_p.M();
-  h_w_pt->Fill(w_pt);
-  h_w_eta->Fill(w_eta);
-  h_w_phi->Fill(w_phi);
-  h_w_m->Fill(w_m);
+  h_w_pt->Fill(w_pt,w);
+  h_w_eta->Fill(w_eta,w);
+  h_w_phi->Fill(w_phi,w);
+  h_w_m->Fill(w_m,w);
 
 
   //D_phi
@@ -536,15 +575,15 @@ if (bjet_mult>3)
   
 
 
-  h_d_phi_w_h->Fill(d_phi_w_h);
-  h_d_phi_w_b_h->Fill(d_phi_w_b_h);
+  h_d_phi_w_h->Fill(d_phi_w_h,w);
+  h_d_phi_w_b_h->Fill(d_phi_w_b_h,w);
 
 
 
   //scalar sum of the handronic activity
-  h_h_pt->Fill(h_pt);
-  h_h_phi->Fill(h_phi);
-  h_h_eta->Fill(h_eta);
+  h_h_pt->Fill(h_pt,w);
+  h_h_phi->Fill(h_phi,w);
+  h_h_eta->Fill(h_eta,w);
 
 
   
@@ -558,7 +597,7 @@ if (bjet_mult>3){
   double dR_13 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[1],bjet_vec[3]);
   double dR_23 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[2],bjet_vec[3]);
   double dR_av = (dR_01 + dR_02 + dR_12 + dR_23 + dR_03 + dR_13) / 6.;
-  h_dR_av->Fill(dR_av);
+  h_dR_av->Fill(dR_av,w);
 
 
 
@@ -567,7 +606,7 @@ if (bjet_mult>3){
   float m2 = std::abs((bjet_vec[0].M() + bjet_vec[2].M()) - (bjet_vec[1].M() + bjet_vec[3].M()));
   float m3 = std::abs((bjet_vec[0].M() + bjet_vec[3].M()) - (bjet_vec[1].M() + bjet_vec[2].M()));
   float minDm = TMath::Min(m3,TMath::Min(m1,m2));
-  h_minDelta_m->Fill(minDm);
+  h_minDelta_m->Fill(minDm,w);
 }
 
 
@@ -578,7 +617,7 @@ if (bjet_vec[i].DeltaPhi(met_p)<min_dphi){
   min_dphi=bjet_vec[i].DeltaPhi(met_p);
 }
 }
-  h_delta_phi->Fill(min_dphi);
+  h_delta_phi->Fill(min_dphi,w);
 
 
 
@@ -668,5 +707,9 @@ if (ientry < 0) break;
   h_delta_phi->Write();
   h_Nbjets_after->Write();
   h_mn_phi_eta->Write();
+  h_btag_0->Write();
+  h_btag_1->Write();
+  h_btag_2->Write();
+  h_btag_3->Write();
   f.Close();
 }
