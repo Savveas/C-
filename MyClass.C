@@ -49,23 +49,36 @@ if (fChain == 0) return;
 
 
   Long64_t nentries = fChain->GetEntriesFast();
-  TFile f("histos_signal.root","recreate");
-  //TFile f("histos_back.root","recreate");
-
+  //TFile f("histos_signal.root","recreate");
+  TFile f("histos_back_TTbarSemileptonic.root","recreate");
+  //TFile f("histos_back_TTbarDileptonic.root","recreate");
+  //TFile f("histos_back_TTbarHadronic.root","recreate");
+  //TFile f("histos_back_WJetsToLNu.root","recreate");
+  //TTree histos("histos","Global variables");
 
 
   //N_expected calculations
   float sigma_signal=1.37;
-  float sigma_back=365.34;
+  float sigma_back_Semileptonic=365.34;
+  float sigma_back_Dileptonic=88.29;
+  float sigma_back_Hadronic=365.34;
+  float sigma_back_WJetsToLNu=50690*1.21;
   float L_integrated=41.5*pow(10.,3.);
 
 
   float N_expected_signal=sigma_signal*L_integrated;
-  float N_expected_back=sigma_back*L_integrated;
+  float N_expected_back_Semileptonic=sigma_back_Semileptonic*L_integrated;
+  float N_expected_back_Dileptonic=sigma_back_Dileptonic*L_integrated;
+  float N_expected_back_Hadronic=sigma_back_Hadronic*L_integrated;
+  float N_expected_back_WJetsToLNu=sigma_back_WJetsToLNu*L_integrated;
+
 
 
   float w_signal=N_expected_signal/nentries;
-  float w_back=N_expected_back/nentries;
+  float w_back_Semileptonic=N_expected_back_Semileptonic/nentries;
+  float w_back_Dileptonic=N_expected_back_Dileptonic/nentries;
+  float w_back_Hadronic=N_expected_back_Hadronic/nentries;
+  float w_back_WJetsToLNu=N_expected_back_WJetsToLNu/nentries;
   
 
 
@@ -73,14 +86,20 @@ if (fChain == 0) return;
 if (std::string(f.GetName()) == "histos_signal.root") {
   w = w_signal;
   std::cout << " Signal weight = " << w_signal << std::endl;
-} else if (std::string(f.GetName()) == "histos_back.root") {
-  w = w_back;
-  std::cout << " Backround weight = " << w_back << std::endl;
-} else {
-  // Default case if the file name doesn't match either
-  w = 1.0;  // Set a default value
+} else if (std::string(f.GetName()) == "histos_back_TTbarSemileptonic.root") {
+  w = w_back_Semileptonic;
+  std::cout << " Backround weight (TTbar_Semileptonic) = " << w_back_Semileptonic << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_TTbarDileptonic.root"){
+  w = w_back_Dileptonic; 
+  std::cout << " Backround weight (TTbar_Dileptonic) = " << w_back_Dileptonic << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_TTbarHadronic.root"){
+  w = w_back_Hadronic; 
+  std::cout << " Backround weight (TTbar_Hadronic) = " << w_back_Hadronic << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu.root"){
+  w = w_back_WJetsToLNu; 
+  std::cout << " Backround weight (TTbar_WJetsToLNu) = " << w_back_WJetsToLNu << std::endl;
 }
-  
+
 
 
   //muon 
@@ -196,10 +215,10 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   TH1F *h_Nbjets_after = new TH1F("h_Nbjets_after","Number of jets after the cuts",10,0.,10.);
 
 
-  TH1F *h_btag_0 = new TH1F("h_btag_0","b_tag_0 discriminator",20,0.,1.);
-  TH1F *h_btag_1 = new TH1F("h_btag_1","b_tag_1 discriminator",20,0.,1.);
-  TH1F *h_btag_2 = new TH1F("h_btag_2","b_tag_2 discriminator",20,0.,1.);
-  TH1F *h_btag_3 = new TH1F("h_btag_3","b_tag_3 discriminator",20,0.,1.);
+  TH1F *h_btag_0 = new TH1F("h_btag_0","b_tag_0 discriminator",50,0.,1.);
+  TH1F *h_btag_1 = new TH1F("h_btag_1","b_tag_1 discriminator",50,0.,1.);
+  TH1F *h_btag_2 = new TH1F("h_btag_2","b_tag_2 discriminator",50,0.,1.);
+  TH1F *h_btag_3 = new TH1F("h_btag_3","b_tag_3 discriminator",50,0.,1.);
 
 
   Long64_t nbytes = 0, nb = 0;
@@ -362,24 +381,28 @@ for (int ijet = 0 ; ijet < btag.size(); ijet++){
 }
 for(int k=0; k<vec_struct_bjet.size(); k++){
 //if (vec_struct_bjet[k].btag1>0.4941){
-	cout<<"before sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
+	//cout<<"before sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
 //}
 }
   sort(vec_struct_bjet.begin(), vec_struct_bjet.end(), compare_btag);
 for(int k=0; k<vec_struct_bjet.size(); k++){
 //if (vec_struct_bjet[k].btag1>0.4941){
-	cout<<"after sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
+	//cout<<"after sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
 //}
  float btag1_value = vec_struct_bjet[k].btag1;
 
 if (k == 0) {
   h_btag_0->Fill(btag1_value);
+  //histos.Branch("h_btag_0",&h_btag_0,"h_btag_0/F");
 } else if (k == 1) {
   h_btag_1->Fill(btag1_value);
+  //histos.Branch("h_btag_1",&h_btag_1,"h_btag_1/F");
 } else if (k == 2) {
   h_btag_2->Fill(btag1_value);
+  //histos.Branch("h_btag_2",&h_btag_2,"h_btag_2/F");
 } else if (k == 3) {
   h_btag_3->Fill(btag1_value);
+  //histos.Branch("h_btag_3",&h_btag_3,"h_btag_3/F");
 }
 }
 
@@ -433,11 +456,14 @@ if (bjet_mult<3) continue;
 if (MT<25 || met_pt<30)continue;
   count_N4++;
   h_mt->Fill(MT,w);
+  //histos.Branch("h_mt",&h_mt,"h_mt/F");
   h_lep_pt->Fill(lep_pt,w);
+  //histos.Branch("h_lep_pt",&h_lep_pt,"h_lep_pt/F");
   h_lep_phi->Fill(lep_phi,w);
   h_lep_m->Fill(lep_m,w);
   h_lep_eta->Fill(lep_eta,w);
   h_Nbjets_after->Fill(bjet_mult,w);
+  //histos.Branch("h_Nbjets_after",&h_Nbjets_after,"h_Nbjets_after/F");
 
 
 
@@ -542,14 +568,17 @@ if (bjet_mult>3)
   float h_b_m=h_b_p.M();
   float h_b_phi=h_b_p.Phi();
   float h_b_pt=h_b_p.Pt();
+  //histos.Branch("h_b_pt",&h_b_pt,"h_b_pt/F");
   float h_b_eta=h_b_p.Eta();
   h_b_inv_m->Fill(h_b_m,w);
   h_b_h_pt->Fill(h_b_pt,w);
+  //histos.Branch("h_b_inv_m",&h_b_inv_m,"h_b_inv_m/F");
 
 
 
   //MET
   h_met_pt->Fill(met_pt,w);
+  //histos.Branch("h_met_pt",&h_met_pt,"h_met_pt/F");
 
 
 
@@ -562,6 +591,7 @@ if (bjet_mult>3)
   float w_eta=w_p.Eta();
   float w_m=w_p.M();
   h_w_pt->Fill(w_pt,w);
+  //histos.Branch("h_w_pt",&h_w_pt,"h_w_pt/F");
   h_w_eta->Fill(w_eta,w);
   h_w_phi->Fill(w_phi,w);
   h_w_m->Fill(w_m,w);
@@ -572,6 +602,7 @@ if (bjet_mult>3)
   d_phi_w_h=abs(w_p.DeltaPhi(h_p));
   float d_phi_w_b_h;
   d_phi_w_b_h=abs(w_p.DeltaPhi(h_b_p));
+  //histos.Branch("d_phi_w_b_h",&d_phi_w_b_h,"d_phi_w_b_h/F");
   
 
 
@@ -582,6 +613,7 @@ if (bjet_mult>3)
 
   //scalar sum of the handronic activity
   h_h_pt->Fill(h_pt,w);
+  //histos.Branch("h_h_pt",&h_h_pt,"h_h_pt/F");
   h_h_phi->Fill(h_phi,w);
   h_h_eta->Fill(h_eta,w);
 
@@ -598,6 +630,7 @@ if (bjet_mult>3){
   double dR_23 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[2],bjet_vec[3]);
   double dR_av = (dR_01 + dR_02 + dR_12 + dR_23 + dR_03 + dR_13) / 6.;
   h_dR_av->Fill(dR_av,w);
+  //histos.Branch("dR_av",&dR_av,"dR_av/F");
 
 
 
@@ -607,6 +640,7 @@ if (bjet_mult>3){
   float m3 = std::abs((bjet_vec[0].M() + bjet_vec[3].M()) - (bjet_vec[1].M() + bjet_vec[2].M()));
   float minDm = TMath::Min(m3,TMath::Min(m1,m2));
   h_minDelta_m->Fill(minDm,w);
+  //histos.Branch("h_minDelta_m",&h_minDelta_m,"h_minDelta_m/F");
 }
 
 
@@ -618,7 +652,10 @@ if (bjet_vec[i].DeltaPhi(met_p)<min_dphi){
 }
 }
   h_delta_phi->Fill(min_dphi,w);
-
+  //histos.Branch("h_delta_phi",&h_delta_phi,"h_delta_phi/F");
+  //histos.Fill();
+  //tree->Print();
+  
 
 
 if (ientry < 0) break;
@@ -711,5 +748,6 @@ if (ientry < 0) break;
   h_btag_1->Write();
   h_btag_2->Write();
   h_btag_3->Write();
+  //histos.Write();
   f.Close();
 }
