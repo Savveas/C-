@@ -50,23 +50,66 @@ if (fChain == 0) return;
 
 
   Long64_t nentries = fChain->GetEntriesFast();
-  //TFile f("histos_signal.root","recreate");
+  TFile f("histos_signal.root","recreate");
   //TFile f("histos_back_TTbarSemileptonic.root","recreate");
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
   //TFile f("histos_back_WJetsToLNu.root","recreate");
-  TFile f("histos_back_WJetsToLNu.root","recreate");
+  //TFile f("histos_back_WJetsToLNu.root","recreate");
+
+  TTree my_tree("my_tree","Global variables");
+  Float_t h_b_pt_mva;
+  Float_t h_mt_mva;
+  Float_t h_b_inv_m_mva;
+  Float_t h_met_pt_mva;
+  Float_t h_btag_0_mva;
+  Float_t h_btag_1_mva;
+  Float_t h_btag_2_mva;
+  Float_t h_btag_3_mva;
+  Float_t h_lep_pt_mva;
+  Int_t h_Nbjets_after_mva;
+  Float_t h_w_pt_mva;
+  Float_t d_phi_w_b_h_mva;
+  Float_t h_h_pt_mva;
+  Float_t dR_av_mva;
+  Float_t h_minDelta_m_mva;
+  Float_t h_delta_phi_mva;
+  Float_t w_mva;
+  //Float_t w_mva;
+  my_tree.Branch("h_b_pt",&h_b_pt_mva,"h_b_pt/F");
+  my_tree.Branch("h_mt",&h_mt_mva,"h_mt/F");
+  my_tree.Branch("h_b_inv_m",&h_b_inv_m_mva,"h_b_inv_m/F");
+  my_tree.Branch("h_met_pt",&h_met_pt_mva,"h_met_pt/F");
+  my_tree.Branch("h_btag_0",&h_btag_0_mva,"h_btag_0/F");
+  my_tree.Branch("h_btag_1",&h_btag_1_mva,"h_btag_1/F");
+  my_tree.Branch("h_btag_2",&h_btag_2_mva,"h_btag_2/F");
+  my_tree.Branch("h_btag_3",&h_btag_3_mva,"h_btag_3/F");
+  my_tree.Branch("h_lep_pt",&h_lep_pt_mva,"h_lep_pt/F");
+  my_tree.Branch("h_Nbjets_after",&h_Nbjets_after_mva,"h_Nbjets_after/I");
+  my_tree.Branch("h_w_pt",&h_w_pt_mva,"h_w_pt/F");
+  my_tree.Branch("d_phi_w_b_h",&d_phi_w_b_h_mva,"d_phi_w_b_h/F");
+  my_tree.Branch("h_h_pt",&h_h_pt_mva,"h_h_pt/F");
+  my_tree.Branch("dR_av",&dR_av_mva,"dR_av/F");
+  my_tree.Branch("h_minDelta_m",&h_minDelta_m_mva,"h_minDelta_m/F");
+  my_tree.Branch("h_delta_phi",&h_delta_phi_mva,"h_delta_phi/F");
+  my_tree.Branch("w",&w_mva,"w/F");
 
 
 
   //N_expected calculations
-  float sigma_signal=1.37;
+  float Br_W_to_lep=0.1046+0.105;
+  float Br_W_to_qq=0.6832;
+
+
+
+  float sigma_signal=1.37*Br_W_to_lep;
   float sigma_back_Semileptonic=365.34;
   float sigma_back_Dileptonic=88.29;
   float sigma_back_Hadronic=365.34;
   float sigma_back_WJetsToLNu=1353*1.21;
   float sigma_back_WJetsToLNu2=1346*1.21;
   float L_integrated=41.5*pow(10.,3.);
+
 
 
   float N_expected_signal=sigma_signal*L_integrated;
@@ -116,11 +159,11 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   TH1F *h_mn_phi = new TH1F("h_mn_phi","muon phi distribution",100,-5.,5.);  
 
 
-  TH2F *h_mn_pt_eta = new TH2F("h_mn_pt_eta","muon pt-eta distribution",100,0.,500.,100,-3.,3.);
-  TH2F *h_mn_phi_eta = new TH2F("h_mn_phi_eta","muon phi-eta distribution",100,0.,500.,100,-3.,3.);
+  //TH2F *h_mn_pt_eta = new TH2F("h_mn_pt_eta","muon pt-eta distribution",100,0.,500.,100,-3.,3.);
+  //TH2F *h_mn_phi_eta = new TH2F("h_mn_phi_eta","muon phi-eta distribution",100,0.,500.,100,-3.,3.);
 
 
-  TH2F *h_mn_en_phi = new TH2F("h_mn_en_phi","electron-muon phi ditribution",100,-5.,5.,100,-5.,5.);
+  //TH2F *h_mn_en_phi = new TH2F("h_mn_en_phi","electron-muon phi ditribution",100,-5.,5.,100,-5.,5.);
 
 
   TH1F *h_en_pt = new TH1F("h_en_pt","electron pt distribution",500,0.,500.); 
@@ -128,7 +171,7 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   TH1F *h_en_phi = new TH1F("h_en_phi","electron phi distribution",100,-5.,5.);
 
 
-  TH2F *h_en_pt_eta = new TH2F("h_en_pt_eta","electron pt-eta distribution",100,0.,500.,100,-3.,3.);
+  //TH2F *h_en_pt_eta = new TH2F("h_en_pt_eta","electron pt-eta distribution",100,0.,500.,100,-3.,3.);
 
 
   TH1F *h_jet1_pt = new TH1F("h_jet1_pt","jet1 distribution",500,0.,500.);
@@ -170,8 +213,8 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   TH1F *h_met_pt = new TH1F("h_met_pt","met_pt distribution",100,0.,500.);
 
 
-  TH2F *h_met_mn_pt = new TH2F("h_met_mn_pt","MET-muon pt distribution",100,0.,500.,100,0.,500);
-  TH2F *h_met_en_pt = new TH2F("h_met_en_pt","MET-electron pt distribution",100,0.,500.,100,0.,500);
+  //TH2F *h_met_mn_pt = new TH2F("h_met_mn_pt","MET-muon pt distribution",100,0.,500.,100,0.,500);
+  //TH2F *h_met_en_pt = new TH2F("h_met_en_pt","MET-electron pt distribution",100,0.,500.,100,0.,500);
 
 
   TH1F *h_mt = new TH1F("h_mt","transverse mass distribution",100,0.,400.);
@@ -237,40 +280,7 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   int count_N2(0);
   int count_N3(0);
   int count_N4(0);
-  TTree histos("histos","Global variables");
-  Float_t h_b_pt1;
-  Float_t h_mt1;
-  Float_t h_b_inv_m1;
-  Float_t h_met_pt1;
-  Float_t h_btag_01;
-  Float_t h_btag_11;
-  Float_t h_btag_21;
-  Float_t h_btag_31;
-  Float_t h_lep_pt1;
-  Float_t h_Nbjets_after1;
-  Float_t h_w_pt1;
-  Float_t d_phi_w_b_h1;
-  Float_t h_h_pt1;
-  Float_t dR_av1;
-  Float_t h_minDelta_m1;
-  Float_t h_delta_phi1;
-  histos.Branch("h_b_pt",&h_b_pt1,"h_b_pt/F");
-  histos.Branch("h_mt",&h_mt1,"h_mt/F");
-  histos.Branch("h_b_inv_m",&h_b_inv_m1,"h_b_inv_m/F");
-  histos.Branch("h_met_pt",&h_met_pt1,"h_met_pt/F");
-  histos.Branch("h_btag_0",&h_btag_01,"h_btag_0/F");
-  histos.Branch("h_btag_1",&h_btag_11,"h_btag_1/F");
-  histos.Branch("h_btag_2",&h_btag_21,"h_btag_2/F");
-  histos.Branch("h_btag_3",&h_btag_31,"h_btag_3/F");
-  histos.Branch("h_lep_pt",&h_lep_pt1,"h_lep_pt/F");
-  histos.Branch("h_Nbjets_after",&h_Nbjets_after1,"h_Nbjets_after/F");
-  histos.Branch("h_w_pt",&h_w_pt1,"h_w_pt/F");
-  histos.Branch("d_phi_w_b_h",&d_phi_w_b_h1,"d_phi_w_b_h/F");
-  histos.Branch("h_h_pt",&h_h_pt1,"h_h_pt/F");
-  histos.Branch("dR_av",&dR_av1,"dR_av/F");
-  histos.Branch("h_minDelta_m",&h_minDelta_m1,"h_minDelta_m/F");
-  histos.Branch("h_delta_phi",&h_delta_phi1,"h_delta_phi/F");
-
+  
 
 
 for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -346,15 +356,15 @@ if (Nleptons == 0) continue;
   //muon
 if(Nmuons>=1) {
   mn_p.SetPxPyPzE(vec_muons[0].Px(),vec_muons[0].Py(),vec_muons[0].Pz(),vec_muons[0].E());
-  double mn_eta=mn_p.Eta();
-  double mn_phi=mn_p.Phi();
-  double mn_pt=mn_p.Pt();
+  float mn_eta=mn_p.Eta();
+  float mn_phi=mn_p.Phi();
+  float mn_pt=mn_p.Pt();
   h_mn_eta->Fill(mn_eta,w);
   h_mn_pt->Fill(mn_pt,w);
   h_mn_phi->Fill(mn_phi,w);
-  h_mn_pt_eta->Fill(mn_pt,mn_eta,w);
-  h_met_mn_pt->Fill(met_pt,mn_pt,w);
-  h_mn_phi_eta->Fill(mn_phi,mn_eta,w);
+  //h_mn_pt_eta->Fill(mn_pt,mn_eta,w);
+  //h_met_mn_pt->Fill(met_pt,mn_pt,w);
+  //h_mn_phi_eta->Fill(mn_phi,mn_eta,w);
 }
 
 
@@ -364,14 +374,14 @@ if(Nmuons>=1) {
 if(Nelectrons>=1) {
   //electron
   en_p.SetPxPyPzE(vec_electrons[0].Px(),vec_electrons[0].Py(),vec_electrons[0].Pz(),vec_electrons[0].E());
-  double en_eta=en_p.Eta();
-  double en_phi=en_p.Phi();
-  double en_pt=en_p.Pt();
+  float en_eta=en_p.Eta();
+  float en_phi=en_p.Phi();
+  float en_pt=en_p.Pt();
   h_en_eta->Fill(en_eta,w);
   h_en_pt->Fill(en_pt,w);
   h_en_phi->Fill(en_phi,w);
-  h_en_pt_eta->Fill(en_pt,en_eta,w);
-  h_met_en_pt->Fill(met_pt,en_pt,w);
+  //h_en_pt_eta->Fill(en_pt,en_eta,w);
+  //h_met_en_pt->Fill(met_pt,en_pt,w);
   //h_mn_en_phi->Fill(mn_phi,en_phi,w);
   
 }
@@ -391,8 +401,8 @@ for (Int_t ijet= 0; ijet < jet; ijet++)
 
   //check muon jet overlap
   bool overlap(false);
-  double dR_jet_muon=ROOT::Math::VectorUtil::DeltaR(pjet,mn_p);
-  double dR_jet_electron=ROOT::Math::VectorUtil::DeltaR(pjet,en_p);
+  float dR_jet_muon=ROOT::Math::VectorUtil::DeltaR(pjet,mn_p);
+  float dR_jet_electron=ROOT::Math::VectorUtil::DeltaR(pjet,en_p);
   h_dR_jet_muon->Fill(dR_jet_muon,w);
   h_dR_jet_electron->Fill(dR_jet_electron,w);
 if (dR_jet_muon < 0.4 || dR_jet_electron < 0.4)
@@ -425,8 +435,8 @@ if (overlap)
 for (int ijet_after = 0; ijet_after <jet_mult; ijet_after++)
 {
   p_jet_after.SetPtEtaPhiE(jet_vec[ijet_after].Pt(),jet_vec[ijet_after].Eta(),jet_vec[ijet_after].Phi(),jet_vec[ijet_after].E());
-  double dR_mn_jet_after=ROOT::Math::VectorUtil::DeltaR(p_jet_after,mn_p);
-  double dR_en_jet_after=ROOT::Math::VectorUtil::DeltaR(p_jet_after,en_p);
+  float dR_mn_jet_after=ROOT::Math::VectorUtil::DeltaR(p_jet_after,mn_p);
+  float dR_en_jet_after=ROOT::Math::VectorUtil::DeltaR(p_jet_after,en_p);
   h_dR_jet_muon_after->Fill(dR_mn_jet_after,w);
   h_dR_jet_electron_after->Fill(dR_en_jet_after,w);
 }
@@ -459,11 +469,11 @@ if (bjet_mult<3) continue;
   if (d_phi>M_PI){
 	d_phi=d_phi-(2*M_PI);
 }
-  Double_t MT;
-  double lep_eta=p_lepton.Eta();
-  double lep_pt=p_lepton.Pt();
-  double lep_phi=p_lepton.Phi();
-  double lep_m=p_lepton.M();
+  Float_t MT;
+  float lep_eta=p_lepton.Eta();
+  float lep_pt=p_lepton.Pt();
+  float lep_phi=p_lepton.Phi();
+  float lep_m=p_lepton.M();
   MT=sqrt(2*lep_pt*met_pt*(1-cos(d_phi)));
 if (MT<25 || met_pt<30)continue;
   count_N4++;
@@ -651,14 +661,14 @@ if (bjet_mult>3)
   
   //dR(b,b)^{ave}
   TLorentzVector had_p = bjet_vec[0] + bjet_vec[1] + bjet_vec[2];
-  double dR_01 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[0],bjet_vec[1]);
-  double dR_02 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[0],bjet_vec[2]);
-  double dR_12 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[1],bjet_vec[2]);
+  float dR_01 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[0],bjet_vec[1]);
+  float dR_02 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[0],bjet_vec[2]);
+  float dR_12 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[1],bjet_vec[2]);
 if (bjet_mult>3){
-  double dR_03 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[0],bjet_vec[3]);
-  double dR_13 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[1],bjet_vec[3]);
-  double dR_23 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[2],bjet_vec[3]);
-  double dR_av = (dR_01 + dR_02 + dR_12 + dR_23 + dR_03 + dR_13) / 6.;
+  float dR_03 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[0],bjet_vec[3]);
+  float dR_13 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[1],bjet_vec[3]);
+  float dR_23 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[2],bjet_vec[3]);
+  float dR_av = (dR_01 + dR_02 + dR_12 + dR_23 + dR_03 + dR_13) / 6.;
   h_dR_av->Fill(dR_av,w);
 
 
@@ -680,7 +690,7 @@ if (bjet_vec[i].DeltaPhi(met_p)<min_dphi){
 }
 }
   h_delta_phi->Fill(min_dphi,w);
-  histos.Fill();
+  my_tree.Fill();
   //tree->Print();
   
 
@@ -702,12 +712,12 @@ if (ientry < 0) break;
   h_mn_pt->Write();
   h_mn_eta->Write();
   h_mn_phi->Write();
-  h_mn_pt_eta->Write();
-  h_mn_en_phi->Write();
+  //h_mn_pt_eta->Write();
+  //h_mn_en_phi->Write();
   h_en_pt->Write();
   h_en_eta->Write();
   h_en_phi->Write();
-  h_en_pt_eta->Write();
+  //h_en_pt_eta->Write();
   h_jet1_pt->Write();
   h_jet1_eta->Write();
   h_jet1_phi->Write();
@@ -741,8 +751,8 @@ if (ientry < 0) break;
   h_b_jet4_phi->Write();
   h_b_jet4_m->Write();
   h_met_pt->Write();
-  h_met_mn_pt->Write();
-  h_met_en_pt->Write();
+  //h_met_mn_pt->Write();
+  //h_met_en_pt->Write();
   h_mt->Write();
   h_d_phi_w_h->Write();
   h_d_phi_w_b_h->Write();
@@ -770,11 +780,11 @@ if (ientry < 0) break;
   h_minDelta_m->Write();
   h_delta_phi->Write();
   h_Nbjets_after->Write();
-  h_mn_phi_eta->Write();
+  //h_mn_phi_eta->Write();
   h_btag_0->Write();
   h_btag_1->Write();
   h_btag_2->Write();
   h_btag_3->Write();
-  histos.Write();
+  my_tree.Write();
   f.Close();
 }
