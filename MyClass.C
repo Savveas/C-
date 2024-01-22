@@ -16,6 +16,7 @@
   {
   return x.btag1 > y.btag1;
   }
+  
 
 
 
@@ -50,11 +51,12 @@ if (fChain == 0) return;
 
   Long64_t nentries = fChain->GetEntriesFast();
   //TFile f("histos_signal.root","recreate");
-  TFile f("histos_back_TTbarSemileptonic.root","recreate");
+  //TFile f("histos_back_TTbarSemileptonic.root","recreate");
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
   //TFile f("histos_back_WJetsToLNu.root","recreate");
-  //TTree histos("histos","Global variables");
+  TFile f("histos_back_WJetsToLNu.root","recreate");
+
 
 
   //N_expected calculations
@@ -62,7 +64,8 @@ if (fChain == 0) return;
   float sigma_back_Semileptonic=365.34;
   float sigma_back_Dileptonic=88.29;
   float sigma_back_Hadronic=365.34;
-  float sigma_back_WJetsToLNu=50690*1.21;
+  float sigma_back_WJetsToLNu=1353*1.21;
+  float sigma_back_WJetsToLNu2=1346*1.21;
   float L_integrated=41.5*pow(10.,3.);
 
 
@@ -71,6 +74,7 @@ if (fChain == 0) return;
   float N_expected_back_Dileptonic=sigma_back_Dileptonic*L_integrated;
   float N_expected_back_Hadronic=sigma_back_Hadronic*L_integrated;
   float N_expected_back_WJetsToLNu=sigma_back_WJetsToLNu*L_integrated;
+  float N_expected_back_WJetsToLNu2=sigma_back_WJetsToLNu2*L_integrated;
 
 
 
@@ -79,8 +83,9 @@ if (fChain == 0) return;
   float w_back_Dileptonic=N_expected_back_Dileptonic/nentries;
   float w_back_Hadronic=N_expected_back_Hadronic/nentries;
   float w_back_WJetsToLNu=N_expected_back_WJetsToLNu/nentries;
-  
+  float w_back_WJetsToLNu2=N_expected_back_WJetsToLNu2/nentries;
 
+  
 
   float w;
 if (std::string(f.GetName()) == "histos_signal.root") {
@@ -98,6 +103,9 @@ if (std::string(f.GetName()) == "histos_signal.root") {
 } else if (std::string(f.GetName()) == "histos_back_WJetsToLNu.root"){
   w = w_back_WJetsToLNu; 
   std::cout << " Backround weight (TTbar_WJetsToLNu) = " << w_back_WJetsToLNu << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu2.root"){
+  w = w_back_WJetsToLNu; 
+  std::cout << " Backround weight (TTbar_WJetsToLNu2) = " << w_back_WJetsToLNu << std::endl;
 }
 
 
@@ -229,6 +237,39 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   int count_N2(0);
   int count_N3(0);
   int count_N4(0);
+  TTree histos("histos","Global variables");
+  Float_t h_b_pt1;
+  Float_t h_mt1;
+  Float_t h_b_inv_m1;
+  Float_t h_met_pt1;
+  Float_t h_btag_01;
+  Float_t h_btag_11;
+  Float_t h_btag_21;
+  Float_t h_btag_31;
+  Float_t h_lep_pt1;
+  Float_t h_Nbjets_after1;
+  Float_t h_w_pt1;
+  Float_t d_phi_w_b_h1;
+  Float_t h_h_pt1;
+  Float_t dR_av1;
+  Float_t h_minDelta_m1;
+  Float_t h_delta_phi1;
+  histos.Branch("h_b_pt",&h_b_pt1,"h_b_pt/F");
+  histos.Branch("h_mt",&h_mt1,"h_mt/F");
+  histos.Branch("h_b_inv_m",&h_b_inv_m1,"h_b_inv_m/F");
+  histos.Branch("h_met_pt",&h_met_pt1,"h_met_pt/F");
+  histos.Branch("h_btag_0",&h_btag_01,"h_btag_0/F");
+  histos.Branch("h_btag_1",&h_btag_11,"h_btag_1/F");
+  histos.Branch("h_btag_2",&h_btag_21,"h_btag_2/F");
+  histos.Branch("h_btag_3",&h_btag_31,"h_btag_3/F");
+  histos.Branch("h_lep_pt",&h_lep_pt1,"h_lep_pt/F");
+  histos.Branch("h_Nbjets_after",&h_Nbjets_after1,"h_Nbjets_after/F");
+  histos.Branch("h_w_pt",&h_w_pt1,"h_w_pt/F");
+  histos.Branch("d_phi_w_b_h",&d_phi_w_b_h1,"d_phi_w_b_h/F");
+  histos.Branch("h_h_pt",&h_h_pt1,"h_h_pt/F");
+  histos.Branch("dR_av",&dR_av1,"dR_av/F");
+  histos.Branch("h_minDelta_m",&h_minDelta_m1,"h_minDelta_m/F");
+  histos.Branch("h_delta_phi",&h_delta_phi1,"h_delta_phi/F");
 
 
 
@@ -374,37 +415,6 @@ if (overlap)
   //std::cout << " before sorting " << bjet_vec[ijet] << std::endl;
   vector<btagsort> vec_struct_bjet;
   btagsort dummy_btagsort;
-for (int ijet = 0 ; ijet < btag.size(); ijet++){
-  dummy_btagsort.vec = jet_vec[ijet];
-  dummy_btagsort.btag1 = btag[ijet];
-  vec_struct_bjet.push_back(dummy_btagsort);
-}
-for(int k=0; k<vec_struct_bjet.size(); k++){
-//if (vec_struct_bjet[k].btag1>0.4941){
-	//cout<<"before sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
-//}
-}
-  sort(vec_struct_bjet.begin(), vec_struct_bjet.end(), compare_btag);
-for(int k=0; k<vec_struct_bjet.size(); k++){
-//if (vec_struct_bjet[k].btag1>0.4941){
-	//cout<<"after sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
-//}
- float btag1_value = vec_struct_bjet[k].btag1;
-
-if (k == 0) {
-  h_btag_0->Fill(btag1_value);
-  //histos.Branch("h_btag_0",&h_btag_0,"h_btag_0/F");
-} else if (k == 1) {
-  h_btag_1->Fill(btag1_value);
-  //histos.Branch("h_btag_1",&h_btag_1,"h_btag_1/F");
-} else if (k == 2) {
-  h_btag_2->Fill(btag1_value);
-  //histos.Branch("h_btag_2",&h_btag_2,"h_btag_2/F");
-} else if (k == 3) {
-  h_btag_3->Fill(btag1_value);
-  //histos.Branch("h_btag_3",&h_btag_3,"h_btag_3/F");
-}
-}
 
 
   //dR after cross cleaning
@@ -439,7 +449,9 @@ if (bjet_mult<3) continue;
   count_N3++;
   //int Nbjets;
   //Nbjets=bjet_vec.size();
-  
+
+
+
   //Transverse Mass (MT)
   TLorentzVector p_lepton;
   p_lepton.SetPtEtaPhiE(vec_leptons[0].Pt(),vec_leptons[0].Eta(),vec_leptons[0].Phi(),vec_leptons[0].E());
@@ -456,16 +468,40 @@ if (bjet_mult<3) continue;
 if (MT<25 || met_pt<30)continue;
   count_N4++;
   h_mt->Fill(MT,w);
-  //histos.Branch("h_mt",&h_mt,"h_mt/F");
   h_lep_pt->Fill(lep_pt,w);
-  //histos.Branch("h_lep_pt",&h_lep_pt,"h_lep_pt/F");
   h_lep_phi->Fill(lep_phi,w);
   h_lep_m->Fill(lep_m,w);
   h_lep_eta->Fill(lep_eta,w);
   h_Nbjets_after->Fill(bjet_mult,w);
-  //histos.Branch("h_Nbjets_after",&h_Nbjets_after,"h_Nbjets_after/F");
 
 
+for (int ijet = 0 ; ijet < btag.size(); ijet++){
+  dummy_btagsort.vec = jet_vec[ijet];
+  dummy_btagsort.btag1 = btag[ijet];
+  vec_struct_bjet.push_back(dummy_btagsort);
+}
+for(int k=0; k<vec_struct_bjet.size(); k++){
+//if (vec_struct_bjet[k].btag1>0.4941){
+	//cout<<"before sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
+//}
+}
+  sort(vec_struct_bjet.begin(), vec_struct_bjet.end(), compare_btag);
+for(int k=0; k<vec_struct_bjet.size(); k++){
+//if (vec_struct_bjet[k].btag1>0.4941){
+	//cout<<"after sorting "<<vec_struct_bjet[k].btag1<< "   "<<endl;
+//}
+ float btag1_value = vec_struct_bjet[k].btag1;
+
+if (k == 0) {
+  h_btag_0->Fill(btag1_value);
+} else if (k == 1) {
+  h_btag_1->Fill(btag1_value);
+} else if (k == 2) {
+  h_btag_2->Fill(btag1_value);
+} else if (k == 3) {
+  h_btag_3->Fill(btag1_value);
+}
+}
 
   //jets pt & pseudorapidity  
   float jet1_eta=jet_vec[0].Eta();
@@ -568,17 +604,14 @@ if (bjet_mult>3)
   float h_b_m=h_b_p.M();
   float h_b_phi=h_b_p.Phi();
   float h_b_pt=h_b_p.Pt();
-  //histos.Branch("h_b_pt",&h_b_pt,"h_b_pt/F");
   float h_b_eta=h_b_p.Eta();
   h_b_inv_m->Fill(h_b_m,w);
   h_b_h_pt->Fill(h_b_pt,w);
-  //histos.Branch("h_b_inv_m",&h_b_inv_m,"h_b_inv_m/F");
 
 
 
   //MET
   h_met_pt->Fill(met_pt,w);
-  //histos.Branch("h_met_pt",&h_met_pt,"h_met_pt/F");
 
 
 
@@ -591,7 +624,6 @@ if (bjet_mult>3)
   float w_eta=w_p.Eta();
   float w_m=w_p.M();
   h_w_pt->Fill(w_pt,w);
-  //histos.Branch("h_w_pt",&h_w_pt,"h_w_pt/F");
   h_w_eta->Fill(w_eta,w);
   h_w_phi->Fill(w_phi,w);
   h_w_m->Fill(w_m,w);
@@ -602,7 +634,6 @@ if (bjet_mult>3)
   d_phi_w_h=abs(w_p.DeltaPhi(h_p));
   float d_phi_w_b_h;
   d_phi_w_b_h=abs(w_p.DeltaPhi(h_b_p));
-  //histos.Branch("d_phi_w_b_h",&d_phi_w_b_h,"d_phi_w_b_h/F");
   
 
 
@@ -613,7 +644,6 @@ if (bjet_mult>3)
 
   //scalar sum of the handronic activity
   h_h_pt->Fill(h_pt,w);
-  //histos.Branch("h_h_pt",&h_h_pt,"h_h_pt/F");
   h_h_phi->Fill(h_phi,w);
   h_h_eta->Fill(h_eta,w);
 
@@ -630,7 +660,6 @@ if (bjet_mult>3){
   double dR_23 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[2],bjet_vec[3]);
   double dR_av = (dR_01 + dR_02 + dR_12 + dR_23 + dR_03 + dR_13) / 6.;
   h_dR_av->Fill(dR_av,w);
-  //histos.Branch("dR_av",&dR_av,"dR_av/F");
 
 
 
@@ -640,7 +669,6 @@ if (bjet_mult>3){
   float m3 = std::abs((bjet_vec[0].M() + bjet_vec[3].M()) - (bjet_vec[1].M() + bjet_vec[2].M()));
   float minDm = TMath::Min(m3,TMath::Min(m1,m2));
   h_minDelta_m->Fill(minDm,w);
-  //histos.Branch("h_minDelta_m",&h_minDelta_m,"h_minDelta_m/F");
 }
 
 
@@ -652,8 +680,7 @@ if (bjet_vec[i].DeltaPhi(met_p)<min_dphi){
 }
 }
   h_delta_phi->Fill(min_dphi,w);
-  //histos.Branch("h_delta_phi",&h_delta_phi,"h_delta_phi/F");
-  //histos.Fill();
+  histos.Fill();
   //tree->Print();
   
 
@@ -748,6 +775,6 @@ if (ientry < 0) break;
   h_btag_1->Write();
   h_btag_2->Write();
   h_btag_3->Write();
-  //histos.Write();
+  histos.Write();
   f.Close();
 }
