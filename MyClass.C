@@ -55,44 +55,7 @@ if (fChain == 0) return;
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
   //TFile f("histos_back_WJetsToLNu.root","recreate");
-  //TFile f("histos_back_WJetsToLNu.root","recreate");
-
-  TTree my_tree("my_tree","Global variables");
-  Float_t h_b_pt_mva;
-  Float_t h_mt_mva;
-  Float_t h_b_inv_m_mva;
-  Float_t h_met_pt_mva;
-  Float_t h_btag_0_mva;
-  Float_t h_btag_1_mva;
-  Float_t h_btag_2_mva;
-  Float_t h_btag_3_mva;
-  Float_t h_lep_pt_mva;
-  Int_t h_Nbjets_after_mva;
-  Float_t h_w_pt_mva;
-  Float_t d_phi_w_b_h_mva;
-  Float_t h_h_pt_mva;
-  Float_t dR_av_mva;
-  Float_t h_minDelta_m_mva;
-  Float_t h_delta_phi_mva;
-  Float_t w_mva;
-  //Float_t w_mva;
-  my_tree.Branch("h_b_pt",&h_b_pt_mva,"h_b_pt/F");
-  my_tree.Branch("h_mt",&h_mt_mva,"h_mt/F");
-  my_tree.Branch("h_b_inv_m",&h_b_inv_m_mva,"h_b_inv_m/F");
-  my_tree.Branch("h_met_pt",&h_met_pt_mva,"h_met_pt/F");
-  my_tree.Branch("h_btag_0",&h_btag_0_mva,"h_btag_0/F");
-  my_tree.Branch("h_btag_1",&h_btag_1_mva,"h_btag_1/F");
-  my_tree.Branch("h_btag_2",&h_btag_2_mva,"h_btag_2/F");
-  my_tree.Branch("h_btag_3",&h_btag_3_mva,"h_btag_3/F");
-  my_tree.Branch("h_lep_pt",&h_lep_pt_mva,"h_lep_pt/F");
-  my_tree.Branch("h_Nbjets_after",&h_Nbjets_after_mva,"h_Nbjets_after/I");
-  my_tree.Branch("h_w_pt",&h_w_pt_mva,"h_w_pt/F");
-  my_tree.Branch("d_phi_w_b_h",&d_phi_w_b_h_mva,"d_phi_w_b_h/F");
-  my_tree.Branch("h_h_pt",&h_h_pt_mva,"h_h_pt/F");
-  my_tree.Branch("dR_av",&dR_av_mva,"dR_av/F");
-  my_tree.Branch("h_minDelta_m",&h_minDelta_m_mva,"h_minDelta_m/F");
-  my_tree.Branch("h_delta_phi",&h_delta_phi_mva,"h_delta_phi/F");
-  my_tree.Branch("w",&w_mva,"w/F");
+  //TFile f("histos_back_WJetsToLNu1.root","recreate");
 
 
 
@@ -271,6 +234,42 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   TH1F *h_btag_2 = new TH1F("h_btag_2","b_tag_2 discriminator",50,0.,1.);
   TH1F *h_btag_3 = new TH1F("h_btag_3","b_tag_3 discriminator",50,0.,1.);
 
+
+  TTree *my_tree = new TTree("my_tree","Global variables");
+  Float_t _h_b_pt;
+  Float_t _mt;
+  Float_t _b_inv_m;
+  Float_t _met_pt;
+  Float_t _btag_0;
+  Float_t _btag_1;
+  Float_t _btag_2;
+  Float_t _btag_3;
+  Float_t _lep_pt;
+  Int_t _Nbjets_after;
+  Float_t _w_pt;
+  Float_t _d_phi_w_b_h;
+  Float_t _h_pt;
+  Float_t _dR_av;
+  Float_t _minDelta_m;
+  Float_t _delta_phi;
+  Float_t _w;
+  my_tree->Branch("h_b_pt",&_h_b_pt,"_h_b_pt/F");
+  my_tree->Branch("mt",&_mt,"_mt/F");
+  my_tree->Branch("b_inv_m",&_b_inv_m,"_b_inv_m/F");
+  my_tree->Branch("met_pt",&_met_pt,"_met_pt/F");
+  my_tree->Branch("btag_0",&_btag_0,"_btag_0/F");
+  my_tree->Branch("btag_1",&_btag_1,"_btag_1/F");
+  my_tree->Branch("btag_2",&_btag_2,"_btag_2/F");
+  my_tree->Branch("btag_3",&_btag_3,"_btag_3/F");
+  my_tree->Branch("lep_pt",&_lep_pt,"_lep_pt/F");
+  my_tree->Branch("Nbjets_after",&_Nbjets_after,"_Nbjets_after/I");
+  my_tree->Branch("w_pt",&_w_pt,"_w_pt/F");
+  my_tree->Branch("d_phi_w_b_h",&_d_phi_w_b_h,"_phi_w_b_h/F");
+  my_tree->Branch("h_pt",&_h_pt,"_h_pt/F");
+  my_tree->Branch("dR_av",&_dR_av,"_dR_av/F");
+  my_tree->Branch("minDelta_m",&_minDelta_m,"_minDelta_m/F");
+  my_tree->Branch("delta_phi",&_delta_phi,"_delta_phi/F");
+  my_tree->Branch("w",&_w,"w/F");
 
   Long64_t nbytes = 0, nb = 0;
 
@@ -477,12 +476,15 @@ if (bjet_mult<3) continue;
   MT=sqrt(2*lep_pt*met_pt*(1-cos(d_phi)));
 if (MT<25 || met_pt<30)continue;
   count_N4++;
+  _mt=MT;
   h_mt->Fill(MT,w);
   h_lep_pt->Fill(lep_pt,w);
+  _lep_pt=lep_pt;
   h_lep_phi->Fill(lep_phi,w);
   h_lep_m->Fill(lep_m,w);
   h_lep_eta->Fill(lep_eta,w);
   h_Nbjets_after->Fill(bjet_mult,w);
+  _Nbjets_after=bjet_mult;
 
 
 for (int ijet = 0 ; ijet < btag.size(); ijet++){
@@ -504,12 +506,16 @@ for(int k=0; k<vec_struct_bjet.size(); k++){
 
 if (k == 0) {
   h_btag_0->Fill(btag1_value);
+  _btag_0=btag1_value;
 } else if (k == 1) {
   h_btag_1->Fill(btag1_value);
+  _btag_1=btag1_value;
 } else if (k == 2) {
   h_btag_2->Fill(btag1_value);
+  _btag_2=btag1_value;
 } else if (k == 3) {
   h_btag_3->Fill(btag1_value);
+  _btag_3=btag1_value;
 }
 }
 
@@ -609,11 +615,14 @@ if (bjet_mult>3)
   float h_m=h_p.M();
   float h_phi=h_p.Phi();
   float h_pt=h_p.Pt();
+  _h_pt=h_pt;
   float h_eta=h_p.Eta();
   h_inv_m->Fill(h_m);
   float h_b_m=h_b_p.M();
+  _b_inv_m=h_b_m;
   float h_b_phi=h_b_p.Phi();
   float h_b_pt=h_b_p.Pt();
+  _h_b_pt=h_b_pt;
   float h_b_eta=h_b_p.Eta();
   h_b_inv_m->Fill(h_b_m,w);
   h_b_h_pt->Fill(h_b_pt,w);
@@ -622,7 +631,7 @@ if (bjet_mult>3)
 
   //MET
   h_met_pt->Fill(met_pt,w);
-
+  _met_pt=met_pt;
 
 
   //W boson
@@ -637,6 +646,7 @@ if (bjet_mult>3)
   h_w_eta->Fill(w_eta,w);
   h_w_phi->Fill(w_phi,w);
   h_w_m->Fill(w_m,w);
+  _w_pt=w_pt;
 
 
   //D_phi
@@ -644,7 +654,7 @@ if (bjet_mult>3)
   d_phi_w_h=abs(w_p.DeltaPhi(h_p));
   float d_phi_w_b_h;
   d_phi_w_b_h=abs(w_p.DeltaPhi(h_b_p));
-  
+  _d_phi_w_b_h=d_phi_w_b_h;
 
 
   h_d_phi_w_h->Fill(d_phi_w_h,w);
@@ -670,6 +680,7 @@ if (bjet_mult>3){
   float dR_23 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[2],bjet_vec[3]);
   float dR_av = (dR_01 + dR_02 + dR_12 + dR_23 + dR_03 + dR_13) / 6.;
   h_dR_av->Fill(dR_av,w);
+  _dR_av=dR_av;
 
 
 
@@ -679,6 +690,7 @@ if (bjet_mult>3){
   float m3 = std::abs((bjet_vec[0].M() + bjet_vec[3].M()) - (bjet_vec[1].M() + bjet_vec[2].M()));
   float minDm = TMath::Min(m3,TMath::Min(m1,m2));
   h_minDelta_m->Fill(minDm,w);
+  _minDelta_m=minDm;
 }
 
 
@@ -690,7 +702,8 @@ if (bjet_vec[i].DeltaPhi(met_p)<min_dphi){
 }
 }
   h_delta_phi->Fill(min_dphi,w);
-  my_tree.Fill();
+  _delta_phi=min_dphi;
+  my_tree->Fill();
   //tree->Print();
   
 
@@ -785,6 +798,6 @@ if (ientry < 0) break;
   h_btag_1->Write();
   h_btag_2->Write();
   h_btag_3->Write();
-  my_tree.Write();
+  my_tree->Write();
   f.Close();
 }
