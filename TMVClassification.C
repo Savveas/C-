@@ -42,7 +42,7 @@ void TMVClassification()
     dataloader->AddVariable("_btag_2", 'F');
     dataloader->AddVariable("_btag_3", 'F');
     dataloader->AddVariable("_lep_pt", 'F');
-    dataloader->AddVariable("_Nbjets_after", 'F');
+    dataloader->AddVariable("_Nbjets_after", 'I');
     dataloader->AddVariable("_w_pt", 'F');
     //dataloader->AddVariable("_d_phi_w_b_h", 'F');
     dataloader->AddVariable("_Njets_after", 'I');
@@ -57,7 +57,7 @@ void TMVClassification()
     dataloader->PrepareTrainingAndTestTree("","nTrain_Signal=1000:nTrain_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" );
 
     factory->BookMethod(dataloader, TMVA::Types::kBDT,"BDT","!H:!V:NTrees=100:BoostType=Grad:Shrinkage=0.7.0:DoBoostMonitor=True:MaxDepth=3:nCuts=200");
-    factory->BookMethod(dataloader,TMVA::Types::kMLP, "MLP", "!V:NCycles=200:HiddenLayers=N+1,N:TestRate=5" );
+    //factory->BookMethod(dataloader,TMVA::Types::kMLP, "MLP", "!V:NCycles=200:HiddenLayers=N+1,N:TestRate=5" );
 
     factory->TrainAllMethods();
     factory->TestAllMethods();
