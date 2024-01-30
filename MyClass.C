@@ -1,4 +1,5 @@
 #define MyClass_cxx
+#include <iostream>
 #include "MyClass.h"
 #include <TH2.h>
 #include <TStyle.h>
@@ -50,8 +51,8 @@ if (fChain == 0) return;
 
 
   Long64_t nentries = fChain->GetEntriesFast();
-  TFile f("histos_signal.root","recreate");
-  //TFile f("histos_back_TTbarSemileptonic.root","recreate");
+  //TFile f("histos_signal.root","recreate");
+  TFile f("histos_back_TTbarSemileptonic.root","recreate");
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
   //TFile f("histos_back_WJetsToLNu.root","recreate");
@@ -92,25 +93,25 @@ if (fChain == 0) return;
   float w_back_WJetsToLNu2=N_expected_back_WJetsToLNu2/nentries;
 
   
-
+  Float_t _w;
   float w;
 if (std::string(f.GetName()) == "histos_signal.root") {
-  w = w_signal;
+  _w = w_signal;
   std::cout << " Signal weight = " << w_signal << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_TTbarSemileptonic.root") {
-  w = w_back_Semileptonic;
+  _w = w_back_Semileptonic;
   std::cout << " Backround weight (TTbar_Semileptonic) = " << w_back_Semileptonic << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_TTbarDileptonic.root"){
-  w = w_back_Dileptonic; 
+  _w = w_back_Dileptonic; 
   std::cout << " Backround weight (TTbar_Dileptonic) = " << w_back_Dileptonic << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_TTbarHadronic.root"){
-  w = w_back_Hadronic; 
+  _w = w_back_Hadronic; 
   std::cout << " Backround weight (TTbar_Hadronic) = " << w_back_Hadronic << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_WJetsToLNu.root"){
-  w = w_back_WJetsToLNu; 
+  _w = w_back_WJetsToLNu; 
   std::cout << " Backround weight (TTbar_WJetsToLNu) = " << w_back_WJetsToLNu << std::endl;
-} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu2.root"){
-  w = w_back_WJetsToLNu; 
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu1.root"){
+  _w = w_back_WJetsToLNu; 
   std::cout << " Backround weight (TTbar_WJetsToLNu2) = " << w_back_WJetsToLNu << std::endl;
 }
 
@@ -248,11 +249,11 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   Int_t _Nbjets_after;
   Float_t _w_pt;
   Float_t _d_phi_w_b_h;
-  Float_t _h_pt;
+  Int_t _Njets_after;
   Float_t _dR_av;
   Float_t _minDelta_m;
   Float_t _delta_phi;
-  Float_t _w;
+  Float_t _H_T;
   my_tree->Branch("h_b_pt",&_h_b_pt,"_h_b_pt/F");
   my_tree->Branch("mt",&_mt,"_mt/F");
   my_tree->Branch("b_inv_m",&_b_inv_m,"_b_inv_m/F");
@@ -265,11 +266,12 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   my_tree->Branch("Nbjets_after",&_Nbjets_after,"_Nbjets_after/I");
   my_tree->Branch("w_pt",&_w_pt,"_w_pt/F");
   my_tree->Branch("d_phi_w_b_h",&_d_phi_w_b_h,"_phi_w_b_h/F");
-  my_tree->Branch("h_pt",&_h_pt,"_h_pt/F");
+  my_tree->Branch("Njets_after",&_Njets_after,"_Njets_after/I");
   my_tree->Branch("dR_av",&_dR_av,"_dR_av/F");
   my_tree->Branch("minDelta_m",&_minDelta_m,"_minDelta_m/F");
   my_tree->Branch("delta_phi",&_delta_phi,"_delta_phi/F");
   my_tree->Branch("w",&_w,"w/F");
+  my_tree->Branch("H_T",&_H_T,"_H_T/F");
 
   Long64_t nbytes = 0, nb = 0;
 
@@ -485,6 +487,8 @@ if (MT<25 || met_pt<30)continue;
   h_lep_eta->Fill(lep_eta,w);
   h_Nbjets_after->Fill(bjet_mult,w);
   _Nbjets_after=bjet_mult;
+  _Njets_after=jet_mult;
+
 
 
 for (int ijet = 0 ; ijet < btag.size(); ijet++){
@@ -615,7 +619,6 @@ if (bjet_mult>3)
   float h_m=h_p.M();
   float h_phi=h_p.Phi();
   float h_pt=h_p.Pt();
-  _h_pt=h_pt;
   float h_eta=h_p.Eta();
   h_inv_m->Fill(h_m);
   float h_b_m=h_b_p.M();
@@ -626,7 +629,7 @@ if (bjet_mult>3)
   float h_b_eta=h_b_p.Eta();
   h_b_inv_m->Fill(h_b_m,w);
   h_b_h_pt->Fill(h_b_pt,w);
-
+  _H_T=h_pt;
 
 
   //MET
