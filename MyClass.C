@@ -647,7 +647,7 @@ for (int i = 0; i < jet_vec.size(); i++)
 
 
   //scalar sum of the handronic activity
-  //h_jet_pt->Fill(jet_pt,w);
+  h_jet_pt->Fill(jet_pt);
   //h_jet_phi->Fill(jet_phi,w);
   //h_jet_eta->Fill(jet_eta,w);
 
