@@ -444,6 +444,12 @@ void plots(){
   TH1F *hbkg_btag_2_w = (TH1F*)inputfile_back_w->Get("h_btag_2");
   TH1F *hbkg_btag_3_w = (TH1F*)inputfile_back_w->Get("h_btag_3");
 
+  TH1F *hsig_jet_pt = (TH1F*)inputfile->Get("h_jet_pt");
+  TH1F *hbkg_jet_pt = (TH1F*)inputfile_back->Get("h_jet_pt");
+  TH1F *hbkg_jet_pt_h = (TH1F*)inputfile_back_h->Get("h_jet_pt");
+  TH1F *hbkg_jet_pt_d = (TH1F*)inputfile_back_h->Get("h_jet_pt");
+  TH1F *hbkg_jet_pt_w = (TH1F*)inputfile_back_w->Get("h_jet_pt");
+
 
 
   //muons
@@ -2771,4 +2777,46 @@ void plots(){
   leg_btag_3->AddEntry(hbkg_btag_3_d, "TTbar_Dileptonic", "l");
   //leg_btag_3->AddEntry(hbkg_btag_3_w, "WJets_to_LNu", "l");
   leg_btag_3->Draw();
+
+
+  TCanvas *c_jet_pt = new TCanvas("HT", "HT", 1000, 1000);
+  hbkg_jet_pt_w->GetXaxis()->SetTitle("btag3");
+  hbkg_jet_pt_w->GetYaxis()->SetTitle("Entries");
+  hbkg_jet_pt_w->SetLineColor(kGreen);
+  hbkg_jet_pt_w->Scale(1./hbkg_jet_pt_w->Integral());
+  //hsig_jet_pt->Draw("Ehist");
+
+  hsig_jet_pt->GetXaxis()->SetTitle("btag3");
+  hsig_jet_pt->GetYaxis()->SetTitle("Entries");
+  hsig_jet_pt->SetLineColor(kBlack);
+  hsig_jet_pt->Scale(1./hbkg_btag_3->Integral());
+  hsig_jet_pt->Draw("Ehist");
+  hbkg_jet_pt_h->Draw("Ehist,sames");
+  hbkg_jet_pt_d->Draw("Ehist,sames");
+
+  hbkg_jet_pt_h->GetXaxis()->SetTitle("btag3");
+  hbkg_jet_pt_h->GetYaxis()->SetTitle("Entries");
+  hbkg_jet_pt_h->SetLineColor(kRed);
+  hbkg_jet_pt_h->Scale(1./hbkg_jet_pt_h->Integral());
+  hbkg_jet_pt_h->Draw("Ehist,sames");
+
+  hbkg_jet_pt_d->GetXaxis()->SetTitle("btag3");
+  hbkg_jet_pt_d->GetYaxis()->SetTitle("Entries");
+  hbkg_jet_pt_d->SetLineColor(kYellow);
+  hbkg_jet_pt_d->Scale(1./hbkg_jet_pt_d->Integral());
+  
+
+  hbkg_jet_pt->GetXaxis()->SetTitle("btag3");
+  hbkg_jet_pt->GetYaxis()->SetTitle("Entries");
+  hbkg_jet_pt->SetLineColor(kBlack);
+  hbkg_jet_pt->Scale(1./hbkg_jet_pt->Integral());
+  
+
+  TLegend *leg_jet_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
+  leg_jet_pt->AddEntry(hsig_jet_pt, "Signal", "l");
+  leg_jet_pt->AddEntry(hbkg_jet_pt, "TTbarSemileptonic", "l");
+  leg_jet_pt->AddEntry(hbkg_jet_pt_h, "TTbar_Hadronic", "l");
+  leg_jet_pt->AddEntry(hbkg_jet_pt_d, "TTbar_Dileptonic", "l");
+  //leg_jet_pt->AddEntry(hbkg_jet_pt_w, "WJets_to_LNu", "l");
+  leg_jet_pt->Draw();
 }
