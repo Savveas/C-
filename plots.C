@@ -2780,36 +2780,36 @@ void plots(){
 
 
   TCanvas *c_jet_pt = new TCanvas("HT", "HT", 1000, 1000);
-  hbkg_jet_pt_w->GetXaxis()->SetTitle("btag3");
+  hbkg_jet_pt_w->GetXaxis()->SetTitle("HT");
   hbkg_jet_pt_w->GetYaxis()->SetTitle("Entries");
   hbkg_jet_pt_w->SetLineColor(kGreen);
   hbkg_jet_pt_w->Scale(1./hbkg_jet_pt_w->Integral());
   //hsig_jet_pt->Draw("Ehist");
 
-  hsig_jet_pt->GetXaxis()->SetTitle("btag3");
+  hsig_jet_pt->GetXaxis()->SetTitle("HT");
   hsig_jet_pt->GetYaxis()->SetTitle("Entries");
   hsig_jet_pt->SetLineColor(kBlack);
-  hsig_jet_pt->Scale(1./hbkg_btag_3->Integral());
+  hsig_jet_pt->Scale(1./hsig_jet_pt->Integral());
   hsig_jet_pt->Draw("Ehist");
-  hbkg_jet_pt_h->Draw("Ehist,sames");
-  hbkg_jet_pt_d->Draw("Ehist,sames");
 
-  hbkg_jet_pt_h->GetXaxis()->SetTitle("btag3");
+  hbkg_jet_pt_h->GetXaxis()->SetTitle("HT");
   hbkg_jet_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet_pt_h->SetLineColor(kRed);
   hbkg_jet_pt_h->Scale(1./hbkg_jet_pt_h->Integral());
   hbkg_jet_pt_h->Draw("Ehist,sames");
 
-  hbkg_jet_pt_d->GetXaxis()->SetTitle("btag3");
+  hbkg_jet_pt_d->GetXaxis()->SetTitle("HT");
   hbkg_jet_pt_d->GetYaxis()->SetTitle("Entries");
   hbkg_jet_pt_d->SetLineColor(kYellow);
   hbkg_jet_pt_d->Scale(1./hbkg_jet_pt_d->Integral());
-  
+  hbkg_jet_pt_d->Draw("Ehist,sames");
 
-  hbkg_jet_pt->GetXaxis()->SetTitle("btag3");
+
+  hbkg_jet_pt->GetXaxis()->SetTitle("HT");
   hbkg_jet_pt->GetYaxis()->SetTitle("Entries");
-  hbkg_jet_pt->SetLineColor(kBlack);
+  hbkg_jet_pt->SetLineColor(kBlue);
   hbkg_jet_pt->Scale(1./hbkg_jet_pt->Integral());
+  hbkg_jet_pt->Draw("Ehist,sames");
   
 
   TLegend *leg_jet_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
