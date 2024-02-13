@@ -465,8 +465,8 @@ void plots(){
   hsig_mn_pt->GetYaxis()->SetTitle("Entries");
   hsig_mn_pt->Scale(1./hsig_mn_pt->Integral());
   hsig_mn_pt->SetLineColor(kBlack);
-  hbkg_mn_pt_h->Draw("Ehist");
-  hsig_mn_pt->Draw("Ehist,sames");
+  //hbkg_mn_pt_h->Draw("Ehist");
+  hsig_mn_pt->Draw("Ehist");
 
   hbkg_mn_pt->SetLineColor(kRed);
   hbkg_mn_pt->GetXaxis()->SetTitle("Transverse Momentum (GeV/c)");
@@ -489,7 +489,7 @@ void plots(){
   leg_mn_pt->AddEntry(hsig_mn_pt,"Signal","l");
   leg_mn_pt->AddEntry(hbkg_mn_pt,"TTbar_Semileptonic","l");
   leg_mn_pt->AddEntry(hbkg_mn_pt_d,"TTbar_Dileptonic","l");
-  leg_mn_pt->AddEntry(hbkg_mn_pt_h,"TTbar_Hadronic","l");
+  //leg_mn_pt->AddEntry(hbkg_mn_pt_h,"TTbar_Hadronic","l");
   //leg_mn_pt->AddEntry(hbkg_mn_pt_w,"WJets_to_LNu","l");
   leg_mn_pt->Draw();
 
@@ -511,7 +511,7 @@ void plots(){
   hbkg_mn_eta_h->GetXaxis()->SetTitle("Muon Pseudorapidity");
   hbkg_mn_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_mn_eta_h->Scale(1. / hbkg_mn_eta_h->Integral());
-  hbkg_mn_eta_h->Draw("Ehist, sames");
+  //hbkg_mn_eta_h->Draw("Ehist, sames");
 
   hbkg_mn_eta_d->SetLineColor(kYellow);
   hbkg_mn_eta_d->GetXaxis()->SetTitle("Muon Pseudorapidity");
@@ -528,7 +528,7 @@ void plots(){
   TLegend *leg_mn_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_mn_eta->AddEntry(hsig_mn_eta,"Signal","l");
   leg_mn_eta->AddEntry(hbkg_mn_eta, "TTbar_Semileptonic", "l");
-  leg_mn_eta->AddEntry(hbkg_mn_eta_h, "TTbar_Hadronic", "l");
+  //leg_mn_eta->AddEntry(hbkg_mn_eta_h, "TTbar_Hadronic", "l");
   leg_mn_eta->AddEntry(hbkg_mn_eta_d, "TTbar_Dileptonic", "l");
   //leg_mn_eta->AddEntry(hbkg_mn_eta_w, "WJets_to_LNu", "l");
   leg_mn_eta->Draw();
@@ -539,14 +539,15 @@ void plots(){
   hbkg_mn_phi_h->GetXaxis()->SetTitle("Muon Phi");
   hbkg_mn_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_mn_phi_h->Scale(1. / hbkg_mn_phi_h->Integral());
-  hbkg_mn_phi_h->Draw("Ehist");
+  //hbkg_mn_phi_h->Draw("Ehist");
 
   hsig_mn_phi->SetLineColor(kBlack);
   hbkg_mn_phi->SetLineColor(kRed);
   hbkg_mn_phi->GetXaxis()->SetTitle("Muon Phi");
   hbkg_mn_phi->GetYaxis()->SetTitle("Entries");
   hbkg_mn_phi->Scale(1./hbkg_mn_phi->Integral());
-  hbkg_mn_phi->Draw("Ehist,sames"); 
+  hbkg_mn_phi->Draw("Ehist");
+
   hsig_mn_phi->GetXaxis()->SetTitle("Muon Phi");
   hsig_mn_phi->GetYaxis()->SetTitle("Entries");
   hsig_mn_phi->Scale(1./hsig_mn_phi->Integral());
@@ -567,7 +568,7 @@ void plots(){
   TLegend *leg_mn_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_mn_phi->AddEntry(hsig_mn_phi,"Signal","l");
   leg_mn_phi->AddEntry(hbkg_mn_phi, "TTbar_Semileptonic", "l");
-  leg_mn_phi->AddEntry(hbkg_mn_phi_h, "TTbar_Hadronic", "l");
+  //leg_mn_phi->AddEntry(hbkg_mn_phi_h, "TTbar_Hadronic", "l");
   leg_mn_phi->AddEntry(hbkg_mn_phi_d, "TTbar_Dileptonic", "l");
   //leg_mn_phi->AddEntry(hbkg_mn_phi_w, "WJets_to_LNu", "l");
   leg_mn_phi->Draw();
@@ -586,8 +587,8 @@ void plots(){
   hsig_en_pt->GetYaxis()->SetTitle("Entries");
   hsig_en_pt->Scale(1./hsig_en_pt->Integral());
   hsig_en_pt->SetLineColor(kBlack);
-  hbkg_en_pt_h->Draw("Ehist");
-  hsig_en_pt->Draw("Ehist,sames");
+  //hbkg_en_pt_h->Draw("Ehist");
+  hsig_en_pt->Draw("Ehist");
 
   hbkg_en_pt->GetXaxis()->SetTitle("Electron Transverse Momentum (GeV/c)");
   hbkg_en_pt->GetYaxis()->SetTitle("Entries");
@@ -611,7 +612,7 @@ void plots(){
   TLegend *leg_en_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_en_pt->AddEntry(hsig_en_pt, "Signal", "l");
   leg_en_pt->AddEntry(hbkg_en_pt, "TTbar_Semileptonic", "l");
-  leg_en_pt->AddEntry(hbkg_en_pt_h, "TTbar_Hadronic", "l");
+  //leg_en_pt->AddEntry(hbkg_en_pt_h, "TTbar_Hadronic", "l");
   leg_en_pt->AddEntry(hbkg_en_pt_d, "TTbar_Dileptonic", "l");
   //leg_en_pt->AddEntry(hbkg_en_pt_w, "WJets_to_LNu", "l");
   leg_en_pt->Draw();
@@ -622,14 +623,14 @@ void plots(){
   hbkg_en_eta_h->GetXaxis()->SetTitle("Electron Pseudorapidity");
   hbkg_en_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_en_eta_h->Scale(1. / hbkg_en_eta_h->Integral());
-  hbkg_en_eta_h->Draw("Ehist");
+  //hbkg_en_eta_h->Draw("Ehist");
 
   hsig_en_eta->SetLineColor(kBlack);
   hbkg_en_eta->SetLineColor(kRed);
   hbkg_en_eta->GetXaxis()->SetTitle("Electron Pseudorapidity");
   hbkg_en_eta->GetYaxis()->SetTitle("Entries");
   hbkg_en_eta->Scale(1./hbkg_en_eta->Integral());
-  hbkg_en_eta->Draw("Ehist,sames");
+  hbkg_en_eta->Draw("Ehist");
 
   hsig_en_eta->GetXaxis()->SetTitle("Electron Pseudorapidity");
   hsig_en_eta->GetYaxis()->SetTitle("Entries");
@@ -651,7 +652,7 @@ void plots(){
   TLegend *leg_en_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_en_eta->AddEntry(hsig_en_eta, "Signal", "l");
   leg_en_eta->AddEntry(hbkg_en_eta, "TTbar_Semileptonic", "l");
-  leg_en_eta->AddEntry(hbkg_en_eta_h, "TTbar_Hadronic", "l");
+  //leg_en_eta->AddEntry(hbkg_en_eta_h, "TTbar_Hadronic", "l");
   leg_en_eta->AddEntry(hbkg_en_eta_d, "TTbar_Dileptonic", "l");
   //leg_en_eta->AddEntry(hbkg_en_eta_w, "WJets_to_LNu", "l");
   leg_en_eta->Draw();
@@ -674,7 +675,7 @@ void plots(){
   hbkg_en_phi_h->GetXaxis()->SetTitle("Electron Phi");
   hbkg_en_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_en_phi_h->Scale(1. / hbkg_en_phi_h->Integral());
-  hbkg_en_phi_h->Draw("Ehist, sames");
+  //hbkg_en_phi_h->Draw("Ehist, sames");
 
   hbkg_en_phi_d->SetLineColor(kYellow);
   hbkg_en_phi_d->GetXaxis()->SetTitle("Electron Phi");
@@ -691,7 +692,7 @@ void plots(){
   TLegend *leg_en_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_en_phi->AddEntry(hsig_en_phi, "Signal", "l");
   leg_en_phi->AddEntry(hbkg_en_phi, "TTbar_Semileptonic", "l");
-  leg_en_phi->AddEntry(hbkg_en_phi_h, "TTbar_Hadronic", "l");
+  //leg_en_phi->AddEntry(hbkg_en_phi_h, "TTbar_Hadronic", "l");
   leg_en_phi->AddEntry(hbkg_en_phi_d, "TTbar_Dileptonic", "l");
   //leg_en_phi->AddEntry(hbkg_en_phi_w, "WJets_to_LNu", "l");
   leg_en_phi->Draw();
@@ -717,7 +718,7 @@ void plots(){
   hbkg_lep_pt_h->GetXaxis()->SetTitle("Lepton Transverse Momentum (GeV/c)");
   hbkg_lep_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_lep_pt_h->Scale(1. / hbkg_lep_pt_h->Integral());
-  hbkg_lep_pt_h->Draw("Ehist, sames");
+  //hbkg_lep_pt_h->Draw("Ehist, sames");
 
   hbkg_lep_pt_d->SetLineColor(kYellow);
   hbkg_lep_pt_d->GetXaxis()->SetTitle("Lepton Transverse Momentum (GeV/c)");
@@ -734,7 +735,7 @@ void plots(){
   TLegend *leg_lep_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_lep_pt->AddEntry(hsig_lep_pt, "Signal", "l");
   leg_lep_pt->AddEntry(hbkg_lep_pt, "TTbar_Semileptonic", "l");
-  leg_lep_pt->AddEntry(hbkg_lep_pt_h, "TTbar_Hadronic", "l");
+  //leg_lep_pt->AddEntry(hbkg_lep_pt_h, "TTbar_Hadronic", "l");
   leg_lep_pt->AddEntry(hbkg_lep_pt_d, "TTbar_Dileptonic", "l");
   //leg_lep_pt->AddEntry(hbkg_lep_pt_w, "WJets_to_LNu", "l");
   leg_lep_pt->Draw();
@@ -757,7 +758,7 @@ void plots(){
   hbkg_lep_eta_h->GetXaxis()->SetTitle("Lepton Pseudorapidity");
   hbkg_lep_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_lep_eta_h->Scale(1. / hbkg_lep_eta_h->Integral());
-  hbkg_lep_eta_h->Draw("Ehist, sames");
+  //hbkg_lep_eta_h->Draw("Ehist, sames");
 
   hbkg_lep_eta_d->SetLineColor(kYellow);
   hbkg_lep_eta_d->GetXaxis()->SetTitle("Lepton Pseudorapidity");
@@ -774,7 +775,7 @@ void plots(){
   TLegend *leg_lep_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_lep_eta->AddEntry(hsig_lep_eta, "Signal", "l");
   leg_lep_eta->AddEntry(hbkg_lep_eta, "TTbar_Semileptonic", "l");
-  leg_lep_eta->AddEntry(hbkg_lep_eta_h, "TTbar_Hadronic", "l");
+  //leg_lep_eta->AddEntry(hbkg_lep_eta_h, "TTbar_Hadronic", "l");
   leg_lep_eta->AddEntry(hbkg_lep_eta_d, "TTbar_Dileptonic", "l");
   //leg_lep_eta->AddEntry(hbkg_lep_eta_w, "WJets_to_LNu", "l");
   leg_lep_eta->Draw();
@@ -797,7 +798,7 @@ void plots(){
   hbkg_lep_phi_h->GetXaxis()->SetTitle("Lepton Phi");
   hbkg_lep_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_lep_phi_h->Scale(1. / hbkg_lep_phi_h->Integral());
-  hbkg_lep_phi_h->Draw("Ehist, sames");
+  //hbkg_lep_phi_h->Draw("Ehist, sames");
 
   hbkg_lep_phi_d->SetLineColor(kYellow);
   hbkg_lep_phi_d->GetXaxis()->SetTitle("Lepton Phi");
@@ -814,7 +815,7 @@ void plots(){
   TLegend *leg_lep_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_lep_phi->AddEntry(hsig_lep_phi, "Signal", "l");
   leg_lep_phi->AddEntry(hbkg_lep_phi, "TTbar_Semileptonic", "l");
-  leg_lep_phi->AddEntry(hbkg_lep_phi_h, "TTbar_Hadronic", "l");
+  //leg_lep_phi->AddEntry(hbkg_lep_phi_h, "TTbar_Hadronic", "l");
   leg_lep_phi->AddEntry(hbkg_lep_phi_d, "TTbar_Dileptonic", "l");
   //leg_lep_phi->AddEntry(hbkg_lep_phi_w, "WJets_to_LNu", "l");
   leg_lep_phi->Draw();
@@ -841,7 +842,7 @@ void plots(){
   hbkg_jet1_pt_h->GetXaxis()->SetTitle("Jet 1 Transverse Momentum (GeV/c)");
   hbkg_jet1_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet1_pt_h->Scale(1. / hbkg_jet1_pt_h->Integral());
-  hbkg_jet1_pt_h->Draw("Ehist, sames");
+  //hbkg_jet1_pt_h->Draw("Ehist, sames");
 
   hbkg_jet1_pt_d->SetLineColor(kYellow);
   hbkg_jet1_pt_d->GetXaxis()->SetTitle("Jet 1 Transverse Momentum (GeV/c)");
@@ -858,7 +859,7 @@ void plots(){
   TLegend *leg_jet1_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet1_pt->AddEntry(hsig_jet1_pt, "Signal", "l");
   leg_jet1_pt->AddEntry(hbkg_jet1_pt, "TTbar_Semileptonic", "l");
-  leg_jet1_pt->AddEntry(hbkg_jet1_pt_h, "TTbar_Hadronic", "l");
+  //leg_jet1_pt->AddEntry(hbkg_jet1_pt_h, "TTbar_Hadronic", "l");
   leg_jet1_pt->AddEntry(hbkg_jet1_pt_d, "TTbar_Dileptonic", "l");
   //leg_jet1_pt->AddEntry(hbkg_jet1_pt_w, "WJets_to_LNu", "l");
   leg_jet1_pt->Draw();
@@ -881,7 +882,7 @@ void plots(){
   hbkg_b_jet1_pt_h->GetXaxis()->SetTitle("B-Jet 1 Transverse Momentum (GeV/c)");
   hbkg_b_jet1_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet1_pt_h->Scale(1. / hbkg_b_jet1_pt_h->Integral());
-  hbkg_b_jet1_pt_h->Draw("Ehist, sames");
+  //hbkg_b_jet1_pt_h->Draw("Ehist, sames");
 
   hbkg_b_jet1_pt_d->SetLineColor(kYellow);
   hbkg_b_jet1_pt_d->GetXaxis()->SetTitle("B-Jet 1 Transverse Momentum (GeV/c)");
@@ -898,7 +899,7 @@ void plots(){
   TLegend *leg_b_jet1_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet1_pt->AddEntry(hsig_b_jet1_pt, "Signal", "l");
   leg_b_jet1_pt->AddEntry(hbkg_b_jet1_pt, "TTbar_Semileptonic", "l");
-  leg_b_jet1_pt->AddEntry(hbkg_b_jet1_pt_h, "TTbar_Hadronic", "l");
+  //leg_b_jet1_pt->AddEntry(hbkg_b_jet1_pt_h, "TTbar_Hadronic", "l");
   leg_b_jet1_pt->AddEntry(hbkg_b_jet1_pt_d, "TTbar_Dileptonic", "l");
   //leg_b_jet1_pt->AddEntry(hbkg_b_jet1_pt_w, "WJets_to_LNu", "l");
   leg_b_jet1_pt->Draw();
@@ -921,7 +922,7 @@ void plots(){
   hbkg_jet2_pt_h->GetXaxis()->SetTitle("Jet 2 Transverse Momentum (GeV/c)");
   hbkg_jet2_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet2_pt_h->Scale(1. / hbkg_jet2_pt_h->Integral());
-  hbkg_jet2_pt_h->Draw("Ehist, sames");
+  //hbkg_jet2_pt_h->Draw("Ehist, sames");
 
   hbkg_jet2_pt_d->SetLineColor(kYellow);
   hbkg_jet2_pt_d->GetXaxis()->SetTitle("Jet 2 Transverse Momentum (GeV/c)");
@@ -938,7 +939,7 @@ void plots(){
   TLegend *leg_jet2_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet2_pt->AddEntry(hsig_jet2_pt, "Signal", "l");
   leg_jet2_pt->AddEntry(hbkg_jet2_pt, "TTbar_Semileptonic", "l");
-  leg_jet2_pt->AddEntry(hbkg_jet2_pt_h, "TTbar_Hadronic", "l");
+  //leg_jet2_pt->AddEntry(hbkg_jet2_pt_h, "TTbar_Hadronic", "l");
   leg_jet2_pt->AddEntry(hbkg_jet2_pt_d, "TTbar_Dileptonic", "l");
   //leg_jet2_pt->AddEntry(hbkg_jet2_pt_w, "WJets_to_LNu", "l");
   leg_jet2_pt->Draw();
@@ -960,7 +961,7 @@ void plots(){
   hbkg_jet3_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet3_pt_h->Scale(1. / hbkg_jet3_pt_h->Integral());
   hbkg_jet3_pt_h->SetLineColor(kBlue);
-  hbkg_jet3_pt_h->Draw("Ehist,sames");
+  //hbkg_jet3_pt_h->Draw("Ehist,sames");
 
   hbkg_jet3_pt_d->GetXaxis()->SetTitle("Jet 3 Transverse Momentum (GeV/c)");
   hbkg_jet3_pt_d->GetYaxis()->SetTitle("Entries");
@@ -977,7 +978,7 @@ void plots(){
   TLegend *leg_jet3_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet3_pt->AddEntry(hsig_jet3_pt, "Signal", "l");
   leg_jet3_pt->AddEntry(hbkg_jet3_pt, "TTbar_Semileptonic", "l");
-  leg_jet3_pt->AddEntry(hbkg_jet3_pt_h, "TTbar_Hadronic", "l");
+  //leg_jet3_pt->AddEntry(hbkg_jet3_pt_h, "TTbar_Hadronic", "l");
   leg_jet3_pt->AddEntry(hbkg_jet3_pt_d, "TTbar_Dileptonic", "l");
   //leg_jet3_pt->AddEntry(hbkg_jet3_pt_w, "WJets_to_LNu", "l");
   leg_jet3_pt->Draw();
@@ -999,7 +1000,7 @@ void plots(){
   hbkg_b_jet3_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet3_pt_h->Scale(1. / hbkg_b_jet3_pt_h->Integral());
   hbkg_b_jet3_pt_h->SetLineColor(kBlue);
-  hbkg_b_jet3_pt_h->Draw("Ehist,sames");
+  //hbkg_b_jet3_pt_h->Draw("Ehist,sames");
 
   hbkg_b_jet3_pt_d->GetXaxis()->SetTitle("BJet 3 Transverse Momentum (GeV/c)");
   hbkg_b_jet3_pt_d->GetYaxis()->SetTitle("Entries");
@@ -1016,7 +1017,7 @@ void plots(){
   TLegend *leg_b_jet3_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet3_pt->AddEntry(hsig_b_jet3_pt, "Signal", "l");
   leg_b_jet3_pt->AddEntry(hbkg_b_jet3_pt, "TTbar_Semileptonic", "l");
-  leg_b_jet3_pt->AddEntry(hbkg_b_jet3_pt_h, "TTbar_Hadronic", "l");
+  //leg_b_jet3_pt->AddEntry(hbkg_b_jet3_pt_h, "TTbar_Hadronic", "l");
   leg_b_jet3_pt->AddEntry(hbkg_b_jet3_pt_d, "TTbar_Dileptonic", "l");
   //leg_b_jet3_pt->AddEntry(hbkg_b_jet3_pt_w, "WJets_to_LNu", "l");
   leg_b_jet3_pt->Draw();
@@ -1038,7 +1039,7 @@ void plots(){
   hbkg_jet4_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet4_pt_h->Scale(1. / hbkg_jet4_pt_h->Integral());
   hbkg_jet4_pt_h->SetLineColor(kBlue);
-  hbkg_jet4_pt_h->Draw("Ehist,sames");
+  //hbkg_jet4_pt_h->Draw("Ehist,sames");
 
   hbkg_jet4_pt_d->GetXaxis()->SetTitle("Jet 4 Transverse Momentum (GeV/c)");
   hbkg_jet4_pt_d->GetYaxis()->SetTitle("Entries");
@@ -1055,7 +1056,7 @@ void plots(){
   TLegend *leg_jet4_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet4_pt->AddEntry(hsig_jet4_pt, "Signal", "l");
   leg_jet4_pt->AddEntry(hbkg_jet4_pt, "TTbar_Semileptonic", "l");
-  leg_jet4_pt->AddEntry(hbkg_jet4_pt_h, "TTbar_Hadronic", "l");
+  //leg_jet4_pt->AddEntry(hbkg_jet4_pt_h, "TTbar_Hadronic", "l");
   leg_jet4_pt->AddEntry(hbkg_jet4_pt_d, "TTbar_Dileptonic", "l");
   //leg_jet4_pt->AddEntry(hbkg_jet4_pt_w, "WJets_to_LNu", "l");
   leg_jet4_pt->Draw();
@@ -1077,7 +1078,7 @@ void plots(){
   hbkg_b_jet4_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet4_pt_h->Scale(1. / hbkg_b_jet4_pt_h->Integral());
   hbkg_b_jet4_pt_h->SetLineColor(kBlue);
-  hbkg_b_jet4_pt_h->Draw("Ehist,sames");
+  //hbkg_b_jet4_pt_h->Draw("Ehist,sames");
 
   hbkg_b_jet4_pt_d->GetXaxis()->SetTitle("Jet 4 Transverse Momentum (GeV/c)");
   hbkg_b_jet4_pt_d->GetYaxis()->SetTitle("Entries");
@@ -1094,7 +1095,7 @@ void plots(){
   TLegend *leg_b_jet4_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet4_pt->AddEntry(hsig_b_jet4_pt, "Signal", "l");
   leg_b_jet4_pt->AddEntry(hbkg_b_jet4_pt, "TTbar_Semileptonic", "l");
-  leg_b_jet4_pt->AddEntry(hbkg_b_jet4_pt_h, "TTbar_Hadronic", "l");
+  //leg_b_jet4_pt->AddEntry(hbkg_b_jet4_pt_h, "TTbar_Hadronic", "l");
   leg_b_jet4_pt->AddEntry(hbkg_b_jet4_pt_d, "TTbar_Dileptonic", "l");
   //leg_b_jet4_pt->AddEntry(hbkg_b_jet4_pt_w, "WJets_to_LNu", "l");
   leg_b_jet4_pt->Draw();
@@ -1117,7 +1118,7 @@ void plots(){
   hbkg_jet1_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet1_eta_h->Scale(1. / hbkg_jet1_eta_h->Integral());
   hbkg_jet1_eta_h->SetLineColor(kBlue);
-  hbkg_jet1_eta_h->Draw("Ehist,sames");
+  //hbkg_jet1_eta_h->Draw("Ehist,sames");
 
   hbkg_jet1_eta_d->GetXaxis()->SetTitle("Jet 1 Pseudorapidity");
   hbkg_jet1_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1134,7 +1135,7 @@ void plots(){
   TLegend *leg_jet1_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet1_eta->AddEntry(hsig_jet1_eta, "Signal", "l");
   leg_jet1_eta->AddEntry(hbkg_jet1_eta, "TTbar_Semileptonic", "l");
-  leg_jet1_eta->AddEntry(hbkg_jet1_eta_h, "TTbar_Hadronic", "l");
+  //leg_jet1_eta->AddEntry(hbkg_jet1_eta_h, "TTbar_Hadronic", "l");
   leg_jet1_eta->AddEntry(hbkg_jet1_eta_d, "TTbar_Dileptonic", "l");
   //leg_jet1_eta->AddEntry(hbkg_jet1_eta_w, "WJets_to_LNu", "l");
   leg_jet1_eta->Draw();
@@ -1156,7 +1157,7 @@ void plots(){
   hbkg_b_jet1_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet1_eta_h->Scale(1. / hbkg_b_jet1_eta_h->Integral());
   hbkg_b_jet1_eta_h->SetLineColor(kBlue);
-  hbkg_b_jet1_eta_h->Draw("Ehist,sames");
+  //hbkg_b_jet1_eta_h->Draw("Ehist,sames");
 
   hbkg_b_jet1_eta_d->GetXaxis()->SetTitle("bJet 1 Pseudorapidity");
   hbkg_b_jet1_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1173,7 +1174,7 @@ void plots(){
   TLegend *leg_b_jet1_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet1_eta->AddEntry(hsig_b_jet1_eta, "Signal", "l");
   leg_b_jet1_eta->AddEntry(hbkg_b_jet1_eta, "TTbar_Semileptonic", "l");
-  leg_b_jet1_eta->AddEntry(hbkg_b_jet1_eta_h, "TTbar_Hadronic", "l");
+  //leg_b_jet1_eta->AddEntry(hbkg_b_jet1_eta_h, "TTbar_Hadronic", "l");
   leg_b_jet1_eta->AddEntry(hbkg_b_jet1_eta_d, "TTbar_Dileptonic", "l");
   //leg_b_jet1_eta->AddEntry(hbkg_b_jet1_eta_w, "WJets_to_LNu", "l");
   leg_b_jet1_eta->Draw();
@@ -1195,7 +1196,7 @@ void plots(){
   hbkg_jet2_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet2_eta_h->Scale(1. / hbkg_jet2_eta_h->Integral());
   hbkg_jet2_eta_h->SetLineColor(kBlue);
-  hbkg_jet2_eta_h->Draw("Ehist,sames");
+  //hbkg_jet2_eta_h->Draw("Ehist,sames");
 
   hbkg_jet2_eta_d->GetXaxis()->SetTitle("Jet 2 Pseudorapidity");
   hbkg_jet2_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1212,7 +1213,7 @@ void plots(){
   TLegend *leg_jet2_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet2_eta->AddEntry(hsig_jet2_eta, "Signal", "l");
   leg_jet2_eta->AddEntry(hbkg_jet2_eta, "TTbar_Semileptonic", "l");
-  leg_jet2_eta->AddEntry(hbkg_jet2_eta_h, "TTbar_Hadronic", "l");
+  //leg_jet2_eta->AddEntry(hbkg_jet2_eta_h, "TTbar_Hadronic", "l");
   leg_jet2_eta->AddEntry(hbkg_jet2_eta_d, "TTbar_Dileptonic", "l");
   //leg_jet2_eta->AddEntry(hbkg_jet2_eta_w, "WJets_to_LNu", "l");
   leg_jet2_eta->Draw();
@@ -1234,7 +1235,7 @@ void plots(){
   hbkg_b_jet2_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet2_eta_h->Scale(1. / hbkg_b_jet2_eta_h->Integral());
   hbkg_b_jet2_eta_h->SetLineColor(kBlue);
-  hbkg_b_jet2_eta_h->Draw("Ehist,sames");
+  //hbkg_b_jet2_eta_h->Draw("Ehist,sames");
 
   hbkg_b_jet2_eta_d->GetXaxis()->SetTitle("bJet 2 Pseudorapidity");
   hbkg_b_jet2_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1251,7 +1252,7 @@ void plots(){
   TLegend *leg_b_jet2_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet2_eta->AddEntry(hsig_jet2_eta, "Signal", "l");
   leg_b_jet2_eta->AddEntry(hbkg_jet2_eta, "TTbar_Semileptonic", "l");
-  leg_b_jet2_eta->AddEntry(hbkg_jet2_eta_h, "TTbar_Hadronic", "l");
+  //leg_b_jet2_eta->AddEntry(hbkg_jet2_eta_h, "TTbar_Hadronic", "l");
   leg_b_jet2_eta->AddEntry(hbkg_jet2_eta_d, "TTbar_Dileptonic", "l");
   //leg_b_jet2_eta->AddEntry(hbkg_jet2_eta_w, "WJets_to_LNu", "l");
   leg_b_jet2_eta->Draw();
@@ -1273,7 +1274,7 @@ void plots(){
   hbkg_jet3_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet3_eta_h->Scale(1. / hbkg_jet3_eta_h->Integral());
   hbkg_jet3_eta_h->SetLineColor(kBlue);
-  hbkg_jet3_eta_h->Draw("Ehist,sames");
+  //hbkg_jet3_eta_h->Draw("Ehist,sames");
 
   hbkg_jet3_eta_d->GetXaxis()->SetTitle("Jet 3 Pseudorapidity");
   hbkg_jet3_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1290,7 +1291,7 @@ void plots(){
   TLegend *leg_jet3_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet3_eta->AddEntry(hsig_jet3_eta, "Signal", "l");
   leg_jet3_eta->AddEntry(hbkg_jet3_eta, "TTbar_Semileptonic", "l");
-  leg_jet3_eta->AddEntry(hbkg_jet3_eta_h, "TTbar_Hadronic", "l");
+  //leg_jet3_eta->AddEntry(hbkg_jet3_eta_h, "TTbar_Hadronic", "l");
   leg_jet3_eta->AddEntry(hbkg_jet3_eta_d, "TTbar_Dileptonic", "l");
   //leg_jet3_eta->AddEntry(hbkg_jet3_eta_w, "WJets_to_LNu", "l");
   leg_jet3_eta->Draw();
@@ -1313,7 +1314,7 @@ void plots(){
   hbkg_b_jet3_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet3_eta_h->Scale(1. / hbkg_jet3_eta_h->Integral());
   hbkg_b_jet3_eta_h->SetLineColor(kBlue);
-  hbkg_b_jet3_eta_h->Draw("Ehist,sames");
+  //hbkg_b_jet3_eta_h->Draw("Ehist,sames");
 
   hbkg_b_jet3_eta_d->GetXaxis()->SetTitle("bJet 3 Pseudorapidity");
   hbkg_b_jet3_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1330,7 +1331,7 @@ void plots(){
   TLegend *leg_b_jet3_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet3_eta->AddEntry(hsig_jet3_eta, "Signal", "l");
   leg_b_jet3_eta->AddEntry(hbkg_jet3_eta, "TTbar_Semileptonic", "l");
-  leg_b_jet3_eta->AddEntry(hbkg_jet3_eta_h, "TTbar_Hadronic", "l");
+  //leg_b_jet3_eta->AddEntry(hbkg_jet3_eta_h, "TTbar_Hadronic", "l");
   leg_b_jet3_eta->AddEntry(hbkg_jet3_eta_d, "TTbar_Dileptonic", "l");
   //leg_b_jet3_eta->AddEntry(hbkg_jet3_eta_w, "WJets_to_LNu", "l");
   leg_b_jet3_eta->Draw();
@@ -1352,7 +1353,7 @@ void plots(){
   hbkg_jet4_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet4_eta_h->Scale(1. / hbkg_jet4_eta_h->Integral());
   hbkg_jet4_eta_h->SetLineColor(kBlue);
-  hbkg_jet4_eta_h->Draw("Ehist,sames");
+  //hbkg_jet4_eta_h->Draw("Ehist,sames");
 
   hbkg_jet4_eta_d->GetXaxis()->SetTitle("Jet 4 Pseudorapidity");
   hbkg_jet4_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1369,7 +1370,7 @@ void plots(){
   TLegend *leg_jet4_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet4_eta->AddEntry(hsig_jet4_eta, "Signal", "l");
   leg_jet4_eta->AddEntry(hbkg_jet4_eta, "TTbarSemileptonic", "l");
-  leg_jet4_eta->AddEntry(hbkg_jet4_eta_h, "TTbar_Hadronic", "l");
+  //leg_jet4_eta->AddEntry(hbkg_jet4_eta_h, "TTbar_Hadronic", "l");
   leg_jet4_eta->AddEntry(hbkg_jet4_eta_d, "TTbar_Dileptonic", "l");
   //leg_jet4_eta->AddEntry(hbkg_jet4_eta_w, "WJets_to_LNu", "l");
   leg_jet4_eta->Draw();
@@ -1391,7 +1392,7 @@ void plots(){
   hbkg_b_jet4_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet4_eta_h->Scale(1. / hbkg_b_jet4_eta_h->Integral());
   hbkg_b_jet4_eta_h->SetLineColor(kBlue);
-  hbkg_b_jet4_eta_h->Draw("Ehist,sames");
+  //hbkg_b_jet4_eta_h->Draw("Ehist,sames");
 
   hbkg_b_jet4_eta_d->GetXaxis()->SetTitle("bJet 4 Pseudorapidity");
   hbkg_b_jet4_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1408,7 +1409,7 @@ void plots(){
   TLegend *leg_b_jet4_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet4_eta->AddEntry(hsig_b_jet4_eta, "Signal", "l");
   leg_b_jet4_eta->AddEntry(hbkg_b_jet4_eta, "TTbarSemileptonic", "l");
-  leg_b_jet4_eta->AddEntry(hbkg_b_jet4_eta_h, "TTbar_Hadronic", "l");
+  //leg_b_jet4_eta->AddEntry(hbkg_b_jet4_eta_h, "TTbar_Hadronic", "l");
   leg_b_jet4_eta->AddEntry(hbkg_b_jet4_eta_d, "TTbar_Dileptonic", "l");
   //leg_b_jet4_eta->AddEntry(hbkg_b_jet4_eta_w, "WJets_to_LNu", "l");
   leg_b_jet4_eta->Draw();
@@ -1433,7 +1434,7 @@ void plots(){
   hbkg_jet1_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet1_phi_h->Scale(1. / hbkg_jet1_phi_h->Integral());
   hbkg_jet1_phi_h->SetLineColor(kBlue);
-  hbkg_jet1_phi_h->Draw("Ehist,sames");
+  //hbkg_jet1_phi_h->Draw("Ehist,sames");
 
   hbkg_jet1_phi_d->GetXaxis()->SetTitle("Jet 1 Phi");
   hbkg_jet1_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1450,7 +1451,7 @@ void plots(){
   TLegend *leg_jet1_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet1_phi->AddEntry(hsig_jet1_phi, "Signal", "l");
   leg_jet1_phi->AddEntry(hbkg_jet1_phi, "TTbarSemileptonic", "l");
-  leg_jet1_phi->AddEntry(hbkg_jet1_phi_h, "TTbar_Hadronic", "l");
+  //leg_jet1_phi->AddEntry(hbkg_jet1_phi_h, "TTbar_Hadronic", "l");
   leg_jet1_phi->AddEntry(hbkg_jet1_phi_d, "TTbar_Dileptonic", "l");
   //leg_jet1_phi->AddEntry(hbkg_jet1_phi_w, "WJets_to_LNu", "l");
   leg_jet1_phi->Draw();
@@ -1471,7 +1472,7 @@ void plots(){
   hbkg_b_jet1_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet1_phi_h->Scale(1. / hbkg_b_jet1_phi_h->Integral());
   hbkg_b_jet1_phi_h->SetLineColor(kBlue);
-  hbkg_b_jet1_phi_h->Draw("Ehist,sames");
+  //hbkg_b_jet1_phi_h->Draw("Ehist,sames");
 
   hbkg_b_jet1_phi_d->GetXaxis()->SetTitle("bJet 1 Phi");
   hbkg_b_jet1_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1488,7 +1489,7 @@ void plots(){
   TLegend *leg_b_jet1_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet1_phi->AddEntry(hsig_b_jet1_phi, "Signal", "l");
   leg_b_jet1_phi->AddEntry(hbkg_b_jet1_phi, "TTbarSemileptonic", "l");
-  leg_b_jet1_phi->AddEntry(hbkg_b_jet1_phi_h, "TTbar_Hadronic", "l");
+  //leg_b_jet1_phi->AddEntry(hbkg_b_jet1_phi_h, "TTbar_Hadronic", "l");
   leg_b_jet1_phi->AddEntry(hbkg_b_jet1_phi_d, "TTbar_Dileptonic", "l");
   //leg_b_jet1_phi->AddEntry(hbkg_b_jet1_phi_w, "WJets_to_LNu", "l");
   leg_b_jet1_phi->Draw();
@@ -1510,7 +1511,7 @@ void plots(){
   hbkg_jet2_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet2_phi_h->Scale(1. / hbkg_jet2_phi_h->Integral());
   hbkg_jet2_phi_h->SetLineColor(kBlue);
-  hbkg_jet2_phi_h->Draw("Ehist,sames");
+  //hbkg_jet2_phi_h->Draw("Ehist,sames");
 
   hbkg_jet2_phi_d->GetXaxis()->SetTitle("Jet 2 Phi");
   hbkg_jet2_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1527,7 +1528,7 @@ void plots(){
   TLegend *leg_jet2_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet2_phi->AddEntry(hsig_jet2_phi, "Signal", "l");
   leg_jet2_phi->AddEntry(hbkg_jet2_phi, "TTbarSemileptonic", "l");
-  leg_jet2_phi->AddEntry(hbkg_jet2_phi_h, "TTbar_Hadronic", "l");
+  //leg_jet2_phi->AddEntry(hbkg_jet2_phi_h, "TTbar_Hadronic", "l");
   leg_jet2_phi->AddEntry(hbkg_jet2_phi_d, "TTbar_Dileptonic", "l");
   //leg_jet2_phi->AddEntry(hbkg_jet2_phi_w, "WJets_to_LNu", "l");
   leg_jet2_phi->Draw();
@@ -1549,7 +1550,7 @@ void plots(){
   hbkg_b_jet2_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet2_phi_h->Scale(1. / hbkg_b_jet2_phi_h->Integral());
   hbkg_b_jet2_phi_h->SetLineColor(kBlue);
-  hbkg_b_jet2_phi_h->Draw("Ehist,sames");
+  //hbkg_b_jet2_phi_h->Draw("Ehist,sames");
 
   hbkg_b_jet2_phi_d->GetXaxis()->SetTitle("bJet 2 Phi");
   hbkg_b_jet2_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1566,7 +1567,7 @@ void plots(){
   TLegend *leg_b_jet2_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet2_phi->AddEntry(hsig_b_jet2_phi, "Signal", "l");
   leg_b_jet2_phi->AddEntry(hbkg_b_jet2_phi, "TTbarSemileptonic", "l");
-  leg_b_jet2_phi->AddEntry(hbkg_b_jet2_phi_h, "TTbar_Hadronic", "l");
+  //leg_b_jet2_phi->AddEntry(hbkg_b_jet2_phi_h, "TTbar_Hadronic", "l");
   leg_b_jet2_phi->AddEntry(hbkg_b_jet2_phi_d, "TTbar_Dileptonic", "l");
   //leg_b_jet2_phi->AddEntry(hbkg_b_jet2_phi_w, "WJets_to_LNu", "l");
   leg_b_jet2_phi->Draw();
@@ -1588,7 +1589,7 @@ void plots(){
   hbkg_jet3_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet3_phi_h->Scale(1. / hbkg_jet3_phi_h->Integral());
   hbkg_jet3_phi_h->SetLineColor(kBlue);
-  hbkg_jet3_phi_h->Draw("Ehist,sames");
+  //hbkg_jet3_phi_h->Draw("Ehist,sames");
 
   hbkg_jet3_phi_d->GetXaxis()->SetTitle("Jet 3 Phi");
   hbkg_jet3_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1605,7 +1606,7 @@ void plots(){
   TLegend *leg_jet3_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet3_phi->AddEntry(hsig_jet3_phi, "Signal", "l");
   leg_jet3_phi->AddEntry(hbkg_jet3_phi, "TTbarSemileptonic", "l");
-  leg_jet3_phi->AddEntry(hbkg_jet3_phi_h, "TTbar_Hadronic", "l");
+  //leg_jet3_phi->AddEntry(hbkg_jet3_phi_h, "TTbar_Hadronic", "l");
   leg_jet3_phi->AddEntry(hbkg_jet3_phi_d, "TTbar_Dileptonic", "l");
   //leg_jet3_phi->AddEntry(hbkg_jet3_phi_w, "WJets_to_LNu", "l");
   leg_jet3_phi->Draw();
@@ -1627,7 +1628,7 @@ void plots(){
   hbkg_b_jet3_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet3_phi_h->Scale(1. / hbkg_b_jet3_phi_h->Integral());
   hbkg_b_jet3_phi_h->SetLineColor(kBlue);
-  hbkg_b_jet3_phi_h->Draw("Ehist,sames");
+  //hbkg_b_jet3_phi_h->Draw("Ehist,sames");
 
   hbkg_b_jet3_phi_d->GetXaxis()->SetTitle("bJet 3 Phi");
   hbkg_b_jet3_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1644,7 +1645,7 @@ void plots(){
   TLegend *leg_b_jet3_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet3_phi->AddEntry(hsig_b_jet3_phi, "Signal", "l");
   leg_b_jet3_phi->AddEntry(hbkg_b_jet3_phi, "TTbarSemileptonic", "l");
-  leg_b_jet3_phi->AddEntry(hbkg_b_jet3_phi_h, "TTbar_Hadronic", "l");
+  //leg_b_jet3_phi->AddEntry(hbkg_b_jet3_phi_h, "TTbar_Hadronic", "l");
   leg_b_jet3_phi->AddEntry(hbkg_b_jet3_phi_d, "TTbar_Dileptonic", "l");
   //leg_b_jet3_phi->AddEntry(hbkg_b_jet3_phi_w, "WJets_to_LNu", "l");
   leg_b_jet3_phi->Draw();
@@ -1666,7 +1667,7 @@ void plots(){
   hbkg_jet4_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet4_phi_h->Scale(1. / hbkg_jet4_phi_h->Integral());
   hbkg_jet4_phi_h->SetLineColor(kBlue);
-  hbkg_jet4_phi_h->Draw("Ehist,sames");
+  //hbkg_jet4_phi_h->Draw("Ehist,sames");
 
   hbkg_jet4_phi_d->GetXaxis()->SetTitle("Jet 4 Phi");
   hbkg_jet4_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1683,7 +1684,7 @@ void plots(){
   TLegend *leg_jet4_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet4_phi->AddEntry(hsig_jet4_phi, "Signal", "l");
   leg_jet4_phi->AddEntry(hbkg_jet4_phi, "TTbarSemileptonic", "l");
-  leg_jet4_phi->AddEntry(hbkg_jet4_phi_h, "TTbar_Hadronic", "l");
+  //leg_jet4_phi->AddEntry(hbkg_jet4_phi_h, "TTbar_Hadronic", "l");
   leg_jet4_phi->AddEntry(hbkg_jet4_phi_d, "TTbar_Dileptonic", "l");
   //leg_jet4_phi->AddEntry(hbkg_jet4_phi_w, "WJets_to_LNu", "l");
   leg_jet4_phi->Draw();
@@ -1705,7 +1706,7 @@ void plots(){
   hbkg_b_jet4_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet4_phi_h->Scale(1. / hbkg_b_jet4_phi_h->Integral());
   hbkg_b_jet4_phi_h->SetLineColor(kBlue);
-  hbkg_b_jet4_phi_h->Draw("Ehist,sames");
+  //hbkg_b_jet4_phi_h->Draw("Ehist,sames");
 
   hbkg_b_jet4_phi_d->GetXaxis()->SetTitle("bJet 4 Phi");
   hbkg_b_jet4_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1722,7 +1723,7 @@ void plots(){
   TLegend *leg_b_jet4_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet4_phi->AddEntry(hsig_b_jet4_phi, "Signal", "l");
   leg_b_jet4_phi->AddEntry(hbkg_b_jet4_phi, "TTbarSemileptonic", "l");
-  leg_b_jet4_phi->AddEntry(hbkg_b_jet4_phi_h, "TTbar_Hadronic", "l");
+  //leg_b_jet4_phi->AddEntry(hbkg_b_jet4_phi_h, "TTbar_Hadronic", "l");
   leg_b_jet4_phi->AddEntry(hbkg_b_jet4_phi_d, "TTbar_Dileptonic", "l");
   //leg_b_jet4_phi->AddEntry(hbkg_b_jet4_phi_w, "WJets_to_LNu", "l");
   leg_b_jet4_phi->Draw();
@@ -1735,8 +1736,8 @@ void plots(){
   hsig_met_pt->GetYaxis()->SetTitle("Entries");
   hsig_met_pt->Scale(1. / hsig_met_pt->Integral());
   hsig_met_pt->SetLineColor(kBlack);
-  hbkg_met_pt_h->Draw("Ehist");
-  hsig_met_pt->Draw("Ehist,sames");
+  //hbkg_met_pt_h->Draw("Ehist");
+  hsig_met_pt->Draw("Ehist");
 
   hbkg_met_pt->GetXaxis()->SetTitle("MET Transverse Momentum (GeV)");
   hbkg_met_pt->GetYaxis()->SetTitle("Entries");
@@ -1765,7 +1766,7 @@ void plots(){
   TLegend *leg_MET = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_MET->AddEntry(hsig_met_pt, "Signal", "l");
   leg_MET->AddEntry(hbkg_met_pt, "TTbarSemileptonic", "l");
-  leg_MET->AddEntry(hbkg_met_pt_h, "TTbar_Hadronic", "l");
+  //leg_MET->AddEntry(hbkg_met_pt_h, "TTbar_Hadronic", "l");
   leg_MET->AddEntry(hbkg_met_pt_d, "TTbar_Dileptonic", "l");
   //leg_MET->AddEntry(hbkg_met_pt_w, "WJets_to_LNu", "l");
   leg_MET->Draw();
@@ -1776,8 +1777,8 @@ void plots(){
   hsig_mt->GetYaxis()->SetTitle("Entries");
   hsig_mt->Scale(1. / hsig_mt->Integral());
   hsig_mt->SetLineColor(kBlack);
-  hbkg_mt_h->Draw("Ehist");
-  hsig_mt->Draw("Ehist,sames");
+  //hbkg_mt_h->Draw("Ehist");
+  hsig_mt->Draw("Ehist");
 
   hbkg_mt->GetXaxis()->SetTitle("Transverse Mass (GeV)");
   hbkg_mt->GetYaxis()->SetTitle("Entries");
@@ -1806,7 +1807,7 @@ void plots(){
   TLegend *leg_mt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_mt->AddEntry(hsig_mt, "Signal", "l");
   leg_mt->AddEntry(hbkg_mt, "TTbarSemileptonic", "l");
-  leg_mt->AddEntry(hbkg_mt_h, "TTbar_Hadronic", "l");
+  //leg_mt->AddEntry(hbkg_mt_h, "TTbar_Hadronic", "l");
   leg_mt->AddEntry(hbkg_mt_d, "TTbar_Dileptonic", "l");
   //leg_mt->AddEntry(hbkg_mt_w, "WJets_to_LNu", "l");
   leg_mt->Draw();
@@ -1833,7 +1834,7 @@ void plots(){
   hbkg_d_phi_w_h_h->GetYaxis()->SetTitle("Entries");
   hbkg_d_phi_w_h_h->SetLineColor(kBlue);
   hbkg_d_phi_w_h_h->Scale(1. / hbkg_d_phi_w_h_h->Integral());
-  hbkg_d_phi_w_h_h->Draw("Ehist,sames");
+  //hbkg_d_phi_w_h_h->Draw("Ehist,sames");
 
   hbkg_d_phi_w_h_d->GetXaxis()->SetTitle("W_H Delta Phi");
   hbkg_d_phi_w_h_d->GetYaxis()->SetTitle("Entries");
@@ -1850,7 +1851,7 @@ void plots(){
   TLegend *leg_w_h = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_w_h->AddEntry(hsig_d_phi_w_h, "Signal", "l");
   leg_w_h->AddEntry(hbkg_d_phi_w_h, "TTbarSemileptonic", "l");
-  leg_w_h->AddEntry(hbkg_d_phi_w_h_h, "TTbar_Hadronic", "l");
+  //leg_w_h->AddEntry(hbkg_d_phi_w_h_h, "TTbar_Hadronic", "l");
   leg_w_h->AddEntry(hbkg_d_phi_w_h_d, "TTbar_Dileptonic", "l");
   //leg_w_h->AddEntry(hbkg_d_phi_w_h_w, "WJets_to_LNu", "l");
   leg_w_h->Draw();
@@ -1877,7 +1878,7 @@ void plots(){
   hbkg_h_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_h_pt_h->SetLineColor(kBlue);
   hbkg_h_pt_h->Scale(1. / hbkg_h_pt_h->Integral());
-  hbkg_h_pt_h->Draw("Ehist,sames");
+  //hbkg_h_pt_h->Draw("Ehist,sames");
 
   hbkg_h_pt_d->GetXaxis()->SetTitle("Higgs Transverse Momentum (GeV)");
   hbkg_h_pt_d->GetYaxis()->SetTitle("Entries");
@@ -1894,7 +1895,7 @@ void plots(){
   TLegend *leg_h_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_h_pt->AddEntry(hsig_h_pt, "Signal", "l");
   leg_h_pt->AddEntry(hbkg_h_pt, "TTbarSemileptonic", "l");
-  leg_h_pt->AddEntry(hbkg_h_pt_h, "TTbar_Hadronic", "l");
+  //leg_h_pt->AddEntry(hbkg_h_pt_h, "TTbar_Hadronic", "l");
   leg_h_pt->AddEntry(hbkg_h_pt_d, "TTbar_Dileptonic", "l");
   //leg_h_pt->AddEntry(hbkg_h_pt_w, "WJets_to_LNu", "l");
   leg_h_pt->Draw();
@@ -1918,7 +1919,7 @@ void plots(){
   hbkg_h_phi_h->GetYaxis()->SetTitle("Entries");
   hbkg_h_phi_h->SetLineColor(kBlue);
   hbkg_h_phi_h->Scale(1. / hbkg_h_phi_h->Integral());
-  hbkg_h_phi_h->Draw("Ehist,sames");
+  //hbkg_h_phi_h->Draw("Ehist,sames");
 
   hbkg_h_phi_d->GetXaxis()->SetTitle("Higgs Phi");
   hbkg_h_phi_d->GetYaxis()->SetTitle("Entries");
@@ -1935,7 +1936,7 @@ void plots(){
   TLegend *leg_h_phi = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_h_phi->AddEntry(hsig_h_phi, "Signal", "l");
   leg_h_phi->AddEntry(hbkg_h_phi, "TTbarSemileptonic", "l");
-  leg_h_phi->AddEntry(hbkg_h_phi_h, "TTbar_Hadronic", "l");
+  //leg_h_phi->AddEntry(hbkg_h_phi_h, "TTbar_Hadronic", "l");
   leg_h_phi->AddEntry(hbkg_h_phi_d, "TTbar_Dileptonic", "l");
   //leg_h_phi->AddEntry(hbkg_h_phi_w, "WJets_to_LNu", "l");
   leg_h_phi->Draw();
@@ -1959,7 +1960,7 @@ void plots(){
   hbkg_h_eta_h->GetYaxis()->SetTitle("Entries");
   hbkg_h_eta_h->SetLineColor(kBlue);
   hbkg_h_eta_h->Scale(1. / hbkg_h_eta_h->Integral());
-  hbkg_h_eta_h->Draw("Ehist,sames");
+  //hbkg_h_eta_h->Draw("Ehist,sames");
 
   hbkg_h_eta_d->GetXaxis()->SetTitle("Higgs pseudorapidity");
   hbkg_h_eta_d->GetYaxis()->SetTitle("Entries");
@@ -1976,7 +1977,7 @@ void plots(){
   TLegend *leg_h_eta = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_h_eta->AddEntry(hsig_h_eta, "Signal", "l");
   leg_h_eta->AddEntry(hbkg_h_eta, "TTbarSemileptonic", "l");
-  leg_h_eta->AddEntry(hbkg_h_eta_h, "TTbar_Hadronic", "l");
+  //leg_h_eta->AddEntry(hbkg_h_eta_h, "TTbar_Hadronic", "l");
   leg_h_eta->AddEntry(hbkg_h_eta_d, "TTbar_Dileptonic", "l");
   //leg_h_eta->AddEntry(hbkg_h_eta_w, "WJets_to_LNu", "l");
   leg_h_eta->Draw();
@@ -2000,7 +2001,7 @@ void plots(){
   hbkg_inv_m_h->GetYaxis()->SetTitle("Entries");
   hbkg_inv_m_h->SetLineColor(kBlue);
   hbkg_inv_m_h->Scale(1. / hbkg_inv_m_h->Integral());
-  hbkg_inv_m_h->Draw("Ehist,sames");
+  //hbkg_inv_m_h->Draw("Ehist,sames");
 
   hbkg_inv_m_d->GetXaxis()->SetTitle("Higgs mass");
   hbkg_inv_m_d->GetYaxis()->SetTitle("Entries");
@@ -2017,7 +2018,7 @@ void plots(){
   TLegend *leg_inv_m = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_inv_m->AddEntry(hsig_inv_m, "Signal", "l");
   leg_inv_m->AddEntry(hbkg_inv_m, "TTbarSemileptonic", "l");
-  leg_inv_m->AddEntry(hbkg_inv_m_h, "TTbar_Hadronic", "l");
+  //leg_inv_m->AddEntry(hbkg_inv_m_h, "TTbar_Hadronic", "l");
   leg_inv_m->AddEntry(hbkg_inv_m_d, "TTbar_Dileptonic", "l");
   //leg_inv_m->AddEntry(hbkg_inv_m_w, "WJets_to_LNu", "l");
   leg_inv_m->Draw();
@@ -2030,13 +2031,13 @@ void plots(){
   hbkg_w_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_w_pt_h->SetLineColor(kBlue);
   hbkg_w_pt_h->Scale(1. / hbkg_w_pt_h->Integral());
-  hbkg_w_pt_h->Draw("Ehist");
+  //hbkg_w_pt_h->Draw("Ehist");
 
   hbkg_w_pt->GetXaxis()->SetTitle("W Transverse Momentum (GeV)");
   hbkg_w_pt->GetYaxis()->SetTitle("Entries");
   hbkg_w_pt->SetLineColor(kRed);
   hbkg_w_pt->Scale(1. / hbkg_w_pt->Integral());
-  hbkg_w_pt->Draw("Ehist,sames");
+  hbkg_w_pt->Draw("Ehist");
 
   hsig_w_pt->GetXaxis()->SetTitle("W Transverse Momentum (GeV)");
   hsig_w_pt->GetYaxis()->SetTitle("Entries");
@@ -2059,7 +2060,7 @@ void plots(){
   TLegend *leg_w_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_w_pt->AddEntry(hsig_w_pt, "Signal", "l");
   leg_w_pt->AddEntry(hbkg_w_pt, "TTbarSemileptonic", "l");
-  leg_w_pt->AddEntry(hbkg_w_pt_h, "TTbar_Hadronic", "l");
+  //leg_w_pt->AddEntry(hbkg_w_pt_h, "TTbar_Hadronic", "l");
   leg_w_pt->AddEntry(hbkg_w_pt_d, "TTbar_Dileptonic", "l");
   //leg_w_pt->AddEntry(hbkg_w_pt_w, "WJets_to_LNu", "l");
   leg_w_pt->Draw();
@@ -2204,7 +2205,7 @@ void plots(){
   hsig_jet_mult->SetLineColor(kBlack);
   hsig_jet_mult->Scale(1. / hsig_jet_mult->Integral());
   hsig_jet_mult->Draw("Ehist");
-  hbkg_jet_mult_h->Draw("Ehist,sames");
+  //hbkg_jet_mult_h->Draw("Ehist,sames");
   
 
   hbkg_jet_mult->GetXaxis()->SetTitle("Jet Multiplicity");
@@ -2228,7 +2229,7 @@ void plots(){
   TLegend *leg_jet_mult = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet_mult->AddEntry(hsig_jet_mult, "Signal", "l");
   leg_jet_mult->AddEntry(hbkg_jet_mult, "TTbarSemileptonic", "l");
-  leg_jet_mult->AddEntry(hbkg_jet_mult_h, "TTbar_Hadronic", "l");
+  //leg_jet_mult->AddEntry(hbkg_jet_mult_h, "TTbar_Hadronic", "l");
   leg_jet_mult->AddEntry(hbkg_jet_mult_d, "TTbar_Dileptonic", "l");
   //leg_jet_mult->AddEntry(hbkg_jet_mult_w, "WJets_to_LNu", "l");
   leg_jet_mult->Draw();
@@ -2258,7 +2259,7 @@ void plots(){
   hbkg_b_jet_mult_h->GetYaxis()->SetTitle("Entries");
   hbkg_b_jet_mult_h->SetLineColor(kBlue);
   hbkg_b_jet_mult_h->Scale(1. / hbkg_b_jet_mult_h->Integral());
-  hbkg_b_jet_mult_h->Draw("Ehist,sames");
+  //hbkg_b_jet_mult_h->Draw("Ehist,sames");
 
   hbkg_b_jet_mult_d->GetXaxis()->SetTitle("bJet Multiplicity");
   hbkg_b_jet_mult_d->GetYaxis()->SetTitle("Entries");
@@ -2268,7 +2269,7 @@ void plots(){
   TLegend *leg_b_jet_mult = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_b_jet_mult->AddEntry(hsig_b_jet_mult, "Signal", "l");
   leg_b_jet_mult->AddEntry(hbkg_b_jet_mult, "TTbarSemileptonic", "l");
-  leg_b_jet_mult->AddEntry(hbkg_b_jet_mult_h, "TTbar_Hadronic", "l");
+  //leg_b_jet_mult->AddEntry(hbkg_b_jet_mult_h, "TTbar_Hadronic", "l");
   leg_b_jet_mult->AddEntry(hbkg_b_jet_mult_d, "TTbar_Dileptonic", "l");
   //leg_b_jet_mult->AddEntry(hbkg_b_jet_mult_w, "WJets_to_LNu", "l");
   leg_b_jet_mult->Draw();
@@ -2294,7 +2295,7 @@ void plots(){
   hbkg_dR_jet_muon_h->GetXaxis()->SetTitle("Delta R between jets and muons");
   hbkg_dR_jet_muon_h->GetYaxis()->SetTitle("Entries");
   hbkg_dR_jet_muon_h->Scale(1./hbkg_dR_jet_muon_h->Integral());
-  hbkg_dR_jet_muon_h->Draw("Ehist,sames");
+  //hbkg_dR_jet_muon_h->Draw("Ehist,sames");
   hbkg_dR_jet_muon_h->SetLineColor(kBlue);
 
   hbkg_dR_jet_muon_d->GetXaxis()->SetTitle("Delta R between jets and muons");
@@ -2312,7 +2313,7 @@ void plots(){
   leg_dR_mn_jet->AddEntry(hsig_dR_jet_muon,"Signal","l");
   leg_dR_mn_jet->AddEntry(hbkg_dR_jet_muon_w,"TTbarSemileptonic","l");
   leg_dR_mn_jet->AddEntry(hbkg_dR_jet_muon_d,"TTbar_Dileptonic","l");
-  leg_dR_mn_jet->AddEntry(hbkg_dR_jet_muon_h,"TTbar_Hadronic","l");
+  //leg_dR_mn_jet->AddEntry(hbkg_dR_jet_muon_h,"TTbar_Hadronic","l");
   //leg_dR_mn_jet->AddEntry(hbkg_dR_jet_muon,"WJets_to_LNu","l");
   leg_dR_mn_jet->Draw();
   
@@ -2330,7 +2331,7 @@ void plots(){
   hbkg_dR_jet_electron_h->GetYaxis()->SetTitle("Entries");
   hbkg_dR_jet_electron_h->SetLineColor(kBlue);
   hbkg_dR_jet_electron_h->Scale(1./hbkg_dR_jet_electron_h->Integral());
-  hbkg_dR_jet_electron_h->Draw("Ehist,sames");
+  //hbkg_dR_jet_electron_h->Draw("Ehist,sames");
 
   hbkg_dR_jet_electron_d->GetXaxis()->SetTitle("Delta R between jets and electrons");
   hbkg_dR_jet_electron_d->GetYaxis()->SetTitle("Entries");
@@ -2352,7 +2353,7 @@ void plots(){
 
   TLegend *leg_dR_en_jet_b = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_dR_en_jet_b->AddEntry(hbkg_dR_jet_electron, "TTbarSemileptonic", "l");
-  leg_dR_en_jet_b->AddEntry(hbkg_dR_jet_electron_h, "TTbar_Hadronic", "l");
+  //leg_dR_en_jet_b->AddEntry(hbkg_dR_jet_electron_h, "TTbar_Hadronic", "l");
   leg_dR_en_jet_b->AddEntry(hbkg_dR_jet_electron_d, "TTbar_Dileptonic", "l");
   //leg_dR_en_jet_b->AddEntry(hbkg_dR_jet_electron_w, "WJets_to_LNu", "l");
   leg_dR_en_jet_b->AddEntry(hsig_dR_jet_electron, "Signal", "l");
@@ -2375,7 +2376,7 @@ void plots(){
   hbkg_dR_jet_muon_h->GetYaxis()->SetTitle("Entries");
   hbkg_dR_jet_muon_h->SetLineColor(kBlue);
   hbkg_dR_jet_muon_h->Scale(1./hbkg_dR_jet_muon_h->Integral());
-  hbkg_dR_jet_muon_h->Draw("Ehist,sames");
+  //hbkg_dR_jet_muon_h->Draw("Ehist,sames");
 
   hbkg_dR_jet_muon_d->GetXaxis()->SetTitle("Delta R between jets and muons");
   hbkg_dR_jet_muon_d->GetYaxis()->SetTitle("Entries");
@@ -2397,7 +2398,7 @@ void plots(){
 
   TLegend *leg_dR_mn_jet_b = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_dR_mn_jet_b->AddEntry(hbkg_dR_jet_muon, "TTbarSemileptonic", "l");
-  leg_dR_mn_jet_b->AddEntry(hbkg_dR_jet_muon_h, "TTbar_Hadronic", "l");
+  //leg_dR_mn_jet_b->AddEntry(hbkg_dR_jet_muon_h, "TTbar_Hadronic", "l");
   leg_dR_mn_jet_b->AddEntry(hbkg_dR_jet_muon_d, "TTbar_Dileptonic", "l");
   leg_dR_mn_jet_b->AddEntry(hbkg_dR_jet_muon_w, "WJets_to_LNu", "l");
   //leg_dR_mn_jet_b->AddEntry(hsig_dR_jet_muon, "Signal", "l");
@@ -2423,7 +2424,7 @@ void plots(){
   hbkg_dR_jet_electron_after_h->GetYaxis()->SetTitle("Entries");
   hbkg_dR_jet_electron_after_h->SetLineColor(kBlue);
   hbkg_dR_jet_electron_after_h->Scale(1./hbkg_dR_jet_electron_after_h->Integral());
-  hbkg_dR_jet_electron_after_h->Draw("Ehist,sames");
+  //hbkg_dR_jet_electron_after_h->Draw("Ehist,sames");
 
   hbkg_dR_jet_electron_after_d->GetXaxis()->SetTitle("Delta R between jets and electrons after cross cleaning");
   hbkg_dR_jet_electron_after_d->GetYaxis()->SetTitle("Entries");
@@ -2440,7 +2441,7 @@ void plots(){
   TLegend *leg_dR_jet_en_after_b = new TLegend(0.4,0.4,0.5,0.5);
   leg_dR_jet_en_after_b->AddEntry(hsig_dR_jet_electron_after,"Signal","l");
   leg_dR_jet_en_after_b->AddEntry(hbkg_dR_jet_electron_after,"TTbarSemileptonic","l");
-  leg_dR_jet_en_after_b->AddEntry(hbkg_dR_jet_electron_after_h,"TTbar_Hadronic","l");
+  //leg_dR_jet_en_after_b->AddEntry(hbkg_dR_jet_electron_after_h,"TTbar_Hadronic","l");
   leg_dR_jet_en_after_b->AddEntry(hbkg_dR_jet_electron_after_d,"TTbar_Dileptonic","l");
   //leg_dR_jet_en_after_b->AddEntry(hbkg_dR_jet_electron_after_w,"WJets_to_LNu","l");
   leg_dR_jet_en_after_b->Draw();
@@ -2466,7 +2467,7 @@ void plots(){
   hbkg_dR_av_h->GetYaxis()->SetTitle("Entries");
   hbkg_dR_av_h->SetLineColor(kBlue);
   hbkg_dR_av_h->Scale(1./hbkg_dR_av_h->Integral());
-  hbkg_dR_av_h->Draw("Ehist,sames");
+  //hbkg_dR_av_h->Draw("Ehist,sames");
 
   hbkg_dR_av_d->GetXaxis()->SetTitle("Distance in the eta-phi plane between any b-tag pair, averaged over all possible combinations per event");
   hbkg_dR_av_d->GetYaxis()->SetTitle("Entries");
@@ -2483,7 +2484,7 @@ void plots(){
   TLegend *leg_dR_av = new TLegend(0.4,0.4,0.5,0.5);
   leg_dR_av->AddEntry(hsig_dR_av,"Signal","l");
   leg_dR_av->AddEntry(hbkg_dR_av,"TTbarSemileptonic","l");
-  leg_dR_av->AddEntry(hbkg_dR_av_h,"TTbar_Hadronic","l");
+  //leg_dR_av->AddEntry(hbkg_dR_av_h,"TTbar_Hadronic","l");
   leg_dR_av->AddEntry(hbkg_dR_av_d,"TTbar_Dileptonic","l");
   //leg_dR_av->AddEntry(hbkg_dR_av_w,"WJets_to_LNu","l");
   leg_dR_av->Draw();
@@ -2514,7 +2515,7 @@ void plots(){
   hbkg_minDelta_m_h->GetYaxis()->SetTitle("Entries");
   hbkg_minDelta_m_h->SetLineColor(kBlue);
   hbkg_minDelta_m_h->Scale(1./hbkg_minDelta_m_h->Integral());
-  hbkg_minDelta_m_h->Draw("Ehist,sames");
+  //hbkg_minDelta_m_h->Draw("Ehist,sames");
 
   hbkg_minDelta_m_d->GetXaxis()->SetTitle("The minimum difference in m(b1b2) - m(b3b4) among the possible pairing scenarios");
   hbkg_minDelta_m_d->GetYaxis()->SetTitle("Entries");
@@ -2525,7 +2526,7 @@ void plots(){
   TLegend *leg_minDelta_m = new TLegend(0.4,0.4,0.5,0.5);
   leg_minDelta_m->AddEntry(hsig_minDelta_m,"Signal","l");
   leg_minDelta_m->AddEntry(hbkg_minDelta_m,"TTbarSemileptonic","l");
-  leg_minDelta_m->AddEntry(hbkg_minDelta_m_h,"TTbar_Hadronic","l");
+  //leg_minDelta_m->AddEntry(hbkg_minDelta_m_h,"TTbar_Hadronic","l");
   leg_minDelta_m->AddEntry(hbkg_minDelta_m_d,"TTbar_Dileptonic","l");
   //leg_minDelta_m->AddEntry(hbkg_minDelta_m_w,"WJets_to_LNu","l");
   leg_minDelta_m->Draw();
@@ -2550,7 +2551,7 @@ void plots(){
   hbkg_d_phi_j_E_h->GetYaxis()->SetTitle("Entries");
   hbkg_d_phi_j_E_h->SetLineColor(kBlue);
   hbkg_d_phi_j_E_h->Scale(1./hbkg_d_phi_j_E_h->Integral());
-  hbkg_d_phi_j_E_h->Draw("Ehist,sames");
+  //hbkg_d_phi_j_E_h->Draw("Ehist,sames");
 
   hbkg_d_phi_j_E_d->GetXaxis()->SetTitle("Minimum azimuthal opening angle");
   hbkg_d_phi_j_E_d->GetYaxis()->SetTitle("Entries");
@@ -2567,7 +2568,7 @@ void plots(){
   TLegend *leg_d_phi_j_E = new TLegend(0.4,0.4,0.5,0.5);
   leg_d_phi_j_E->AddEntry(hsig_d_phi_j_E,"Signal","l");
   leg_d_phi_j_E->AddEntry(hbkg_d_phi_j_E,"TTbarSemileptonic","l");
-  leg_d_phi_j_E->AddEntry(hbkg_d_phi_j_E_h,"TTbar_Hadronic","l");
+  //leg_d_phi_j_E->AddEntry(hbkg_d_phi_j_E_h,"TTbar_Hadronic","l");
   leg_d_phi_j_E->AddEntry(hbkg_d_phi_j_E_d,"TTbar_Dileptonic","l");
   //leg_d_phi_j_E->AddEntry(hbkg_d_phi_j_E_w,"WJets_to_LNu","l");
   leg_d_phi_j_E->Draw();
@@ -2592,7 +2593,7 @@ void plots(){
   hbkg_Nbjets_after_h->GetYaxis()->SetTitle("Entries");
   hbkg_Nbjets_after_h->SetLineColor(kBlue);
   hbkg_Nbjets_after_h->Scale(1./hbkg_Nbjets_after_h->Integral());
-  hbkg_Nbjets_after_h->Draw("Ehist,sames");
+  //hbkg_Nbjets_after_h->Draw("Ehist,sames");
 
   hbkg_Nbjets_after_d->GetXaxis()->SetTitle("Njets");
   hbkg_Nbjets_after_d->GetYaxis()->SetTitle("Entries");
@@ -2609,7 +2610,7 @@ void plots(){
   TLegend *leg_Njets = new TLegend(0.4,0.4,0.5,0.5);
   leg_Njets->AddEntry(hsig_Nbjets_after,"Signal","l");
   leg_Njets->AddEntry(hbkg_Nbjets_after,"TTbarSemileptonic","l");
-  leg_Njets->AddEntry(hbkg_Nbjets_after_h,"TTbar_Hadronic","l");
+  //leg_Njets->AddEntry(hbkg_Nbjets_after_h,"TTbar_Hadronic","l");
   leg_Njets->AddEntry(hbkg_Nbjets_after_d,"TTbar_Dileptonic","l");
   //leg_Njets->AddEntry(hbkg_Nbjets_after_w,"WJets_to_LNu","l");
   leg_Njets->Draw();
@@ -2634,7 +2635,7 @@ void plots(){
   hbkg_btag_0_h->GetYaxis()->SetTitle("Entries");
   hbkg_btag_0_h->SetLineColor(kBlue);
   hbkg_btag_0_h->Scale(1./hbkg_btag_0_h->Integral());
-  hbkg_btag_0_h->Draw("Ehist,sames");
+  //hbkg_btag_0_h->Draw("Ehist,sames");
 
   hbkg_btag_0_d->GetXaxis()->SetTitle("btag0");
   hbkg_btag_0_d->GetYaxis()->SetTitle("Entries");
@@ -2651,7 +2652,7 @@ void plots(){
   TLegend *leg_btag_0 = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_btag_0->AddEntry(hsig_btag_0, "Signal", "l");
   leg_btag_0->AddEntry(hbkg_btag_0, "TTbarSemileptonic", "l");
-  leg_btag_0->AddEntry(hbkg_btag_0_h, "TTbar_Hadronic", "l");
+  //leg_btag_0->AddEntry(hbkg_btag_0_h, "TTbar_Hadronic", "l");
   leg_btag_0->AddEntry(hbkg_btag_0_d, "TTbar_Dileptonic", "l");
   //leg_btag_0->AddEntry(hbkg_btag_0_w, "WJets_to_LNu", "l");
   leg_btag_0->Draw();
@@ -2674,7 +2675,7 @@ void plots(){
   hbkg_btag_1_h->GetYaxis()->SetTitle("Entries");
   hbkg_btag_1_h->SetLineColor(kBlue);
   hbkg_btag_1_h->Scale(1./hbkg_btag_1_h->Integral());
-  hbkg_btag_1_h->Draw("Ehist,sames");
+  //hbkg_btag_1_h->Draw("Ehist,sames");
 
   hbkg_btag_1_d->GetXaxis()->SetTitle("btag1");
   hbkg_btag_1_d->GetYaxis()->SetTitle("Entries");
@@ -2691,7 +2692,7 @@ void plots(){
   TLegend *leg_btag_1 = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_btag_1->AddEntry(hsig_btag_1, "Signal", "l");
   leg_btag_1->AddEntry(hbkg_btag_1, "TTbarSemileptonic", "l");
-  leg_btag_1->AddEntry(hbkg_btag_1_h, "TTbar_Hadronic", "l");
+  //leg_btag_1->AddEntry(hbkg_btag_1_h, "TTbar_Hadronic", "l");
   leg_btag_1->AddEntry(hbkg_btag_1_d, "TTbar_Dileptonic", "l");
   //leg_btag_1->AddEntry(hbkg_btag_1_w, "WJets_to_LNu", "l");
   leg_btag_1->Draw();
@@ -2715,7 +2716,7 @@ void plots(){
   hbkg_btag_2_h->GetYaxis()->SetTitle("Entries");
   hbkg_btag_2_h->SetLineColor(kBlue);
   hbkg_btag_2_h->Scale(1./hbkg_btag_2_h->Integral());
-  hbkg_btag_2_h->Draw("Ehist,sames");
+  //hbkg_btag_2_h->Draw("Ehist,sames");
 
   hbkg_btag_2_d->GetXaxis()->SetTitle("btag2");
   hbkg_btag_2_d->GetYaxis()->SetTitle("Entries");
@@ -2732,7 +2733,7 @@ void plots(){
   TLegend *leg_btag_2 = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_btag_2->AddEntry(hsig_btag_2, "Signal", "l");
   leg_btag_2->AddEntry(hbkg_btag_2, "TTbarSemileptonic", "l");
-  leg_btag_2->AddEntry(hbkg_btag_2_h, "TTbar_Hadronic", "l");
+  //leg_btag_2->AddEntry(hbkg_btag_2_h, "TTbar_Hadronic", "l");
   leg_btag_2->AddEntry(hbkg_btag_2_d, "TTbar_Dileptonic", "l");
   //leg_btag_2->AddEntry(hbkg_btag_2_w, "WJets_to_LNu", "l");
   leg_btag_2->Draw();
@@ -2756,7 +2757,7 @@ void plots(){
   hbkg_btag_3_h->GetYaxis()->SetTitle("Entries");
   hbkg_btag_3_h->SetLineColor(kRed);
   hbkg_btag_3_h->Scale(1./hbkg_btag_3_h->Integral());
-  hbkg_btag_3_h->Draw("Ehist,sames");
+  //hbkg_btag_3_h->Draw("Ehist,sames");
 
   hbkg_btag_3_d->GetXaxis()->SetTitle("btag3");
   hbkg_btag_3_d->GetYaxis()->SetTitle("Entries");
@@ -2773,7 +2774,7 @@ void plots(){
   TLegend *leg_btag_3 = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_btag_3->AddEntry(hsig_btag_3, "Signal", "l");
   leg_btag_3->AddEntry(hbkg_btag_3, "TTbarSemileptonic", "l");
-  leg_btag_3->AddEntry(hbkg_btag_3_h, "TTbar_Hadronic", "l");
+  //leg_btag_3->AddEntry(hbkg_btag_3_h, "TTbar_Hadronic", "l");
   leg_btag_3->AddEntry(hbkg_btag_3_d, "TTbar_Dileptonic", "l");
   //leg_btag_3->AddEntry(hbkg_btag_3_w, "WJets_to_LNu", "l");
   leg_btag_3->Draw();
@@ -2796,7 +2797,7 @@ void plots(){
   hbkg_jet_pt_h->GetYaxis()->SetTitle("Entries");
   hbkg_jet_pt_h->SetLineColor(kRed);
   hbkg_jet_pt_h->Scale(1./hbkg_jet_pt_h->Integral());
-  hbkg_jet_pt_h->Draw("Ehist,sames");
+  //hbkg_jet_pt_h->Draw("Ehist,sames");
 
   hbkg_jet_pt_d->GetXaxis()->SetTitle("HT");
   hbkg_jet_pt_d->GetYaxis()->SetTitle("Entries");
@@ -2815,7 +2816,7 @@ void plots(){
   TLegend *leg_jet_pt = new TLegend(0.4, 0.4, 0.5, 0.5);
   leg_jet_pt->AddEntry(hsig_jet_pt, "Signal", "l");
   leg_jet_pt->AddEntry(hbkg_jet_pt, "TTbarSemileptonic", "l");
-  leg_jet_pt->AddEntry(hbkg_jet_pt_h, "TTbar_Hadronic", "l");
+  //leg_jet_pt->AddEntry(hbkg_jet_pt_h, "TTbar_Hadronic", "l");
   leg_jet_pt->AddEntry(hbkg_jet_pt_d, "TTbar_Dileptonic", "l");
   //leg_jet_pt->AddEntry(hbkg_jet_pt_w, "WJets_to_LNu", "l");
   leg_jet_pt->Draw();

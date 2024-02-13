@@ -52,26 +52,26 @@ if (fChain == 0) return;
 
   Long64_t nentries = fChain->GetEntriesFast();
   //TFile f("histos_signal.root","recreate");
-  //TFile f("histos_back_TTbarSemileptonic.root","recreate");
+  TFile f("histos_back_TTbarSemileptonic.root","recreate");
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
-  TFile f("histos_back_WJetsToLNu.root","recreate");
-  //TFile f("histos_back_WJetsToLNu1.root","recreate");
+  //TFile f("histos_back_WJetsToLNu70to100.root","recreate");
+  //TFile f("histos_back_WJetsToLNu100to200.root","recreate");
 
 
 
   //N_expected calculations
-  float Br_W_to_lep=0.1046+0.105;
+  float Br_W_to_lep=0.1046+0.105+0.1075;
   float Br_W_to_qq=0.6832;
 
 
 
   float sigma_signal=1.37*Br_W_to_lep;
-  float sigma_back_Semileptonic=365.34;
-  float sigma_back_Dileptonic=88.29;
-  float sigma_back_Hadronic=377.96;
-  float sigma_back_WJetsToLNu=1353*1.21;
-  float sigma_back_WJetsToLNu2=1346*1.21;
+  float sigma_back_Semileptonic=365.34*Br_W_to_lep;
+  float sigma_back_Dileptonic=88.29*Br_W_to_lep;
+  float sigma_back_Hadronic=377.96*Br_W_to_lep;
+  float sigma_back_WJetsToLNu70to100=1353*1.21*Br_W_to_lep;
+  float sigma_back_WJetsToLNu100to200=1346*1.21*Br_W_to_lep;
   float L_integrated=41.5*pow(10.,3.);
 
 
@@ -80,8 +80,8 @@ if (fChain == 0) return;
   float N_expected_back_Semileptonic=sigma_back_Semileptonic*L_integrated;
   float N_expected_back_Dileptonic=sigma_back_Dileptonic*L_integrated;
   float N_expected_back_Hadronic=sigma_back_Hadronic*L_integrated;
-  float N_expected_back_WJetsToLNu=sigma_back_WJetsToLNu*L_integrated;
-  float N_expected_back_WJetsToLNu2=sigma_back_WJetsToLNu2*L_integrated;
+  float N_expected_back_WJetsToLNu=sigma_back_WJetsToLNu70to100*L_integrated;
+  float N_expected_back_WJetsToLNu2=sigma_back_WJetsToLNu100to200*L_integrated;
 
 
 
@@ -107,12 +107,12 @@ if (std::string(f.GetName()) == "histos_signal.root") {
 } else if (std::string(f.GetName()) == "histos_back_TTbarHadronic.root"){
   w = w_back_Hadronic; 
   std::cout << " Backround weight (TTbar_Hadronic) = " << w_back_Hadronic << std::endl;
-} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu.root"){
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu70to100.root"){
   w = w_back_WJetsToLNu; 
-  std::cout << " Backround weight (TTbar_WJetsToLNu) = " << w_back_WJetsToLNu << std::endl;
-} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu1.root"){
+  std::cout << " Backround weight (TTbar_WJetsToLNu70to100) = " << w_back_WJetsToLNu << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu100to200.root"){
   w = w_back_WJetsToLNu; 
-  std::cout << " Backround weight (TTbar_WJetsToLNu2) = " << w_back_WJetsToLNu << std::endl;
+  std::cout << " Backround weight (TTbar_WJetsToLNu100to200) = " << w_back_WJetsToLNu << std::endl;
 }
 
 
