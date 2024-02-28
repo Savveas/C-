@@ -51,8 +51,8 @@ if (fChain == 0) return;
 
 
   Long64_t nentries = fChain->GetEntriesFast();
-  //TFile f("histos_signal.root","recreate");
-  TFile f("histos_back_TTbarSemileptonic.root","recreate");
+  TFile f("histos_signal.root","recreate");
+  //TFile f("histos_back_TTbarSemileptonic.root","recreate");
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
   //TFile f("histos_back_WJetsToLNu70to100.root","recreate");
@@ -222,7 +222,7 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   TH1F *h_dR_av = new TH1F("h_dR_av","Distance in the eta-phi plane between any b-tag pair, averaged over all possible combinations per event",100,0.,6.);
 
 
-  TH1F *h_minDelta_m = new TH1F("h_minDelta_m","The minimum difference in m(b1b2) - m(b3b4) among the possible pairing scenarios",100,0.,100.);
+  TH1F *h_minDelta_m = new TH1F("h_minDelta_m","The minimum difference in m(b1b2) - m(b3b4) among the possible pairing scenarios",100,0.,50.);
 
 
   TH1F *h_d_phi_j_E = new TH1F("h_d_phi_j_E","Minimum azimuthal opening angle",100,0.,M_PI);
@@ -236,6 +236,8 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   TH1F *h_btag_2 = new TH1F("h_btag_2","b_tag_2 discriminator",50,0.,1.);
   TH1F *h_btag_3 = new TH1F("h_btag_3","b_tag_3 discriminator",50,0.,1.);
 
+
+  
 
   TTree *my_tree = new TTree("my_tree","Global variables");
   Float_t mt;
@@ -275,8 +277,8 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   my_tree->Branch("H_T",&H_T,"_H_T/F");
 
   Long64_t nbytes = 0, nb = 0;
-
-
+  
+  
 
   int count_N1(0);
   int count_N2(0);
@@ -508,6 +510,9 @@ for(int k=0; k<vec_struct_bjet.size(); k++){
  float btag1_value = vec_struct_bjet[k].btag1;
 
 if (k == 0) {
+  if(std::isnan(btag_0)){
+  std::cout << "At entry = " << jentry << " the value of btag_0 is " << btag_0 <<std::endl;
+  }
   h_btag_0->Fill(btag1_value);
   btag_0=btag1_value;
 } else if (k == 1) {
@@ -663,18 +668,16 @@ if (bjet_mult>3){
   float dR_13 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[1],bjet_vec[3]);
   float dR_23 = ROOT::Math::VectorUtil::DeltaR(bjet_vec[2],bjet_vec[3]);
   dR_av = (dR_01 + dR_02 + dR_12 + dR_23 + dR_03 + dR_13) / 6.;
-  h_dR_av->Fill(dR_av);
-
-
-
   //Delta{m_{b,b}}_min
   float m1 = std::abs((bjet_vec[0].M() + bjet_vec[1].M()) - (bjet_vec[2].M() + bjet_vec[3].M()));
   float m2 = std::abs((bjet_vec[0].M() + bjet_vec[2].M()) - (bjet_vec[1].M() + bjet_vec[3].M()));
   float m3 = std::abs((bjet_vec[0].M() + bjet_vec[3].M()) - (bjet_vec[1].M() + bjet_vec[2].M()));
   minDelta_m = TMath::Min(m3,TMath::Min(m1,m2));
   h_minDelta_m->Fill(minDelta_m);
+}else {
+  dR_av = (dR_01 + dR_02 + dR_12)/3.;
 }
-
+  h_dR_av->Fill(dR_av);
 
   //Delta_phi
   float min_dphi=100000;
@@ -689,11 +692,15 @@ if (bjet_vec[i].DeltaPhi(met_p)<min_dphi){
   //tree->Print();
   
 
+  
+
 
 if (ientry < 0) break;
   // if (Cut(ientry) < 0) continue;
 } // end EVENT loop
 
+
+  
 
 
   std::cout << " Number of entries = " << nentries << std::endl;
