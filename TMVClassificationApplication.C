@@ -9,8 +9,22 @@ using namespace TMVA;
 
 void TMVClassificationApplication() {
 
-    
-    TH1F *BDT_eval = new TH1F("BDT_eval","BDT_eval",100,0.,100.);
+    TFile *input_Signal = TFile::Open("histos_signal.root");
+    TTree* sigTree = (TTree*)input_Signal->Get( "my_tree" );
+
+    //TFile *input_TTbarSemileptonic = TFile::Open("histos_back_TTbarSemileptonic.root");
+    //TTree* bkgTree_Semileptonic = (TTree*)input_TTbarSemileptonic->Get( "my_tree" );
+
+    //TFile *input_TTbarDileptonic = TFile::Open("histos_back_TTbarDileptonic.root");
+    //TTree* bkgTree_Dileptonic = (TTree*)input_TTbarDileptonic->Get( "my_tree" );
+
+    //TFile *input_TTbarHadronic = TFile::Open("histos_back_TTbarHadronic.root");
+    //TTree* bkgTree_Hadronic = (TTree*)input_TTbarHadronic->Get( "my_tree" );
+
+    //TFile *input_WJetsToLNu = TFile::Open("histos_back_WJetsToLNu100to200.root");
+    //TTree* bkgTree_W = (TTree*)input_WJetsToLNu->Get( "my_tree" );
+
+    TH1F *BDT_eval = new TH1F("BDT_eval","BDT_eval",100,-10,10.);
     TMVA::Reader *reader = new TMVA::Reader("!Color"); 
     Float_t mt;
     Float_t inv_m;
@@ -53,23 +67,10 @@ void TMVClassificationApplication() {
 
     reader->BookMVA("kBDT method","MVAnalysis/weights/MVAnalysis_BDT.weights.xml");
 
-    TFile *input_Signal = TFile::Open("histos_signal.root");
-    TTree* sigTree = (TTree*)input_Signal->Get( "my_tree" );
-
-    //TFile *input_TTbarSemileptonic = TFile::Open("histos_back_TTbarSemileptonic.root");
-    //TTree* bkgTree_Semileptonic = (TTree*)input_TTbarSemileptonic->Get( "my_tree" );
-
-    //TFile *input_TTbarDileptonic = TFile::Open("histos_back_TTbarDileptonic.root");
-    //TTree* bkgTree_Dileptonic = (TTree*)input_TTbarDileptonic->Get( "my_tree" );
-
-    //TFile *input_TTbarHadronic = TFile::Open("histos_back_TTbarHadronic.root");
-    //TTree* bkgTree_Hadronic = (TTree*)input_TTbarHadronic->Get( "my_tree" );
-
-    //TFile *input_WJetsToLNu = TFile::Open("histos_back_WJetsToLNu.root");
-    //TTree* bkgTree_W = (TTree*)input_WJetsToLNu->Get( "my_tree" );
+    
 
 
-for (Long64_t ievt=3000; ievt<sigTree->GetEntries();ievt++) {
+for (Long64_t ievt=0; ievt<sigTree->GetEntries();ievt++) {
 sigTree->GetEntry(ievt);
   
     
