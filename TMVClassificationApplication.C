@@ -10,10 +10,10 @@ using namespace TMVA;
 void TMVClassificationApplication() {
 
     TFile *input_Signal = TFile::Open("histos_signal.root");
-    TTree* sigTree = (TTree*)input_Signal->Get( "my_tree" );
+    TTree* InTree = (TTree*)input_Signal->Get( "my_tree" );
 
     //TFile *input_TTbarSemileptonic = TFile::Open("histos_back_TTbarSemileptonic.root");
-    //TTree* bkgTree_Semileptonic = (TTree*)input_TTbarSemileptonic->Get( "my_tree" );
+    //TTree* InTree = (TTree*)input_TTbarSemileptonic->Get( "my_tree" );
 
     //TFile *input_TTbarDileptonic = TFile::Open("histos_back_TTbarDileptonic.root");
     //TTree* bkgTree_Dileptonic = (TTree*)input_TTbarDileptonic->Get( "my_tree" );
@@ -23,6 +23,10 @@ void TMVClassificationApplication() {
 
     //TFile *input_WJetsToLNu = TFile::Open("histos_back_WJetsToLNu100to200.root");
     //TTree* bkgTree_W = (TTree*)input_WJetsToLNu->Get( "my_tree" );
+
+
+    TFile *outputfile = new TFile("output.root", "RECREATE");
+
 
     TH1F *BDT_eval = new TH1F("BDT_eval","BDT_eval",100,-10,10.);
     TMVA::Reader *reader = new TMVA::Reader("!Color"); 
@@ -34,15 +38,15 @@ void TMVClassificationApplication() {
     Float_t btag_2;
     Float_t btag_3;
     Float_t lep_pt;
-    Float_t Nbjets_after;
     Float_t w_pt;
     Float_t d_phi_w_h;
-    Float_t Njets_after;
+    Int_t Njets_after;
     Float_t dR_av;
     Float_t minDelta_m;
     Float_t d_phi_j_E;
     Float_t h_pt;
     Float_t H_T;
+    Float_t njets;
 
 
 
@@ -58,7 +62,7 @@ void TMVClassificationApplication() {
     //reader->AddVariable( "Nbjets_after", &Nbjets_after );
     reader->AddVariable( "w_pt", &w_pt );
     reader->AddVariable("d_phi_w_h",&d_phi_w_h);
-    reader->AddVariable( "Njets_after", &Njets_after );
+    reader->AddVariable( "Njets_after", &njets );
     reader->AddVariable( "dR_av", &dR_av );
     reader->AddVariable( "minDelta_m", &minDelta_m );
     reader->AddVariable( "d_phi_j_E", &d_phi_j_E );
@@ -67,23 +71,43 @@ void TMVClassificationApplication() {
 
     reader->BookMVA("kBDT method","MVAnalysis/weights/MVAnalysis_BDT.weights.xml");
 
+    InTree->SetBranchAddress("h_pt",&h_pt );
+    InTree->SetBranchAddress("mt",&mt );
+    InTree->SetBranchAddress("inv_m",&inv_m );
+    InTree->SetBranchAddress( "met_pt",&met_pt );
+    InTree->SetBranchAddress( "btag_0",&btag_0);
+    InTree->SetBranchAddress( "btag_1", &btag_1 );
+    InTree->SetBranchAddress( "btag_2", &btag_2 );
+    InTree->SetBranchAddress("lep_pt",&lep_pt );
+    InTree->SetBranchAddress( "w_pt",&w_pt );
+    InTree->SetBranchAddress( "d_phi_w_h",&d_phi_w_h );
+    InTree->SetBranchAddress( "njets",&Njets_after );
+    InTree->SetBranchAddress( "dR_av",&dR_av );
+    InTree->SetBranchAddress( "minDelta_m",&minDelta_m);
+    InTree->SetBranchAddress( "d_phi_j_E",&d_phi_j_E );
+    InTree->SetBranchAddress( "H_T",&H_T );
     
 
 
-for (Long64_t ievt=0; ievt<sigTree->GetEntries();ievt++) {
-sigTree->GetEntry(ievt);
+for (Long64_t ievt=0; ievt<InTree->GetEntries();ievt++) {
+InTree->GetEntry(ievt);
   
     
-    
+    njets = Njets_after;
     
     Double_t out = reader->EvaluateMVA( "kBDT method" );
     BDT_eval->Fill(out);
 }
+    BDT_eval->Write();
+    
     TCanvas *c_BDT_eval = new TCanvas("BDT_eval", "BDT_eval", 1000, 1000);
-  BDT_eval->GetXaxis()->SetTitle("BDT_eval");
-  BDT_eval->GetYaxis()->SetTitle("Entries");
-  BDT_eval->SetLineColor(kBlack);
-  BDT_eval->Scale(1./BDT_eval->Integral());
-  BDT_eval->Draw("Ehist");
+  //BDT_eval->GetXaxis()->SetTitle("BDT_eval");
+  //BDT_eval->GetYaxis()->SetTitle("Entries");
+  //BDT_eval->SetLineColor(kBlack);
+  //BDT_eval->Scale(1./BDT_eval->Integral());
+  //BDT_eval->Draw("Ehist");
+    outputfile->Close();
+  delete reader;
+  
 }
 
