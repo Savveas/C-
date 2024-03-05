@@ -9,26 +9,27 @@ using namespace TMVA;
 
 void TMVClassificationApplication() {
 
-    TFile *input_Signal = TFile::Open("histos_signal.root");
-    TTree* InTree = (TTree*)input_Signal->Get( "my_tree" );
+    //TFile *input_Signal = TFile::Open("histos_signal.root");
+    //TTree* InTree = (TTree*)input_Signal->Get( "my_tree" );
 
     //TFile *input_TTbarSemileptonic = TFile::Open("histos_back_TTbarSemileptonic.root");
     //TTree* InTree = (TTree*)input_TTbarSemileptonic->Get( "my_tree" );
 
-    //TFile *input_TTbarDileptonic = TFile::Open("histos_back_TTbarDileptonic.root");
-    //TTree* bkgTree_Dileptonic = (TTree*)input_TTbarDileptonic->Get( "my_tree" );
+    TFile *input_TTbarDileptonic = TFile::Open("histos_back_TTbarDileptonic.root");
+    TTree* InTree = (TTree*)input_TTbarDileptonic->Get( "my_tree" );
 
     //TFile *input_TTbarHadronic = TFile::Open("histos_back_TTbarHadronic.root");
-    //TTree* bkgTree_Hadronic = (TTree*)input_TTbarHadronic->Get( "my_tree" );
+    //TTree* InTree = (TTree*)input_TTbarHadronic->Get( "my_tree" );
 
     //TFile *input_WJetsToLNu = TFile::Open("histos_back_WJetsToLNu100to200.root");
-    //TTree* bkgTree_W = (TTree*)input_WJetsToLNu->Get( "my_tree" );
+    //TTree* InTree = (TTree*)input_WJetsToLNu->Get( "my_tree" );
 
 
-    TFile *outputfile = new TFile("output.root", "RECREATE");
+    TFile *outputfile_TTbarDileptonic = new TFile("output_TTbarDileptonic.root", "RECREATE");
+    
 
 
-    TH1F *BDT_eval = new TH1F("BDT_eval","BDT_eval",100,-10,10.);
+    TH1F *BDT_eval = new TH1F("BDT_eval","BDT_eval",100,-1,1.);
     TMVA::Reader *reader = new TMVA::Reader("!Color"); 
     Float_t mt;
     Float_t inv_m;
@@ -49,7 +50,7 @@ void TMVClassificationApplication() {
     Float_t njets;
 
 
-
+    
 
     reader->AddVariable( "h_pt", &h_pt );
     reader->AddVariable( "mt", &mt );
@@ -68,7 +69,7 @@ void TMVClassificationApplication() {
     reader->AddVariable( "d_phi_j_E", &d_phi_j_E );
     reader->AddVariable( "H_T", &H_T );
     //reader->AddVariable( "Nbjets_after", &Nbjets_after );
-
+   
     reader->BookMVA("kBDT method","MVAnalysis/weights/MVAnalysis_BDT.weights.xml");
 
     InTree->SetBranchAddress("h_pt",&h_pt );
@@ -91,22 +92,27 @@ void TMVClassificationApplication() {
 
 for (Long64_t ievt=0; ievt<InTree->GetEntries();ievt++) {
 InTree->GetEntry(ievt);
+  if(std::isnan(btag_0)){
+      cout<<"#events "<<ievt<<" " <<btag_0<<endl;
+      continue;
+    }
   
-    
     njets = Njets_after;
     
     Double_t out = reader->EvaluateMVA( "kBDT method" );
     BDT_eval->Fill(out);
 }
+
+
     BDT_eval->Write();
     
-    TCanvas *c_BDT_eval = new TCanvas("BDT_eval", "BDT_eval", 1000, 1000);
+  //TCanvas *c_BDT_eval = new TCanvas("BDT_eval", "BDT_eval", 1000, 1000);
   //BDT_eval->GetXaxis()->SetTitle("BDT_eval");
   //BDT_eval->GetYaxis()->SetTitle("Entries");
   //BDT_eval->SetLineColor(kBlack);
   //BDT_eval->Scale(1./BDT_eval->Integral());
   //BDT_eval->Draw("Ehist");
-    outputfile->Close();
+    outputfile_TTbarDileptonic->Close();
   delete reader;
   
 }
