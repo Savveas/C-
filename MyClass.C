@@ -51,12 +51,12 @@ if (fChain == 0) return;
 
 
   Long64_t nentries = fChain->GetEntriesFast();
-  TFile f("histos_signal.root","recreate");
+  //TFile f("histos_signal.root","recreate");
   //TFile f("histos_back_TTbarSemileptonic.root","recreate");
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
   //TFile f("histos_back_WJetsToLNu70to100.root","recreate");
-  //TFile f("histos_back_WJetsToLNu100to200.root","recreate");
+  TFile f("histos_back_WJetsToLNu100to200.root","recreate");
 
 
 
@@ -95,23 +95,30 @@ if (fChain == 0) return;
   
 
   float w;
+  float N_expected;
 if (std::string(f.GetName()) == "histos_signal.root") {
   w = w_signal;
+  N_expected= N_expected_signal;
   std::cout << " Signal weight = " << w_signal << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_TTbarSemileptonic.root") {
   w = w_back_Semileptonic;
+  N_expected= N_expected_back_Semileptonic;
   std::cout << " Backround weight (TTbar_Semileptonic) = " << w_back_Semileptonic << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_TTbarDileptonic.root"){
   w = w_back_Dileptonic; 
+  N_expected= N_expected_back_Dileptonic;
   std::cout << " Backround weight (TTbar_Dileptonic) = " << w_back_Dileptonic << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_TTbarHadronic.root"){
   w = w_back_Hadronic; 
+  N_expected= N_expected_back_Hadronic;
   std::cout << " Backround weight (TTbar_Hadronic) = " << w_back_Hadronic << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_WJetsToLNu70to100.root"){
   w = w_back_WJetsToLNu; 
+  N_expected= N_expected_back_WJetsToLNu;
   std::cout << " Backround weight (TTbar_WJetsToLNu70to100) = " << w_back_WJetsToLNu << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_WJetsToLNu100to200.root"){
   w = w_back_WJetsToLNu; 
+  N_expected= N_expected_back_WJetsToLNu;
   std::cout << " Backround weight (TTbar_WJetsToLNu100to200) = " << w_back_WJetsToLNu << std::endl;
 }
 
@@ -704,10 +711,10 @@ if (ientry < 0) break;
 
 
   std::cout << " Number of entries = " << nentries << std::endl;
-  std::cout << " Nevents at step 1 (at least 1 lepton) = " << count_N1 << " and eff_1 = " << (float)count_N1/(float)nentries << std::endl;
-  std::cout << " Nevents at step 2 (at least 3 jets) = " << count_N2 << " and eff_2 =" << (float)count_N2/(float)count_N1 << std::endl;
-  std::cout << " Nevents at step 3 (at least 3 b-jets) = " << count_N3 << " and eff_3 = " << (float)count_N3/(float)count_N1 << std::endl;
-  std::cout << " Nevents at step 4 (MT > 25 and MET >30) = " << count_N4 << " and eff_4 = " << (float)count_N4/(float)count_N1 << std::endl;
+  std::cout << " Nevents at step 1 (at least 1 lepton) = " << count_N1 << " and eff_1 = " << (float)count_N1/(float)nentries << " and Nexpected " << N_expected << std::endl;
+  std::cout << " Nevents at step 2 (at least 3 jets) = " << count_N2 << " and eff_2 =" << (float)count_N2/(float)count_N1 <<  " and Nexpected " << N_expected*((float)count_N2/(float)count_N1) << std::endl;
+  std::cout << " Nevents at step 3 (at least 3 b-jets) = " << count_N3 << " and eff_3 = " << (float)count_N3/(float)count_N1 <<  " and Nexpected " << N_expected*((float)count_N3/(float)count_N1) << std::endl;;
+  std::cout << " Nevents at step 4 (MT > 25 and MET >30) = " << count_N4 << " and eff_4 = " << (float)count_N4/(float)count_N1 <<  " and Nexpected " << N_expected*((float)count_N4/(float)count_N1) << std::endl;;
 
 
 

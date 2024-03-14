@@ -21,6 +21,7 @@ public :
 // Fixed size dimensions of array or collections stored in the TTree if any.
 
    // Declaration of leaf types
+   Float_t         totalNumberofEvents;
    Int_t           run;
    Int_t           lumi;
    Long64_t        event;
@@ -247,13 +248,16 @@ MyClass::MyClass(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("analysis_back_total.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("analysis_back_WJetsToLNu100to200.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("analysis_back_total.root");
+         f = new TFile("analysis_back_WJetsToLNu100to200.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get("analysis_back_total.root:/mainNtuplizer");
+      TDirectory * dir = (TDirectory*)f->Get("analysis_back_WJetsToLNu100to200.root:/mainNtuplizer");
       dir->GetObject("data",tree);
 
+      TH1F* nevtH = (TH1F *) f->Get("mainNtuplizer/nevents");
+      totalNumberofEvents = nevtH->GetBinContent(1);
+      cout << totalNumberofEvents << endl;
    }
    Init(tree);
 }
