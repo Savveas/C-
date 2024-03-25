@@ -41,18 +41,18 @@ RooRealVar output_BDT("output_BDT","output_BDT",-1.,1.);
 RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,0.,2*sig_N);
 RooRealVar Nexp_dil("Nexp_dil","Expected number of ttbar dileptonic events",dil_N,0.,2*dil_N);
 RooRealVar Nexp_had("Nexp_had","Expected number of ttbar hadronic events",had_N,0.,2*had_N);
-RooRealVar Nexp_sem("Nexp_se,","Expected number of ttbar semileptonic events",sem_N,0.,2*sem_N);
+RooRealVar Nexp_sem("Nexp_sem","Expected number of ttbar semileptonic events",sem_N,0.,2*sem_N);
 RooRealVar Nexp_W("Nexp_W","Expected number of WtoLnu events",W_N,0.,2*W_N);
 
 
 std::cout<<"RooRealVar"<<std::endl;
 
 
-RooDataHist sig("sig","sig",output_BDT,sig);
-RooDataHist dil("dil","dil",output_BDT,dil);
-RooDataHist had("had","had",output_BDT,had);
-RooDataHist sem("sem","sem",output_BDT,sem);
-RooDataHist W("W","W",output_BDT,W);
+RooDataHist sig("sig","sig",output_BDT,h_sig);
+RooDataHist dil("dil","dil",output_BDT,h_dil);
+RooDataHist had("had","had",output_BDT,h_had);
+RooDataHist sem("sem","sem",output_BDT,h_sem);
+RooDataHist W("W","W",output_BDT,h_W);
 
 
 std::cout<<"RooDataHist"<<std::endl;
@@ -81,15 +81,17 @@ std::cout<<"RooAddPdf"<<std::endl;
 
 float Ntotal_B = dil_N+had_N+sem_N+W_N;
 float Ntotal_SB = sig_N+dil_N+had_N+sem_N+W_N;
+std::cout<<Ntotal_B<<std::endl;
+std::cout<<Ntotal_SB<<std::endl;
 
 
 RooDataSet *data_B = model_0.generate(output_BDT,Ntotal_B);
-return;
+//return;
 RooDataSet *data_SB = model_1.generate(output_BDT,Ntotal_SB);
 std::cout<<"RooDateSet"<<std::endl;
 
 RooFitResult *fit_model_0_B = model_0.fitTo(*data_B, Save());
-return;
+//return;
 RooFitResult *fit_model_1_B = model_1.fitTo(*data_B, Save());
 std::cout<<"RooFitResult_B"<<std::endl;
 
