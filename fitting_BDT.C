@@ -23,24 +23,27 @@ TFile *file_Hadronic = new TFile("output_TTbarHadronic.root");
 TFile *file_Semileptonic = new TFile("output_TTbarSemileptonic.root");
 TFile *file_W = new TFile("output_WJetsToLNu.root");
 
-TH1 *h_sig = (TH1*)file->Get("BDT_eval");
-h_sig->Rebin(5);
-TH1 *h_dil = (TH1*)file_Dileptonic->Get("BDT_eval");
-h_dil->Rebin(5);
-TH1 *h_had = (TH1*)file_Hadronic->Get("BDT_eval");
-h_had->Rebin(5);
-TH1 *h_sem = (TH1*)file_Semileptonic->Get("BDT_eval");
-h_sem->Rebin(5);
-TH1 *h_W = (TH1*)file_W->Get("BDT_eval");
-h_W->Rebin(5);
+int rbin=10;
 
+TH1 *h_sig = (TH1*)file->Get("BDT_eval");
+h_sig->Rebin(rbin);
+TH1 *h_dil = (TH1*)file_Dileptonic->Get("BDT_eval");
+h_dil->Rebin(rbin);
+TH1 *h_had = (TH1*)file_Hadronic->Get("BDT_eval");
+h_had->Rebin(rbin);
+TH1 *h_sem = (TH1*)file_Semileptonic->Get("BDT_eval");
+h_sem->Rebin(rbin);
+TH1 *h_W = (TH1*)file_W->Get("BDT_eval");
+h_W->Rebin(rbin);
+
+int nbins=6; 
 float sig_N = 671.209*0.61;
 float dil_N = 10107.8;
 float had_N = 55.0982;
 float sem_N = 39415.7;
 float W_N = 258.316;
 
-RooRealVar output_BDT("output_BDT","output_BDT",-1.,1.);
+RooRealVar output_BDT("output_BDT","BDT score",-0.6,0.6);
 
 
 RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,0.,2*sig_N);
@@ -91,12 +94,10 @@ std::cout<<Ntotal_SB<<std::endl;
 
 
 RooDataSet *data_B = model_0.generate(output_BDT,Ntotal_B);
-//return;
 RooDataSet *data_SB = model_1.generate(output_BDT,Ntotal_SB);
 std::cout<<"RooDateSet"<<std::endl;
 
 RooFitResult *fit_model_0_B = model_0.fitTo(*data_B, Save());
-//return;
 RooFitResult *fit_model_1_B = model_1.fitTo(*data_B, Save());
 std::cout<<"RooFitResult_B"<<std::endl;
 
@@ -104,8 +105,12 @@ RooFitResult *fit_model_0_SB = model_0.fitTo(*data_SB, Save());
 RooFitResult *fit_model_1_SB = model_1.fitTo(*data_SB, Save());
 std::cout<<"RooFitResult_SB"<<std::endl;
 
+
 TCanvas *c_B = new TCanvas("c_B", "BackgrounD Fit", 1400, 1000);
-    RooPlot *frame_B = output_BDT.frame(Bins(20));
+    gPad->SetLogy();
+    RooPlot *frame_B = output_BDT.frame(Bins(nbins));
+   // frame_B->GetYaxis()->SetRangeUser(10, 1000000);
+
     data_B->plotOn(frame_B);
     model_0.plotOn(frame_B);
     model_0.plotOn(frame_B, LineColor(kBlack),LineStyle(2),Components("sig_pdf"));
@@ -128,8 +133,10 @@ TCanvas *c_B = new TCanvas("c_B", "BackgrounD Fit", 1400, 1000);
     legend_1->SetBorderSize(0); 
     legend_1->Draw();
 
+
 TCanvas *c_SB = new TCanvas("c_SB", "Signal + Background Fit", 1400, 1000);
-    RooPlot *frame_SB = output_BDT.frame(Bins(20));
+    gPad->SetLogy();
+    RooPlot *frame_SB = output_BDT.frame(Bins(nbins));
     data_SB->plotOn(frame_SB);
     model_0.plotOn(frame_SB);
     model_0.plotOn(frame_SB, LineColor(kBlack),LineStyle(2),Components("sig_pdf"));
@@ -138,7 +145,6 @@ TCanvas *c_SB = new TCanvas("c_SB", "Signal + Background Fit", 1400, 1000);
     model_0.plotOn(frame_SB, LineColor(kViolet),Components("sem_pdf"));
     model_0.plotOn(frame_SB, LineColor(kCyan),Components("W_pdf"));
     frame_SB->Draw();
-
     RooCurve* curve_1 = dynamic_cast<RooCurve*>(frame_SB->getObject(1));
 
     TLegend *legend_2 = new TLegend(0.75,0.75,0.90,0.90); 
@@ -153,7 +159,8 @@ TCanvas *c_SB = new TCanvas("c_SB", "Signal + Background Fit", 1400, 1000);
     legend_2->Draw();
 
 TCanvas *c_B_1 = new TCanvas("c_B_1", "Background Fit", 1400, 1000);
-    RooPlot *frame_B1 = output_BDT.frame(Bins(20));
+    gPad->SetLogy();
+    RooPlot *frame_B1 = output_BDT.frame(Bins(nbins));
     data_B->plotOn(frame_B1);
     model_1.plotOn(frame_B1);
     model_1.plotOn(frame_B1, LineColor(kBlack),LineStyle(2),Components("sig_pdf"));
@@ -178,7 +185,8 @@ TCanvas *c_B_1 = new TCanvas("c_B_1", "Background Fit", 1400, 1000);
 
 
 TCanvas *c_SB_1 = new TCanvas("c_SB_1", "Signal + Background Fit", 1400, 1000);
-    RooPlot *frame_SB1 = output_BDT.frame(Bins(20));
+    gPad->SetLogy();
+    RooPlot *frame_SB1 = output_BDT.frame(Bins(nbins));
     data_SB->plotOn(frame_SB1);
     model_1.plotOn(frame_SB1);
     model_1.plotOn(frame_SB1, LineColor(kBlack),LineStyle(2),Components("sig_pdf"));
