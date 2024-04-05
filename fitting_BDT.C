@@ -102,7 +102,7 @@ RooMCStudy * mcstudy_0_1 = new RooMCStudy(model_0_th,output_BDT,Binned(kTRUE), S
 const int Ntoys = 500;
 mcstudy_0_1->generateAndFit(Ntoys,Ntotal_B);
 
-TCanvas *c_0_1 = new TCanvas("c_0_1", "Model0 Background (dileptonic) Only", 800, 800);
+TCanvas *c_0_1 = new TCanvas("c_0_1", "Model0 Background (TTbar) Only", 800, 800);
   c_0_1->Divide(2,2);
   c_0_1->cd(1);
   RooPlot* frame1 = mcstudy_0_1->plotParam(Nexp_ttbar, Bins(25));
@@ -184,7 +184,7 @@ TCanvas *c_0_9 = new TCanvas("c_0_9", "Model0 Background+Signal (signal) Only", 
   frame27->Draw();
 
 
-TCanvas *c_0_5 = new TCanvas("c_0_5", "Model0 Background+Signal (dileptonic) Only", 800, 800);
+TCanvas *c_0_5 = new TCanvas("c_0_5", "Model0 Background+Signal (TTbar) Only", 800, 800);
   c_0_5->Divide(2,2);
   c_0_5->cd(1);
   RooPlot* frame13 = mcstudy_0_2->plotParam(Nexp_ttbar, Bins(25));
@@ -252,7 +252,7 @@ TCanvas *c_0_8 = new TCanvas("c_0_8", "Model0 Background+Signal (W to Lepton neu
 RooMCStudy * mcstudy_1_1 = new RooMCStudy(model_1_th,output_BDT,Binned(kTRUE), Silence(), Extended(), FitModel(model_0), FitOptions(Save(kTRUE),PrintEvalErrors(0)));
 mcstudy_1_1->generateAndFit(Ntoys);
 
-TCanvas *c_0_10 = new TCanvas("c_0_10", "Model1 Background (dileptonic) Only", 1600, 500);
+TCanvas *c_0_10 = new TCanvas("c_0_10", "Model1 Background (TTbar) Only", 1600, 500);
   c_0_10->Divide(3,1);
   c_0_10->cd(1);
   RooPlot* frame28 = mcstudy_1_1->plotParam(Nexp_ttbar, Bins(25));
@@ -334,7 +334,7 @@ TCanvas *c_0_14 = new TCanvas("c_0_14", "Model1 Background+Signal (signal) Only"
   frame42->Draw();
 
 
-TCanvas *c_0_15 = new TCanvas("c_0_15", "Model1 Background+Signal (dileptonic) Only", 1600, 500);
+TCanvas *c_0_15 = new TCanvas("c_0_15", "Model1 Background+Signal (TTbar) Only", 1600, 500);
   c_0_15->Divide(3,1);
   c_0_15->cd(1);
   RooPlot* frame43 = mcstudy_1_2->plotParam(Nexp_ttbar, Bins(25));
