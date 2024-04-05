@@ -57,12 +57,12 @@ RooRealVar Nexp_ttbar_th("Nexp_TTbar_th","Expected number of ttbar events",ttbar
 
 
 
-RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,0.,2*sig_N);
+RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,-2.*sig_N,2.*sig_N);
 RooRealVar Nexp_dil("Nexp_dil","Expected number of ttbar dileptonic events",dil_N,0.,2*dil_N);
 RooRealVar Nexp_had("Nexp_had","Expected number of ttbar hadronic events",had_N,0.,2*had_N);
 RooRealVar Nexp_sem("Nexp_sem","Expected number of ttbar semileptonic events",sem_N,0.,2*sem_N);
 //RooRealVar Nexp_W("Nexp_W","Expected number of WtoLnu events",W_N,0.,2*W_N);
-RooRealVar Nexp_ttbar("Nexp_TTbar","Expected number of ttbar events",ttbar_N);
+RooRealVar Nexp_ttbar("Nexp_TTbar","Expected number of ttbar events",ttbar_N,0.,2.*ttbar_N);
 
 RooDataHist sig("sig","sig",output_BDT,h_sig);
 RooDataHist dil("dil","dil",output_BDT,h_dil);
