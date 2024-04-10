@@ -56,7 +56,13 @@ if (fChain == 0) return;
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
   //TFile f("histos_back_WJetsToLNu70to100.root","recreate");
-  TFile f("histos_back_WJetsToLNu100to200.root","recreate");
+  //TFile f("histos_back_WJetsToLNu100to200.root","recreate");
+  //TFile f("histos_back_WJetsToLNu200to400.root","recreate");
+  //TFile f("histos_back_WJetsToLNu400to600.root","recreate");
+  //TFile f("histos_back_WJetsToLNu600to800.root","recreate");
+  //TFile f("histos_back_WJetsToLNu800to1200.root","recreate");
+  //TFile f("histos_back_WJetsToLNu1200to2500.root","recreate");
+  TFile f("histos_back_WJetsToLNu_0.root","recreate");
 
 
 
@@ -72,6 +78,12 @@ if (fChain == 0) return;
   float sigma_back_Hadronic=377.96*Br_W_to_lep;
   float sigma_back_WJetsToLNu70to100=1353*1.21*Br_W_to_lep;
   float sigma_back_WJetsToLNu100to200=1346*1.21*Br_W_to_lep;
+  float sigma_back_WJetsToLNu200to400=359.7*1.21*Br_W_to_lep;
+  float sigma_back_WJetsToLNu400to600=48.91*1.21*Br_W_to_lep;
+  float sigma_back_WJetsToLNu600to800=12.05*1.21*Br_W_to_lep;
+  float sigma_back_WJetsToLNu800to1200=5.501*1.21*Br_W_to_lep;
+  float sigma_back_WJetsToLNu1200to2500=1.329*1.21*Br_W_to_lep;
+  float sigma_back_WJetsToLNu_0=0.0326*1.21*Br_W_to_lep;
   float L_integrated=41.5*pow(10.,3.);
 
 
@@ -80,22 +92,34 @@ if (fChain == 0) return;
   float N_expected_back_Semileptonic=sigma_back_Semileptonic*L_integrated;
   float N_expected_back_Dileptonic=sigma_back_Dileptonic*L_integrated;
   float N_expected_back_Hadronic=sigma_back_Hadronic*L_integrated;
-  float N_expected_back_WJetsToLNu=sigma_back_WJetsToLNu70to100*L_integrated;
-  float N_expected_back_WJetsToLNu2=sigma_back_WJetsToLNu100to200*L_integrated;
+  float N_expected_back_WJetsToLNu70to100=sigma_back_WJetsToLNu70to100*L_integrated;
+  float N_expected_back_WJetsToLNu100to200=sigma_back_WJetsToLNu100to200*L_integrated;
+  float N_expected_back_WJetsToLNu200to400=sigma_back_WJetsToLNu200to400*L_integrated;
+  float N_expected_back_WJetsToLNu400to600=sigma_back_WJetsToLNu400to600*L_integrated;
+  float N_expected_back_WJetsToLNu600to800=sigma_back_WJetsToLNu600to800*L_integrated;
+  float N_expected_back_WJetsToLNu800to1200=sigma_back_WJetsToLNu800to1200*L_integrated;
+  float N_expected_back_WJetsToLNu1200to2500=sigma_back_WJetsToLNu1200to2500*L_integrated;
+  float N_expected_back_WJetsToLNu_0=sigma_back_WJetsToLNu_0*L_integrated;
 
 
 
-  float w_signal=N_expected_signal/nentries;
-  float w_back_Semileptonic=N_expected_back_Semileptonic/nentries;
-  float w_back_Dileptonic=N_expected_back_Dileptonic/nentries;
-  float w_back_Hadronic=N_expected_back_Hadronic/nentries;
-  float w_back_WJetsToLNu=N_expected_back_WJetsToLNu/nentries;
-  float w_back_WJetsToLNu2=N_expected_back_WJetsToLNu2/nentries;
+  float w_signal=N_expected_signal/totalNumberofEvents;
+  float w_back_Semileptonic=N_expected_back_Semileptonic/totalNumberofEvents;
+  float w_back_Dileptonic=N_expected_back_Dileptonic/totalNumberofEvents;
+  float w_back_Hadronic=N_expected_back_Hadronic/totalNumberofEvents;
+  float w_back_WJetsToLNu70to100=N_expected_back_WJetsToLNu70to100/totalNumberofEvents;
+  float w_back_WJetsToLNu100to200=N_expected_back_WJetsToLNu100to200/totalNumberofEvents;
+  float w_back_WJetsToLNu200to400=N_expected_back_WJetsToLNu200to400/totalNumberofEvents;
+  float w_back_WJetsToLNu400to600=N_expected_back_WJetsToLNu400to600/totalNumberofEvents;
+  float w_back_WJetsToLNu600to800=N_expected_back_WJetsToLNu600to800/totalNumberofEvents;
+  float w_back_WJetsToLNu800to1200=N_expected_back_WJetsToLNu800to1200/totalNumberofEvents;
+  float w_back_WJetsToLNu1200to2500=N_expected_back_WJetsToLNu1200to2500/totalNumberofEvents;
+  float w_back_WJetsToLNu_0=N_expected_back_WJetsToLNu_0/totalNumberofEvents;
 
   
 
-  float w;
-  float N_expected;
+  float w(0.);
+  float N_expected(0.);
 if (std::string(f.GetName()) == "histos_signal.root") {
   w = w_signal;
   N_expected= N_expected_signal;
@@ -113,15 +137,38 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   N_expected= N_expected_back_Hadronic;
   std::cout << " Backround weight (TTbar_Hadronic) = " << w_back_Hadronic << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_WJetsToLNu70to100.root"){
-  w = w_back_WJetsToLNu; 
-  N_expected= N_expected_back_WJetsToLNu;
-  std::cout << " Backround weight (TTbar_WJetsToLNu70to100) = " << w_back_WJetsToLNu << std::endl;
+  w = w_back_WJetsToLNu70to100; 
+  N_expected= N_expected_back_WJetsToLNu70to100;
+  std::cout << " Backround weight (TTbar_WJetsToLNu70to100) = " << w_back_WJetsToLNu70to100 << std::endl;
 } else if (std::string(f.GetName()) == "histos_back_WJetsToLNu100to200.root"){
-  w = w_back_WJetsToLNu; 
-  N_expected= N_expected_back_WJetsToLNu;
-  std::cout << " Backround weight (TTbar_WJetsToLNu100to200) = " << w_back_WJetsToLNu << std::endl;
+  w = w_back_WJetsToLNu100to200; 
+  N_expected= N_expected_back_WJetsToLNu100to200;
+  std::cout << " Backround weight (TTbar_WJetsToLNu100to200) = " << w_back_WJetsToLNu100to200 << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu200to400.root"){
+  w = w_back_WJetsToLNu200to400; 
+  N_expected= N_expected_back_WJetsToLNu200to400;
+  std::cout << " Backround weight (TTbar_WJetsToLNu200to400) = " << w_back_WJetsToLNu200to400 << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu400to600.root"){
+  w = w_back_WJetsToLNu400to600; 
+  N_expected= N_expected_back_WJetsToLNu400to600;
+  std::cout << " Backround weight (TTbar_WJetsToLNu400to600) = " << w_back_WJetsToLNu400to600 << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu600to800.root"){
+  w = w_back_WJetsToLNu600to800; 
+  N_expected= N_expected_back_WJetsToLNu600to800;
+  std::cout << " Backround weight (TTbar_WJetsToLNu600to800) = " << w_back_WJetsToLNu600to800 << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu800to1200.root"){
+  w = w_back_WJetsToLNu800to1200; 
+  N_expected= N_expected_back_WJetsToLNu800to1200;
+  std::cout << " Backround weight (TTbar_WJetsToLNu800to1200) = " << w_back_WJetsToLNu800to1200 << std::endl;  
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu1200to2500.root"){
+  w = w_back_WJetsToLNu1200to2500; 
+  N_expected= N_expected_back_WJetsToLNu1200to2500;
+  std::cout << " Backround weight (TTbar_WJetsToLNu1200to2500) = " << w_back_WJetsToLNu1200to2500 << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_WJetsToLNu_0.root"){
+  w = w_back_WJetsToLNu400to600; 
+  N_expected= N_expected_back_WJetsToLNu_0;
+  std::cout << " Backround weight (TTbar_WJetsToLNu_0) = " << w_back_WJetsToLNu_0 << std::endl;
 }
-
 
 
   //muon 
@@ -710,11 +757,11 @@ if (ientry < 0) break;
   
 
 
-  std::cout << " Number of entries = " << nentries << std::endl;
-  std::cout << " Nevents at step 1 (at least 1 lepton) = " << count_N1 << " and eff_1 = " << (float)count_N1/(float)nentries << " and Nexpected " << N_expected << std::endl;
-  std::cout << " Nevents at step 2 (at least 3 jets) = " << count_N2 << " and eff_2 =" << (float)count_N2/(float)count_N1 <<  " and Nexpected " << N_expected*((float)count_N2/(float)count_N1) << std::endl;
-  std::cout << " Nevents at step 3 (at least 3 b-jets) = " << count_N3 << " and eff_3 = " << (float)count_N3/(float)count_N1 <<  " and Nexpected " << N_expected*((float)count_N3/(float)count_N1) << std::endl;;
-  std::cout << " Nevents at step 4 (MT > 25 and MET >30) = " << count_N4 << " and eff_4 = " << (float)count_N4/(float)count_N1 <<  " and Nexpected " << N_expected*((float)count_N4/(float)count_N1) << std::endl;;
+  std::cout << " Number of entries = " << totalNumberofEvents << std::endl;
+  std::cout << " Nevents at step 1 (at least 1 lepton) = " << count_N1 << " and eff_1 = " << (float)count_N1/(float)totalNumberofEvents << " and Nexpected " << N_expected << std::endl;
+  std::cout << " Nevents at step 2 (at least 3 jets) = " << count_N2 << " and eff_2 =" << (float)count_N2/(float)totalNumberofEvents <<  " and Nexpected " << N_expected*((float)count_N2/(float)totalNumberofEvents) << std::endl;
+  std::cout << " Nevents at step 3 (at least 3 b-jets) = " << count_N3 << " and eff_3 = " << (float)count_N3/(float)totalNumberofEvents <<  " and Nexpected " << N_expected*((float)count_N3/(float)totalNumberofEvents) << std::endl;;
+  std::cout << " Nevents at step 4 (MT > 25 and MET >30) = " << count_N4 << " and eff_4 = " << (float)count_N4/(float)totalNumberofEvents <<  " and Nexpected " << N_expected*((float)count_N4/(float)totalNumberofEvents) << std::endl;;
 
 
 

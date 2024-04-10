@@ -37,31 +37,81 @@ void TMVClassification()
     TFile *input_TTbarHadronic = TFile::Open("histos_back_TTbarHadronic.root");
     TTree* bkgTree_Hadronic = (TTree*)input_TTbarHadronic->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu = TFile::Open("histos_back_WJetsToLNu100to200.root");
-    TTree* bkgTree_W = (TTree*)input_WJetsToLNu->Get( "my_tree" );
+    TFile *input_WJetsToLNu70to100 = TFile::Open("histos_back_WJetsToLNu70to100.root");
+    TTree* bkgTree_W_70to100 = (TTree*)input_WJetsToLNu70to100->Get( "my_tree" );
+
+    TFile *input_WJetsToLNu100to200 = TFile::Open("histos_back_WJetsToLNu100to200.root");
+    TTree* bkgTree_W_100to200 = (TTree*)input_WJetsToLNu100to200->Get( "my_tree" );
+
+    TFile *input_WJetsToLNu200to400 = TFile::Open("histos_back_WJetsToLNu200to400.root");
+    TTree* bkgTree_W_200to400 = (TTree*)input_WJetsToLNu200to400->Get( "my_tree" );
+
+    TFile *input_WJetsToLNu400to600 = TFile::Open("histos_back_WJetsToLNu400to600.root");
+    TTree* bkgTree_W_400to600 = (TTree*)input_WJetsToLNu400to600->Get( "my_tree" );
+
+    TFile *input_WJetsToLNu600to800 = TFile::Open("histos_back_WJetsToLNu600to800.root");
+    TTree* bkgTree_W_600to800 = (TTree*)input_WJetsToLNu600to800->Get( "my_tree" );
+
+    TFile *input_WJetsToLNu800to1200 = TFile::Open("histos_back_WJetsToLNu800to1200.root");
+    TTree* bkgTree_W_800to1200 = (TTree*)input_WJetsToLNu800to1200->Get( "my_tree" );
+
+    TFile *input_WJetsToLNu1200to2500 = TFile::Open("histos_back_WJetsToLNu1200to2500.root");
+    TTree* bkgTree_W_1200to2500 = (TTree*)input_WJetsToLNu1200to2500->Get( "my_tree" );
+
+    TFile *input_WJetsToLNu_0 = TFile::Open("histos_back_WJetsToLNu_0.root");
+    TTree* bkgTree_W_0 = (TTree*)input_WJetsToLNu_0->Get( "my_tree" );
 
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("MVAnalysis");
 
     float bgweight_Semileptonic(1.0);
     float bgweight_Hadronic(1.0);
     float bgweight_Dileptonic(1.0);
-    float bgweight_W(1.0);
+    float bgweight_W_70to100(1.0);
+    float bgweight_W_100to200(1.0);
+    float bgweight_W_200to400(1.0);
+    float bgweight_W_400to600(1.0);
+    float bgweight_W_600to800(1.0);
+    float bgweight_W_800to1200(1.0);
+    float bgweight_W_1200to2500(1.0);
+    float bgweight_W_0(1.0);
 
     TLeaf *xpos_Semileptonic = bkgTree_Semileptonic->GetLeaf("w"); xpos_Semileptonic->GetBranch()->GetEntry(1);
     bgweight_Semileptonic = xpos_Semileptonic->GetValue();
     TLeaf *xpos_Hadronic = bkgTree_Hadronic->GetLeaf("w"); xpos_Hadronic->GetBranch()->GetEntry(1);
     bgweight_Hadronic = xpos_Hadronic->GetValue();
-    TLeaf *xpos_W = bkgTree_W->GetLeaf("w"); xpos_W->GetBranch()->GetEntry(1);
-    bgweight_W = xpos_W->GetValue();
     TLeaf *xpos_Dileptonic = bkgTree_Dileptonic->GetLeaf("w"); xpos_Dileptonic->GetBranch()->GetEntry(1);
     bgweight_Dileptonic = xpos_Dileptonic->GetValue();
+    TLeaf *xpos_W_70to100 = bkgTree_W_70to100->GetLeaf("w"); xpos_W_70to100->GetBranch()->GetEntry(1);
+    bgweight_W_70to100 = xpos_W_70to100->GetValue();
+    TLeaf *xpos_W_100to200 = bkgTree_W_100to200->GetLeaf("w"); xpos_W_100to200->GetBranch()->GetEntry(1);
+    bgweight_W_100to200 = xpos_W_100to200->GetValue();
+    TLeaf *xpos_W_200to400 = bkgTree_W_200to400->GetLeaf("w"); xpos_W_200to400->GetBranch()->GetEntry(1);
+    bgweight_W_200to400 = xpos_W_200to400->GetValue();
+    TLeaf *xpos_W_400to600 = bkgTree_W_400to600->GetLeaf("w"); xpos_W_400to600->GetBranch()->GetEntry(1);
+    bgweight_W_400to600 = xpos_W_400to600->GetValue();
+    TLeaf *xpos_W_600to800 = bkgTree_W_600to800->GetLeaf("w"); xpos_W_600to800->GetBranch()->GetEntry(1);
+    bgweight_W_600to800 = xpos_W_600to800->GetValue();
+    TLeaf *xpos_W_800to1200 = bkgTree_W_800to1200->GetLeaf("w"); xpos_W_800to1200->GetBranch()->GetEntry(1);
+    bgweight_W_800to1200 = xpos_W_800to1200->GetValue();
+    TLeaf *xpos_W_1200to2500 = bkgTree_W_1200to2500->GetLeaf("w"); xpos_W_1200to2500->GetBranch()->GetEntry(1);
+    bgweight_W_1200to2500 = xpos_W_1200to2500->GetValue();
+    TLeaf *xpos_W_0 = bkgTree_W_0->GetLeaf("w"); xpos_W_0->GetBranch()->GetEntry(1);
+    bgweight_W_0 = xpos_W_0->GetValue();
+    
     
     
     dataloader->AddSignalTree(sigTree, 1.0 );
     dataloader->AddBackgroundTree(bkgTree_Semileptonic,bgweight_Semileptonic);
     dataloader->AddBackgroundTree(bkgTree_Dileptonic,bgweight_Dileptonic);
     dataloader->AddBackgroundTree(bkgTree_Hadronic,bgweight_Hadronic);
-    dataloader->AddBackgroundTree(bkgTree_W,bgweight_W);
+    dataloader->AddBackgroundTree(bkgTree_W_70to100,bgweight_W_70to100);
+    dataloader->AddBackgroundTree(bkgTree_W_100to200,bgweight_W_100to200);
+    dataloader->AddBackgroundTree(bkgTree_W_200to400,bgweight_W_200to400);
+    dataloader->AddBackgroundTree(bkgTree_W_400to600,bgweight_W_400to600);
+    dataloader->AddBackgroundTree(bkgTree_W_600to800,bgweight_W_600to800);
+    dataloader->AddBackgroundTree(bkgTree_W_800to1200,bgweight_W_800to1200);
+    dataloader->AddBackgroundTree(bkgTree_W_1200to2500,bgweight_W_1200to2500);
+    dataloader->AddBackgroundTree(bkgTree_W_0,bgweight_W_0);
 
     dataloader->AddVariable("h_pt", 'F');
     dataloader->AddVariable("mt", 'F');

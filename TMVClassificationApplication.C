@@ -15,22 +15,42 @@ void TMVClassificationApplication() {
     //TFile *input_TTbarSemileptonic = TFile::Open("histos_back_TTbarSemileptonic.root");
     //TTree* InTree = (TTree*)input_TTbarSemileptonic->Get( "my_tree" );
 
-    TFile *input_TTbarDileptonic = TFile::Open("histos_back_TTbarDileptonic.root");
-    TTree* InTree = (TTree*)input_TTbarDileptonic->Get( "my_tree" );
+    //TFile *input_TTbarDileptonic = TFile::Open("histos_back_TTbarDileptonic.root");
+    //TTree* InTree = (TTree*)input_TTbarDileptonic->Get( "my_tree" );
 
     //TFile *input_TTbarHadronic = TFile::Open("histos_back_TTbarHadronic.root");
     //TTree* InTree = (TTree*)input_TTbarHadronic->Get( "my_tree" );
 
-    //TFile *input_WJetsToLNu = TFile::Open("histos_back_WJetsToLNu100to200.root");
-    //TTree* InTree = (TTree*)input_WJetsToLNu->Get( "my_tree" );
+    //TFile *input_WJetsToLNu_70to100 = TFile::Open("histos_back_WJetsToLNu70to100.root");
+    //TTree* InTree = (TTree*)input_WJetsToLNu_70to100->Get( "my_tree" );
 
+    //TFile *input_WJetsToLNu_100to200 = TFile::Open("histos_back_WJetsToLNu100to200.root");
+    //TTree* InTree = (TTree*)input_WJetsToLNu_100to200->Get( "my_tree" );
 
-    TFile *outputfile_TTbarDileptonic = new TFile("output_TTbarDileptonic.root", "RECREATE");
+    //TFile *input_WJetsToLNu_200to400 = TFile::Open("histos_back_WJetsToLNu200to400.root");
+    //TTree* InTree = (TTree*)input_WJetsToLNu_200to400->Get( "my_tree" );
+
+    //TFile *input_WJetsToLNu_400to600 = TFile::Open("histos_back_WJetsToLNu400to600.root");
+    //TTree* InTree = (TTree*)input_WJetsToLNu_400to600->Get( "my_tree" );
+
+    //TFile *input_WJetsToLNu_600to800 = TFile::Open("histos_back_WJetsToLNu600to800.root");
+    //TTree* InTree = (TTree*)input_WJetsToLNu_600to800->Get( "my_tree" );
+
+    //TFile *input_WJetsToLNu_800to1200 = TFile::Open("histos_back_WJetsToLNu800to1200.root");
+    //TTree* InTree = (TTree*)input_WJetsToLNu_800to1200->Get( "my_tree" );
+
+    //TFile *input_WJetsToLNu_1200to2500 = TFile::Open("histos_back_WJetsToLNu1200to2500.root");
+    //TTree* InTree = (TTree*)input_WJetsToLNu_1200to2500->Get( "my_tree" );
+
+    TFile *input_WJetsToLNu_0 = TFile::Open("histos_back_WJetsToLNu_0.root");
+    TTree* InTree = (TTree*)input_WJetsToLNu_0->Get( "my_tree" );
+
+    TFile *output_WJetsToLNu_0 = new TFile("output_WJetsToLNu_0.root", "RECREATE");
     
-
 
     TH1F *BDT_eval = new TH1F("BDT_eval","BDT_eval",100,-1,1.);
     TMVA::Reader *reader = new TMVA::Reader("!Color"); 
+    Float_t w;
     Float_t mt;
     Float_t inv_m;
     Float_t met_pt;
@@ -51,7 +71,6 @@ void TMVClassificationApplication() {
 
 
     
-
     reader->AddVariable( "h_pt", &h_pt );
     reader->AddVariable( "mt", &mt );
     reader->AddVariable( "inv_m", &inv_m );
@@ -72,6 +91,7 @@ void TMVClassificationApplication() {
    
     reader->BookMVA("kBDT method","MVAnalysis/weights/MVAnalysis_BDT.weights.xml");
 
+    InTree->SetBranchAddress("w",&w);
     InTree->SetBranchAddress("h_pt",&h_pt );
     InTree->SetBranchAddress("mt",&mt );
     InTree->SetBranchAddress("inv_m",&inv_m );
@@ -100,7 +120,7 @@ InTree->GetEntry(ievt);
     njets = Njets_after;
     
     Double_t out = reader->EvaluateMVA( "kBDT method" );
-    BDT_eval->Fill(out);
+    BDT_eval->Fill(out,w);
 }
 
 
@@ -112,8 +132,7 @@ InTree->GetEntry(ievt);
   //BDT_eval->SetLineColor(kBlack);
   //BDT_eval->Scale(1./BDT_eval->Integral());
   //BDT_eval->Draw("Ehist");
-    outputfile_TTbarDileptonic->Close();
+    output_WJetsToLNu_0->Close();
   delete reader;
   
 }
-
