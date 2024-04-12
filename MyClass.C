@@ -62,14 +62,18 @@ if (fChain == 0) return;
   //TFile f("histos_back_WJetsToLNu600to800.root","recreate");
   //TFile f("histos_back_WJetsToLNu800to1200.root","recreate");
   //TFile f("histos_back_WJetsToLNu1200to2500.root","recreate");
-  TFile f("histos_back_WJetsToLNu_0.root","recreate");
-
+  //TFile f("histos_back_WJetsToLNu_0.root","recreate");
+  //TFile f("histos_back_qcd_bctoE_80to170.root","recreate");
+  TFile f("histos_back_qcd_bctoE_170to250.root","recreate");
+  //TFile f("histos_back_qcd_bctoE_250toInf.root","recreate");
 
 
   //N_expected calculations
   float Br_W_to_lep=0.1046+0.105+0.1075;
   float Br_W_to_qq=0.6832;
-
+  float Br_qcd_bctoe_80to170=0.01183;
+  float Br_qcd_bctoe_170to250=0.02492;
+  float Br_qcd_bctoe_250toInf=0.03375;
 
 
   float sigma_signal=1.37*Br_W_to_lep;
@@ -84,6 +88,9 @@ if (fChain == 0) return;
   float sigma_back_WJetsToLNu800to1200=5.501*1.21*Br_W_to_lep;
   float sigma_back_WJetsToLNu1200to2500=1.329*1.21*Br_W_to_lep;
   float sigma_back_WJetsToLNu_0=0.0326*1.21*Br_W_to_lep;
+  float sigma_back_qcd_bctoE_80to170=3221000*Br_qcd_bctoe_80to170;
+  float sigma_back_qcd_bctoE_170to250=105771*Br_qcd_bctoe_170to250;
+  float sigma_back_qcd_bctoE_205toInf=21094.1*Br_qcd_bctoe_250toInf;
   float L_integrated=41.5*pow(10.,3.);
 
 
@@ -100,6 +107,9 @@ if (fChain == 0) return;
   float N_expected_back_WJetsToLNu800to1200=sigma_back_WJetsToLNu800to1200*L_integrated;
   float N_expected_back_WJetsToLNu1200to2500=sigma_back_WJetsToLNu1200to2500*L_integrated;
   float N_expected_back_WJetsToLNu_0=sigma_back_WJetsToLNu_0*L_integrated;
+  float N_expected_back_qcd_bctoE_80to170=sigma_back_qcd_bctoE_80to170*L_integrated;
+  float N_expected_back_qcd_bctoE_170to250=sigma_back_qcd_bctoE_170to250*L_integrated;
+  float N_expected_back_qcd_bctoE_250toInf=sigma_back_qcd_bctoE_205toInf*L_integrated;
 
 
 
@@ -115,6 +125,10 @@ if (fChain == 0) return;
   float w_back_WJetsToLNu800to1200=N_expected_back_WJetsToLNu800to1200/totalNumberofEvents;
   float w_back_WJetsToLNu1200to2500=N_expected_back_WJetsToLNu1200to2500/totalNumberofEvents;
   float w_back_WJetsToLNu_0=N_expected_back_WJetsToLNu_0/totalNumberofEvents;
+  float w_back_qcd_bctoE_80to170=N_expected_back_qcd_bctoE_80to170/totalNumberofEvents;
+  float w_back_qcd_bctoE_170to250=N_expected_back_qcd_bctoE_170to250/totalNumberofEvents;
+  float w_back_qcd_bctoE_250toInf=N_expected_back_qcd_bctoE_250toInf/totalNumberofEvents;
+  
 
   
 
@@ -168,7 +182,20 @@ if (std::string(f.GetName()) == "histos_signal.root") {
   w = w_back_WJetsToLNu400to600; 
   N_expected= N_expected_back_WJetsToLNu_0;
   std::cout << " Backround weight (TTbar_WJetsToLNu_0) = " << w_back_WJetsToLNu_0 << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_qcd_bctoE_80to170.root"){
+  w = w_back_qcd_bctoE_80to170; 
+  N_expected= N_expected_back_qcd_bctoE_80to170;
+  std::cout << " Backround weight (QCD_bctoE_80to170) = " << w_back_qcd_bctoE_80to170 << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_qcd_bctoE_170to250.root"){
+  w = w_back_qcd_bctoE_170to250; 
+  N_expected= N_expected_back_qcd_bctoE_170to250;
+  std::cout << " Backround weight (QCD_bctoE_170to250) = " << w_back_qcd_bctoE_170to250 << std::endl;
+} else if (std::string(f.GetName()) == "histos_back_qcd_bctoE_250toInf.root"){
+  w = w_back_qcd_bctoE_250toInf; 
+  N_expected= N_expected_back_qcd_bctoE_250toInf;
+  std::cout << " Backround weight (QCD_bctoE_250toInf) = " << w_back_qcd_bctoE_250toInf << std::endl;
 }
+
 
 
   //muon 
