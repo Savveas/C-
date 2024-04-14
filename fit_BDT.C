@@ -78,7 +78,16 @@ float dil_N = 10107.8;
 float had_N = 55.0982;
 float sem_N = 39415.7;
 float W_N = 258.316;
-float wtoLn_N=883.355;
+//float wtoLn_N=883.355;
+float WtoLn_70to100= 59.051;
+float WtoLn_100to200= 256.979;
+float WtoLn_200to400=337.177;
+float WtoLn_400to600= 139.891;
+float WtoLn_600to800= 50.7502;
+float WtoLn_800to1200= 30.0942;
+float WtoLn_1200to2500= 8.47057;
+float WtoLn_0= 0.941911;
+float wtoLn_N=WtoLn_70to100+WtoLn_100to200+WtoLn_200to400+WtoLn_400to600+WtoLn_600to800+WtoLn_800to1200+WtoLn_1200to2500+WtoLn_0;
 float ttbar_N=sem_N+had_N+dil_N;
 
 
