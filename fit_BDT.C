@@ -31,6 +31,9 @@ TFile *file_W_600to800 = new TFile("output_WJetsToLNu_600to800.root");
 TFile *file_W_800to1200 = new TFile("output_WJetsToLNu_800to1200.root");
 TFile *file_W_1200to2500 = new TFile("output_WJetsToLNu_1200to2500.root");
 TFile *file_W_0 = new TFile("output_WJetsToLNu_0.root");
+TFile *file_qcd_80to170 = new TFile("output_qcd_bctoE_80to170.root");
+TFile *file_qcd_170to250 = new TFile("output_qcd_bctoE_170to250.root");
+TFile *file_qcd_250toInf = new TFile("output_qcd_bctoE_250toInf.root");
 
 
 int rbin=10;
@@ -41,13 +44,13 @@ TH1 *h_dil = (TH1*)file_Dileptonic->Get("BDT_eval");
 h_dil->Rebin(rbin);
 TH1 *h_had = (TH1*)file_Hadronic->Get("BDT_eval");
 h_had->Rebin(rbin);
-TH1 *h_sem = (TH1*)file_Semileptonic->Get("BDT_eval");
-h_sem->Rebin(rbin);
-TH1 *h_TTbar=(TH1*)h_sem->Clone();
+TH1 *h_TTbar = (TH1*)file_Semileptonic->Get("BDT_eval");
+h_TTbar->Rebin(rbin);
+//TH1 *h_TTbar=(TH1*)h_sem->Clone();
 h_TTbar->Add(h_had);
 h_TTbar->Add(h_dil);
-TH1 *h_W_70to100 = (TH1*)file_W_70to100->Get("BDT_eval");
-h_W_70to100->Rebin(rbin);
+TH1 *h_WtoLn = (TH1*)file_W_70to100->Get("BDT_eval");
+h_WtoLn->Rebin(rbin);
 TH1 *h_W_100to200 = (TH1*)file_W_100to200->Get("BDT_eval");
 h_W_100to200->Rebin(rbin);
 TH1 *h_W_200to400 = (TH1*)file_W_200to400->Get("BDT_eval");
@@ -62,7 +65,13 @@ TH1 *h_W_1200to2500 = (TH1*)file_W_1200to2500->Get("BDT_eval");
 h_W_1200to2500->Rebin(rbin);
 TH1 *h_W_0 = (TH1*)file_W_0->Get("BDT_eval");
 h_W_0->Rebin(rbin);
-TH1 *h_WtoLn=(TH1*)h_W_70to100->Clone();
+TH1 *h_qcd_80to170 = (TH1*)file_qcd_80to170->Get("BDT_eval");
+h_qcd_80to170->Rebin(rbin);
+TH1 *h_qcd_170to250 = (TH1*)file_qcd_170to250->Get("BDT_eval");
+h_qcd_170to250->Rebin(rbin);
+TH1 *h_qcd_250toInf = (TH1*)file_qcd_250toInf->Get("BDT_eval");
+h_qcd_250toInf->Rebin(rbin);
+//TH1 *h_WtoLn=(TH1*)h_W_70to100->Clone();
 h_WtoLn->Add(h_W_100to200);
 h_WtoLn->Add(h_W_200to400);
 h_WtoLn->Add(h_W_400to600);
@@ -70,6 +79,10 @@ h_WtoLn->Add(h_W_600to800);
 h_WtoLn->Add(h_W_800to1200);
 h_WtoLn->Add(h_W_1200to2500);
 h_WtoLn->Add(h_W_0);
+h_WtoLn->Add(h_qcd_80to170);
+h_WtoLn->Add(h_qcd_170to250);
+h_WtoLn->Add(h_qcd_250toInf);
+
 
 
 int nbins=10; 
@@ -99,8 +112,8 @@ RooRealVar Nexp_WtoLn_th("Nexp_WtoLn_th","Expected number of WtoLn events",wtoLn
 
 
 RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,-2.*sig_N,2.*sig_N);
-RooRealVar Nexp_ttbar("Nexp_TTbar","Expected number of ttbar events",ttbar_N,0.,2.*ttbar_N);
-RooRealVar Nexp_WtoLn("Nexp_WtoLn","Expected number of WtoLn events",wtoLn_N,0.,2.*wtoLn_N);
+RooRealVar Nexp_ttbar("Nexp_TTbar","Expected number of ttbar events",ttbar_N,-2.*ttbar_N,2.*ttbar_N);
+RooRealVar Nexp_WtoLn("Nexp_WtoLn","Expected number of WtoLn events",wtoLn_N,-2.*wtoLn_N,2.*wtoLn_N);
 
 RooDataHist sig("sig","sig",output_BDT,h_sig);
 RooDataHist TTbar("TTbar","TTbar",output_BDT,h_TTbar);
