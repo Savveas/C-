@@ -100,7 +100,11 @@ float WtoLn_600to800= 50.7502;
 float WtoLn_800to1200= 30.0942;
 float WtoLn_1200to2500= 8.47057;
 float WtoLn_0= 0.941911;
-float wtoLn_N=WtoLn_70to100+WtoLn_100to200+WtoLn_200to400+WtoLn_400to600+WtoLn_600to800+WtoLn_800to1200+WtoLn_1200to2500+WtoLn_0;
+float qcd_bctoe_80to170= 1877.9;
+float qcd_bctoe_170to250= 299.912;
+float qcd_bctoe_Inf= 144.815;
+//float qcd_bctoe_All=2322.62;
+float wtoLn_N=WtoLn_70to100+WtoLn_100to200+WtoLn_200to400+WtoLn_400to600+WtoLn_600to800+WtoLn_800to1200+WtoLn_1200to2500+WtoLn_0+qcd_bctoe_80to170+qcd_bctoe_170to250+qcd_bctoe_170to250;
 float ttbar_N=sem_N+had_N+dil_N;
 
 
