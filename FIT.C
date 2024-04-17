@@ -106,14 +106,14 @@ RooRealVar output_BDT("output_BDT","BDT score",-1.,1.);
 RooRealVar Nexp_sig_th("Nexp_sig_th","Expected number of signal events",sig_N);
 RooRealVar Nexp_dil_th("Nexp_dil_th","Expected number of ttbar dileptonic events",dil_N);
 RooRealVar Nexp_sem_th("Nexp_sem_th","Expected number of ttbar semileptonic events",sem_N);
-RooRealVar Nexp_bkg_th("Nexp_TTbar_th","Expected number of ttbar events",bkg_N);
+RooRealVar Nexp_bkg_th("Nexp_bkg_th","Expected number of ttbar hadronic + WtoLn + QCD (bc to e) events",bkg_N);
 
 
 
-RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,-2.*sig_N,2.*sig_N);
-RooRealVar Nexp_dil("Nexp_dil","Expected number of ttbar dileptonic events",dil_N,-2.*dil_N,2*dil_N);
-RooRealVar Nexp_sem("Nexp_sem","Expected number of ttbar semileptonic events",sem_N,-2.*sem_N,2*sem_N);
-RooRealVar Nexp_bkg("Nexp_TTbar_th","Expected number of ttbar events",bkg_N,-2.*bkg_N,2*bkg_N);
+RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,-10.*sig_N,10.*sig_N);
+RooRealVar Nexp_dil("Nexp_dil","Expected number of ttbar dileptonic events",dil_N,0.,2*dil_N);
+RooRealVar Nexp_sem("Nexp_sem","Expected number of ttbar semileptonic events",sem_N,0.,2*sem_N);
+RooRealVar Nexp_bkg("Nexp_bkg","Expected number of ttbar hadronic + WtoLn + QCD (bc to e) events",bkg_N,0.,2*bkg_N);
 
 RooDataHist sig("sig","sig",output_BDT,h_sig);
 RooDataHist dil("dil","dil",output_BDT,h_dil);
@@ -269,4 +269,113 @@ TCanvas *c_SB_1 = new TCanvas("c_SB_1", "Signal + Background Fit", 1400, 1000);
     legend_4->AddEntry(data_SB, "TTbar Semileptonic", "l")->SetLineColor(kViolet); 
     legend_4->SetBorderSize(0); 
     legend_4->Draw();
+
+  Nexp_sig.setVal(Nexp_sig_th.getVal());
+  Nexp_dil.setVal(Nexp_dil_th.getVal());
+  Nexp_bkg.setVal(Nexp_bkg_th.getVal());
+  Nexp_sem.setVal(Nexp_sem_th.getVal());
+
+
+RooMCStudy * mcstudy_0_1 = new RooMCStudy(model_0_th,output_BDT,Binned(kTRUE), Silence(), Extended(), FitModel(model_0), FitOptions(Save(kTRUE),PrintEvalErrors(0)));
+const int Ntoys = 2000;
+mcstudy_0_1->generateAndFit(Ntoys,Ntotal_B);
+
+TCanvas *c_0_1 = new TCanvas("c_0_1", "Model0 Background (TTbar Semileptonic) Only", 1600, 500);
+  c_0_1->Divide(3,1);
+  c_0_1->cd(1);
+  RooPlot* frame1 = mcstudy_0_1->plotParam(Nexp_sem, Bins(25));
+  frame1->Draw();
+  c_0_1->cd(2);
+  RooPlot* frame2 = mcstudy_0_1->plotError(Nexp_sem, Bins(50));
+  frame2->Draw();
+  c_0_1->cd(3);
+  RooPlot* frame3 = mcstudy_0_1->plotPull(Nexp_sem, Bins(25),FitGauss(kTRUE)) ;
+  frame3->Draw();
+
+TCanvas *c_0_122 = new TCanvas("c_0_122", "Model0 Background Only (NLL)", 800, 800);
+  RooPlot *frame400 = mcstudy_0_1->plotNLL(Bins(40));
+  frame400->Draw();
+
+TCanvas *c_0_0 = new TCanvas("c_0_0", "Model0 Background (TTbar Dileptonic) Only", 1600, 500);
+  c_0_0->Divide(3,1);
+  c_0_0->cd(1);
+  RooPlot* frame100 = mcstudy_0_1->plotParam(Nexp_dil, Bins(25));
+  frame100->Draw();
+  c_0_0->cd(2);
+  RooPlot* frame200 = mcstudy_0_1->plotError(Nexp_dil, Bins(50));
+  frame200->Draw();
+  c_0_0->cd(3);
+  RooPlot* frame300 = mcstudy_0_1->plotPull(Nexp_dil, Bins(25),FitGauss(kTRUE)) ;
+  frame300->Draw();
+
+TCanvas *c_0_4 = new TCanvas("c_0_4", "Model0 Background (TTbar Hadronic + W to Lepton neutrino + QCD bctoe) Only", 1600, 500);
+  c_0_4->Divide(3,1);
+  c_0_4->cd(1);
+  RooPlot* frame10 = mcstudy_0_1->plotParam(Nexp_bkg, Bins(25));
+  frame10->Draw();
+  c_0_4->cd(2);
+  RooPlot* frame11 = mcstudy_0_1->plotError(Nexp_bkg, Bins(50));
+  frame11->Draw();
+  c_0_4->cd(3);
+  RooPlot* frame12 = mcstudy_0_1->plotPull(Nexp_bkg, Bins(25),FitGauss(kTRUE)) ;
+  frame12->Draw();
+  
+  Nexp_sig.setVal(Nexp_sig_th.getVal());
+  Nexp_dil.setVal(Nexp_dil_th.getVal());
+  Nexp_bkg.setVal(Nexp_bkg_th.getVal());
+  Nexp_sem.setVal(Nexp_sem_th.getVal());
+
+RooMCStudy * mcstudy_1_1 = new RooMCStudy(model_0_th,output_BDT,Binned(kTRUE), Silence(), Extended(), FitModel(model_1), FitOptions(Save(kTRUE),PrintEvalErrors(0)));
+mcstudy_1_1->generateAndFit(Ntoys);
+
+TCanvas *c_0_10 = new TCanvas("c_0_10", "Gen_Model0-Fit S+B Background (TTbar Semileptonic)", 1600, 500);
+  c_0_10->Divide(3,1);
+  c_0_10->cd(1);
+  RooPlot* frame28 = mcstudy_1_1->plotParam(Nexp_sem, Bins(25));
+  frame28->Draw();
+  c_0_10->cd(2);
+  RooPlot* frame29 = mcstudy_1_1->plotError(Nexp_sem, Bins(50));
+  frame29->Draw();
+  c_0_10->cd(3);
+  RooPlot* frame30 = mcstudy_1_1->plotPull(Nexp_sem, Bins(25),FitGauss(kTRUE)) ;
+  frame30->Draw();
+TCanvas *c_0_1221 = new TCanvas("c_0_1221", "Gen_Model0-Fit S+B Background Only (NLL)", 800, 800);
+  RooPlot *frame4004 = mcstudy_0_1->plotNLL(Bins(40));
+  frame4004->Draw();
+
+TCanvas *c_0_1000 = new TCanvas("c_0_100", "Gen_Model0-Fit S+B Background (TTbar Dileptonic) ", 1600, 500);
+  c_0_1000->Divide(3,1);
+  c_0_1000->cd(1);
+  RooPlot* frame2800 = mcstudy_1_1->plotParam(Nexp_dil, Bins(25));
+  frame2800->Draw();
+  c_0_1000->cd(2);
+  RooPlot* frame2900 = mcstudy_1_1->plotError(Nexp_dil, Bins(50));
+  frame2900->Draw();
+  c_0_1000->cd(3);
+  RooPlot* frame3000 = mcstudy_1_1->plotPull(Nexp_dil, Bins(25),FitGauss(kTRUE)) ;
+  frame3000->Draw();
+
+TCanvas *c_0_1001 = new TCanvas("c_0_1001", "Gen_Model0-Fit S+B Background (TTbar Hadronic + WtoLnu + QCD bctoe) ", 1600, 500);
+  c_0_1001->Divide(3,1);
+  c_0_1001->cd(1);
+  RooPlot* frame2801 = mcstudy_1_1->plotParam(Nexp_bkg, Bins(25));
+  frame2801->Draw();
+  c_0_1001->cd(2);
+  RooPlot* frame2901 = mcstudy_1_1->plotError(Nexp_bkg, Bins(50));
+  frame2901->Draw();
+  c_0_1001->cd(3);
+  RooPlot* frame30001 = mcstudy_1_1->plotPull(Nexp_bkg, Bins(25),FitGauss(kTRUE)) ;
+  frame30001->Draw();
+
+TCanvas *c_0_1002 = new TCanvas("c_0_1002", "Gen_Model0-Fit S+B Background (Signal) Only", 1600, 500);
+  c_0_1002->Divide(3,1);
+  c_0_1002->cd(1);
+  RooPlot* frame28011 = mcstudy_1_1->plotParam(Nexp_sig, Bins(25));
+  frame28011->Draw();
+  c_0_1002->cd(2);
+  RooPlot* frame29011 = mcstudy_1_1->plotError(Nexp_sig, Bins(50));
+  frame29011->Draw();
+  c_0_1002->cd(3);
+  RooPlot* frame300011 = mcstudy_1_1->plotPull(Nexp_sig, Bins(25),FitGauss(kTRUE)) ;
+  frame300011->Draw();
 }
