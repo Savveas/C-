@@ -19,25 +19,41 @@
 using namespace RooFit;
 using namespace RooStats;
 
+struct BayesianMCMCOptions {
+  double confLevel = 0.95;
+  int intervalType = 2; // type of interval (0 is shortest, 1 central, 2 upper limit)
+  double maxPOI = -999; // force different values of POI for doing the scan (default is given value)
+  double minPOI = -999;
+  int numIters = 100000;    // number of iterations
+  int numBurnInSteps = 100; // number of burn in steps to be ignored
+};
+
+BayesianMCMCOptions optMCMC;
+
 void FIT_3() {
 
+bool runMCstudy(false);
+
+TString dir="M60/";
+
+float nexp[8]={46.6743, 63.6314, 233.641, 424.398, 511.837, 548.093, 539.306, 556.62};
 
 // input files 
-TFile *file = new TFile("output_signal.root");
-TFile *file_Dileptonic = new TFile("output_TTbarDileptonic.root");
-TFile *file_Hadronic = new TFile("output_TTbarHadronic.root");
-TFile *file_Semileptonic = new TFile("output_TTbarSemileptonic.root");
-TFile *file_W_70to100 = new TFile("output_WJetsToLNu_70to100.root");
-TFile *file_W_100to200 = new TFile("output_WJetsToLNu_100to200.root");
-TFile *file_W_200to400 = new TFile("output_WJetsToLNu_200to400.root");
-TFile *file_W_400to600 = new TFile("output_WJetsToLNu_400to600.root");
-TFile *file_W_600to800 = new TFile("output_WJetsToLNu_600to800.root");
-TFile *file_W_800to1200 = new TFile("output_WJetsToLNu_800to1200.root");
-TFile *file_W_1200to2500 = new TFile("output_WJetsToLNu_1200to2500.root");
-TFile *file_W_0 = new TFile("output_WJetsToLNu_0.root");
-TFile *file_qcd_80to170 = new TFile("output_qcd_80to170.root");
-TFile *file_qcd_170to250 = new TFile("output_qcd_170to250.root");
-TFile *file_qcd_250toInf = new TFile("output_qcd_250toInf.root");
+TFile *file = new TFile(dir+"output_signal.root");
+TFile *file_Dileptonic = new TFile(dir+"output_TTbarDileptonic.root");
+TFile *file_Hadronic = new TFile(dir+"output_TTbarHadronic.root");
+TFile *file_Semileptonic = new TFile(dir+"output_TTbarSemileptonic.root");
+TFile *file_W_70to100 = new TFile(dir+"output_WJetsToLNu_70to100.root");
+TFile *file_W_100to200 = new TFile(dir+"output_WJetsToLNu_100to200.root");
+TFile *file_W_200to400 = new TFile(dir+"output_WJetsToLNu_200to400.root");
+TFile *file_W_400to600 = new TFile(dir+"output_WJetsToLNu_400to600.root");
+TFile *file_W_600to800 = new TFile(dir+"output_WJetsToLNu_600to800.root");
+TFile *file_W_800to1200 = new TFile(dir+"output_WJetsToLNu_800to1200.root");
+TFile *file_W_1200to2500 = new TFile(dir+"output_WJetsToLNu_1200to2500.root");
+TFile *file_W_0 = new TFile(dir+"output_WJetsToLNu_0.root");
+TFile *file_qcd_80to170 = new TFile(dir+"output_qcd_80to170.root");
+TFile *file_qcd_170to250 = new TFile(dir+"output_qcd_170to250.root");
+TFile *file_qcd_250toInf = new TFile(dir+"output_qcd_250toInf.root");
 
 // take histos and rebin 
 int rbin=10;
@@ -88,7 +104,7 @@ h_bkg->Add(h_qcd_170to250);
 h_bkg->Add(h_qcd_250toInf);
 
 // Nexp signal
-float sig_N = 671.209*0.61;
+float sig_N = nexp[7]*0.61;
 
 float dil_N = 10107.8;
 float had_N = 55.0982;
@@ -99,6 +115,11 @@ float bkg_1_N=dil_N+had_N;
 // Nexp semileptonic
 float sem_N = 39415.7;
 
+ ///Floats for calculating BR_hi(H->4b)-LAST STEP//////////
+float eff_filter= 0.61;
+float Br_Z_to_lep=0.1046+0.105+0.1075;
+float sigma_SM= 0.8839;
+float L_integrated=43.5*pow(10.,3.);
 
 float WtoLn_70to100= 59.051;
 float WtoLn_100to200= 256.979;
@@ -122,7 +143,9 @@ float f_sem=sem_N/bkg_total_N;
 float f_bkg_1=bkg_1_N/bkg_total_N;
 float f_bkg = 1. - f_sem - f_bkg_1; //bkg_N/bkg_total_N;
 
-cout<< f_sem << "   "<< f_bkg_1 << "   " << f_bkg <<endl;
+cout<< "coefficients: "<< "semileptonic: "<< f_sem << "W+QCD: "<< f_bkg << "Hadronic+Dileptonic: " << f_bkg_1 <<endl;
+cout<< "Nexp signal: "<< sig_N << "Nexp semileptonic: " << sem_N << "Nexp W+QCD: "<< bkg_N << "Nexp hadronic+dileptonic: "<< bkg_1_N <<endl;
+
 
 RooRealVar output_BDT("output_BDT","BDT score",-1.,1.);
 
@@ -136,7 +159,7 @@ RooRealVar Nexp_sem("Nexp_sem","Expected number of ttbar semileptonic", sem_N, 0
 RooRealVar Nexp_bkg("Nexp_bkg","Expected number of WtoLn + QCD (bc to e)", bkg_N,0.0, 2.0*bkg_N);
 
 // Signal Nexpected
-RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,-10.*sig_N,10.*sig_N);
+RooRealVar Nexp_sig("Nexp_sig","Expected number of signal events",sig_N,0.,2.*sig_N);
 RooRealVar Nexp_bkgTotal("Nexp_totalbkg", "Expected number of total bkg", bkg_total_N, 0.0, 2.0*bkg_total_N);
 RooRealVar Nexp_bkgTotal_th("Nexp_totalbkg_th", "Expected number of total bkg th", bkg_total_N);
 // bkg fractions
@@ -168,16 +191,21 @@ RooAddPdf model_0("model_0", "Background", RooArgList(bkgTotal), Nexp_bkgTotal);
 RooAddPdf model_1("model_1", "Signal + Background", RooArgList(sig_pdf, model_0), RooArgList(Nexp_sig, Nexp_bkgTotal));
 
 
-//RooAddPdf model_0_th("model_0_th", "Background_th", RooArgList(bkg_1_pdf, sem_pdf, bkg_pdf), RooArgList(Nexp_bkg_1_th, Nexp_sem_th, Nexp_bkg_th));
-//RooAddPdf model_1_th("model_1_th", "Signal + Background_th", RooArgList(sig_pdf, bkg_1_pdf, sem_pdf, bkg_pdf), RooArgList(Nexp_sig_th, Nexp_bkg_1_th, Nexp_sem_th, Nexp_bkg_th));
+RooAddPdf model_0_th("model_0_th", "Background_th", RooArgList(bkg_1_pdf, sem_pdf, bkg_pdf), RooArgList(Nexp_bkg_1_th, Nexp_sem_th, Nexp_bkg_th));
+RooAddPdf model_1_th("model_1_th", "Signal + Background_th", RooArgList(sig_pdf, bkg_1_pdf, sem_pdf, bkg_pdf), RooArgList(Nexp_sig_th, Nexp_bkg_1_th, Nexp_sem_th, Nexp_bkg_th));
 
 
-//float Ntotal_B = bkg_1_N+sem_N+bkg_N;
+float Ntotal_B = bkg_1_N+sem_N+bkg_N;
 float Ntotal_SB = sig_N+bkg_total_N;
 
-//RooDataSet *data_B = model_0.generate(output_BDT, bkg_total_N);
-//RooDataSet *data_SB = model_1.generate(output_BDT,Ntotal_SB);
-  /*
+TRandom3 r;
+printf("Random number %i was generated\n", r.Poisson(Ntotal_B));
+float Nobs = r.Poisson(Ntotal_B);
+printf("Nobs %f was generated\n",Nobs);
+/*
+RooDataSet *data_B = model_0.generate(output_BDT, bkg_total_N);
+RooDataSet *data_SB = model_1.generate(output_BDT,Ntotal_SB);
+  
   Nexp_sig.setVal(Nexp_sig_th.getVal());
   Nexp_bkg_1.setVal(Nexp_bkg_1_th.getVal());
   Nexp_bkg.setVal(Nexp_bkg_th.getVal());
@@ -187,6 +215,71 @@ float Ntotal_SB = sig_N+bkg_total_N;
 // # of TOYS
 const int Ntoys = 10000;
 
+RooDataSet *data_B = model_0.generate(output_BDT,Nobs);
+RooDataSet *data_SB = model_1.generate(output_BDT,Ntotal_SB);
+
+RooFitResult *fit0 = model_0.fitTo(*data_B, Save());
+fit0->Print("v");
+double lnL_model0_B = model_0.createNLL(*data_B)->getVal();
+std::cout << "NLL model 0B: " << lnL_model0_B << std::endl;
+Nexp_bkg_1.setVal(Nexp_bkg_1_th.getVal());
+Nexp_bkg.setVal(Nexp_bkg_th.getVal());
+Nexp_sem.setVal(Nexp_sem_th.getVal());
+
+// RootPlot 1
+TCanvas *c_Model_0 = new TCanvas("c_Model_0", "Model0 Fit", 800, 800);
+RooPlot* frame_t = output_BDT.frame(Title("")) ;
+frame_t->GetXaxis()->SetTitle("Model_0 Fit");
+frame_t->GetXaxis()->SetRangeUser(-0.8,0.8);
+data_B->plotOn(frame_t,Binning(rbin));
+model_0.plotOn(frame_t, Components(bkg_pdf), LineColor(kCyan)); 
+model_0.plotOn(frame_t, Components(bkg_1_pdf), LineColor(kRed)); 
+model_0.plotOn(frame_t, Components(sem_pdf), LineColor(kViolet)); 
+model_0.plotOn(frame_t, LineColor(kBlack)); 
+frame_t->Draw();
+TLegend *legend_1 = new TLegend(0.75,0.75,0.90,0.90); 
+    legend_1->AddEntry(data_B, "Background Data", "p"); 
+    legend_1->AddEntry(data_B, "Model_0", "l")->SetLineColor(kBlack);
+    legend_1->AddEntry(data_B, "TTbar Hadronic + Dileptonic", "l")->SetLineColor(kRed);
+    legend_1->AddEntry(data_B, "WtoLnu + qcd_bctoe", "l")->SetLineColor(kCyan); 
+    legend_1->AddEntry(data_B, "TTbar Semileptonic", "l")->SetLineColor(kViolet); 
+    legend_1->SetBorderSize(0); 
+    legend_1->Draw();
+
+
+RooFitResult *fit1 = model_1.fitTo(*data_B, Save());
+fit1->Print("v");
+double lnL_model1_B = model_1.createNLL(*data_B)->getVal();
+std::cout << "NLL model 1B: " << lnL_model1_B << std::endl;
+
+// RooPlot 2
+
+
+TCanvas *c_Model_1 = new TCanvas("c_Model_1", "Model1 Fit", 800, 800);
+RooPlot* frame_t1 = output_BDT.frame(Title("")) ;
+data_B->plotOn(frame_t1,Binning(rbin));
+frame_t1->GetXaxis()->SetTitle("Model_1 Fit");
+model_1.plotOn(frame_t1, Components(bkg_pdf), LineColor(kCyan)); 
+model_1.plotOn(frame_t1, Components(bkg_1_pdf), LineColor(kRed)); 
+model_1.plotOn(frame_t1, Components(sem_pdf), LineColor(kViolet)); 
+model_1.plotOn(frame_t1, LineColor(kBlack)); 
+frame_t1->Draw();
+TLegend *legend_11 = new TLegend(0.75,0.75,0.90,0.90); 
+    legend_11->AddEntry(data_B, "Background Data", "p"); 
+    legend_11->AddEntry(data_B, "Model_0", "l")->SetLineColor(kBlack);
+    legend_11->AddEntry(data_B, "TTbar Hadronic + Dileptonic", "l")->SetLineColor(kRed);
+    legend_11->AddEntry(data_B, "WtoLnu + qcd_bctoe", "l")->SetLineColor(kCyan); 
+    legend_11->AddEntry(data_B, "TTbar Semileptonic", "l")->SetLineColor(kViolet); 
+    legend_11->SetBorderSize(0); 
+    legend_11->Draw();
+  
+ 
+  // NOW START THE TOY MC STUDY
+ if(runMCstudy) {
+  Nexp_sig.setVal(Nexp_sig_th.getVal());
+  Nexp_bkg_1.setVal(Nexp_bkg_1_th.getVal());
+  Nexp_bkg.setVal(Nexp_bkg_th.getVal());
+  Nexp_sem.setVal(Nexp_sem_th.getVal());
 
 //Toy 1 -- generate bkg only -- fit bkg only
 RooMCStudy * mcstudy_0_1 = new RooMCStudy( model_0,output_BDT,Binned(kTRUE), Silence(), Extended(), FitModel(model_0), FitOptions(Save(kTRUE),PrintEvalErrors(0)));
@@ -205,88 +298,54 @@ TCanvas *c_0_1 = new TCanvas("c_0_1", "Model0 Background Only", 1600, 600);
   RooPlot* frame3 = mcstudy_0_1->plotPull(Nexp_bkgTotal, Bins(25),FitGauss(kTRUE)) ;
   frame3->Draw();
 
-TCanvas *c_0_122 = new TCanvas("c_0_122", "Model0 Background Only (NLL)", 800, 800);
-  RooPlot *frame400 = mcstudy_0_1->plotNLL(Bins(40),FitGauss(kTRUE));
-  frame400->Draw();  
 
-
-TCanvas *c_Model_0 = new TCanvas("c_Model_0", "Model0 Fit", 800, 800);
-RooPlot* frame_t = output_BDT.frame(Title("")) ;
-frame_t->GetXaxis()->SetTitle("Model_0 Fit");
-model_0.plotOn(frame_t, Components(bkg_pdf), LineColor(kCyan)); 
-model_0.plotOn(frame_t, Components(bkg_1_pdf), LineColor(kRed)); 
-model_0.plotOn(frame_t, Components(sem_pdf), LineColor(kViolet)); 
-model_0.plotOn(frame_t, LineColor(kBlack)); 
-frame_t->Draw();
-
-/*  
-  Nexp_sig.setVal(Nexp_sig_th.getVal());
-  Nexp_bkg_1.setVal(Nexp_bkg_1_th.getVal());
-  Nexp_bkg.setVal(Nexp_bkg_th.getVal());
-  Nexp_sem.setVal(Nexp_sem_th.getVal());
 
 RooMCStudy * mcstudy_1_1 = new RooMCStudy(model_0_th,output_BDT,Binned(kTRUE), Silence(), Extended(), FitModel(model_1), FitOptions(Save(kTRUE),PrintEvalErrors(0)));
 mcstudy_1_1->generateAndFit(Ntoys);
+}
+ ////////////////MCMC Calculator/////////
+ 
 
+  // Create RooWorkspace and ModelConfig
+  RooWorkspace w("w");
+  // Import models into the workspace
+  //w.import(model0, RooFit::RenameConflictNodes("_model0"));
+  w.import(model_1, RooFit::RenameConflictNodes("_model_1"));
 
- */
+  // Set up ModelConfig after importing models
+  ModelConfig mc("ModelConfig", &w);
+  mc.SetPdf(*w.pdf("model_1"));
+  mc.SetParametersOfInterest(Nexp_sig);
+  mc.SetNuisanceParameters(RooArgSet(Nexp_bkg, Nexp_bkg_1, Nexp_sem));
+  w.import(mc);
 
- bool useBkg = true;
- double confLevel = 0.90;
+    
+  // Perform MCMC calculation
+  SequentialProposal sp(0.1); // Create an instance of SequentialProposal
+  MCMCCalculator mcmc(*data_B, mc); // Using dataB
+  mcmc.SetConfidenceLevel(optMCMC.confLevel);
+  mcmc.SetProposalFunction(sp); // Pass the instance instead of a temporary object
+  mcmc.SetNumIters(optMCMC.numIters);
+  mcmc.SetNumBurnInSteps(optMCMC.numBurnInSteps);
+  mcmc.SetLeftSideTailFraction(0.);
 
- RooWorkspace *w = new RooWorkspace("w");
-   w->factory("SUM::pdf(s[0.001,15]*Uniform(x[0,1]),b[1,0,2]*Uniform(x))");
-   w->factory("Gaussian::prior_b(b,1,1)");
-   w->factory("PROD::model_1(pdf,prior_b)");
-   RooAbsPdf *model = w->pdf("model_1"); // pdf*priorNuisance
-   RooArgSet nuisanceParameters(*(w->var("b")));
- 
-   RooAbsRealLValue *POI = w->var("s");
-   RooAbsPdf *priorPOI = (RooAbsPdf *)w->factory("Uniform::priorPOI(s)");
-   RooAbsPdf *priorPOI2 = (RooAbsPdf *)w->factory("GenericPdf::priorPOI2('1/sqrt(@0)',s)");
- 
-   w->factory("n[3]"); // observed number of events
-   // create a data set with n observed events
-   RooDataSet data("data", "", {*w->var("x"), *w->var("n")}, RooFit::WeightVar("n"));
-   data.add({*(w->var("x"))}, w->var("n")->getVal());
- 
-   // to suppress messages when pdf goes to zero
-   RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
- 
-   RooArgSet *nuisPar = nullptr;
-   if (useBkg)
-      nuisPar = &nuisanceParameters;
-   // if (!useBkg) ((RooRealVar *)w->var("b"))->setVal(0);
- 
-   double size = 1. - confLevel;
-   std::cout << "\nBayesian Result using a Flat prior " << std::endl;
-   BayesianCalculator bcalc(data, *model, RooArgSet(*POI), *priorPOI, nuisPar);
-   bcalc.SetTestSize(size);
-   SimpleInterval *interval = bcalc.GetInterval();
-   double cl = bcalc.ConfidenceLevel();
-   std::cout << cl << "% CL central interval: [ " << interval->LowerLimit() << " - " << interval->UpperLimit()
-             << " ] or " << cl + (1. - cl) / 2 << "% CL limits\n";
-   RooPlot *plot = bcalc.GetPosteriorPlot();
-   TCanvas *c1 = new TCanvas("c1", "Bayesian Calculator Result");
-   c1->Divide(1, 2);
-   c1->cd(1);
-   plot->Draw();
-   c1->Update();
- 
-   std::cout << "\nBayesian Result using a 1/sqrt(s) prior  " << std::endl;
-   BayesianCalculator bcalc2(data, *model, RooArgSet(*POI), *priorPOI2, nuisPar);
-   bcalc2.SetTestSize(size);
-   SimpleInterval *interval2 = bcalc2.GetInterval();
-   cl = bcalc2.ConfidenceLevel();
-   std::cout << cl << "% CL central interval: [ " << interval2->LowerLimit() << " - " << interval2->UpperLimit()
-             << " ] or " << cl + (1. - cl) / 2 << "% CL limits\n";
- 
-   RooPlot *plot2 = bcalc2.GetPosteriorPlot();
-   c1->cd(2);
-   plot2->Draw();
-   gPad->SetLogy();
-   c1->Update();
- 
+  MCMCInterval *interval = mcmc.GetInterval();
+
+  // Plot results
+  auto c1 = new TCanvas("IntervalPlot");
+  MCMCIntervalPlot plot(*interval);
+  plot.Draw();
+
+  // Print the interval
+  std::cout << "\n>>>> RESULT : " << optMCMC.confLevel * 100 << "% interval on " << Nexp_sig.GetName()
+	    << " is : [" << interval->LowerLimit(Nexp_sig) << ", " << interval->UpperLimit(Nexp_sig) << "] " << std::endl;
+  double Nexp_sig_upper = interval->UpperLimit(Nexp_sig);
+  double BR_high = Nexp_sig_upper / (sigma_SM * Br_Z_to_lep * eff_filter * L_integrated);
+
+  std::cout << "For Nexp_Sig upper limit = " << Nexp_sig_upper 
+          << ", the BR_high is " << BR_high << std::endl;
+
+  gPad = c1;
    // observe one event while expecting one background event -> the 95% CL upper limit on s is 4.10
    // observe one event while expecting zero background event -> the 95% CL upper limit on s is 4.74
 }

@@ -21,45 +21,57 @@ using namespace TMVA;
 
 void TMVClassification()
 {
-    TFile *outputFile = TFile::Open( "TMVA.root", "RECREATE" );
+
+    TString dir="M50/";
+    
+    TFile *outputFile = TFile::Open(dir+ "TMVA.root", "RECREATE" );
 
     TMVA::Factory *factory = new TMVA::Factory( "MVAnalysis", outputFile,"!V:!Silent:Color:DrawProgressBar:Transformations=I;G:AnalysisType=Classification"); 
 
-    TFile *input_Signal = TFile::Open("histos_signal.root");
+    TFile *input_Signal = TFile::Open(dir+ "histos_signal.root");
     TTree* sigTree = (TTree*)input_Signal->Get( "my_tree" );
 
-    TFile *input_TTbarSemileptonic = TFile::Open("histos_back_TTbarSemileptonic.root");
+    TFile *input_TTbarSemileptonic = TFile::Open(dir+ "histos_back_TTbarSemileptonic_50.root");
     TTree* bkgTree_Semileptonic = (TTree*)input_TTbarSemileptonic->Get( "my_tree" );
 
-    TFile *input_TTbarDileptonic = TFile::Open("histos_back_TTbarDileptonic.root");
+    TFile *input_TTbarDileptonic = TFile::Open(dir+ "histos_back_TTbarDileptonic_50.root");
     TTree* bkgTree_Dileptonic = (TTree*)input_TTbarDileptonic->Get( "my_tree" );
 
-    TFile *input_TTbarHadronic = TFile::Open("histos_back_TTbarHadronic.root");
+    TFile *input_TTbarHadronic = TFile::Open(dir+ "histos_back_TTbarHadronic_50.root");
     TTree* bkgTree_Hadronic = (TTree*)input_TTbarHadronic->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu70to100 = TFile::Open("histos_back_WJetsToLNu70to100.root");
+    TFile *input_WJetsToLNu70to100 = TFile::Open(dir+ "histos_back_WJetsToLNu70to100_50.root");
     TTree* bkgTree_W_70to100 = (TTree*)input_WJetsToLNu70to100->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu100to200 = TFile::Open("histos_back_WJetsToLNu100to200.root");
+    TFile *input_WJetsToLNu100to200 = TFile::Open(dir+ "histos_back_WJetsToLNu100to200_50.root");
     TTree* bkgTree_W_100to200 = (TTree*)input_WJetsToLNu100to200->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu200to400 = TFile::Open("histos_back_WJetsToLNu200to400.root");
+    TFile *input_WJetsToLNu200to400 = TFile::Open(dir+ "histos_back_WJetsToLNu200to400_50.root");
     TTree* bkgTree_W_200to400 = (TTree*)input_WJetsToLNu200to400->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu400to600 = TFile::Open("histos_back_WJetsToLNu400to600.root");
+    TFile *input_WJetsToLNu400to600 = TFile::Open(dir+ "histos_back_WJetsToLNu400to600_50.root");
     TTree* bkgTree_W_400to600 = (TTree*)input_WJetsToLNu400to600->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu600to800 = TFile::Open("histos_back_WJetsToLNu600to800.root");
+    TFile *input_WJetsToLNu600to800 = TFile::Open(dir+ "histos_back_WJetsToLNu600to800_50.root");
     TTree* bkgTree_W_600to800 = (TTree*)input_WJetsToLNu600to800->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu800to1200 = TFile::Open("histos_back_WJetsToLNu800to1200.root");
+    TFile *input_WJetsToLNu800to1200 = TFile::Open(dir+ "histos_back_WJetsToLNu800to1200_50.root");
     TTree* bkgTree_W_800to1200 = (TTree*)input_WJetsToLNu800to1200->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu1200to2500 = TFile::Open("histos_back_WJetsToLNu1200to2500.root");
+    TFile *input_WJetsToLNu1200to2500 = TFile::Open(dir+ "histos_back_WJetsToLNu1200to2500_50.root");
     TTree* bkgTree_W_1200to2500 = (TTree*)input_WJetsToLNu1200to2500->Get( "my_tree" );
 
-    TFile *input_WJetsToLNu_0 = TFile::Open("histos_back_WJetsToLNu_0.root");
+    TFile *input_WJetsToLNu_0 = TFile::Open(dir+ "histos_back_WJetsToLNu_0_50.root");
     TTree* bkgTree_W_0 = (TTree*)input_WJetsToLNu_0->Get( "my_tree" );
+
+    TFile *input_qcd_80to170 = TFile::Open(dir+ "histos_back_qcd_bctoE_80to170_50.root");
+    TTree* bkgTree_qcd_80to170 = (TTree*)input_qcd_80to170->Get( "my_tree" );
+
+    TFile *input_qcd_170to250 = TFile::Open(dir+ "histos_back_qcd_bctoE_170to250_50.root");
+    TTree* bkgTree_qcd_170to250 = (TTree*)input_qcd_170to250->Get( "my_tree" );
+
+    TFile *input_qcd_250toInf = TFile::Open(dir+ "histos_back_qcd_bctoE_250toInf_50.root");
+    TTree* bkgTree_qcd_250toInf = (TTree*)input_qcd_250toInf->Get( "my_tree" );
 
     TMVA::DataLoader *dataloader = new TMVA::DataLoader("MVAnalysis");
 
@@ -74,6 +86,9 @@ void TMVClassification()
     float bgweight_W_800to1200(1.0);
     float bgweight_W_1200to2500(1.0);
     float bgweight_W_0(1.0);
+    float bgweight_qcd_80to170(1.0);
+    float bgweight_qcd_170to250(1.0);
+    float bgweight_qcd_250toInf(1.0);
 
     TLeaf *xpos_Semileptonic = bkgTree_Semileptonic->GetLeaf("w"); xpos_Semileptonic->GetBranch()->GetEntry(1);
     bgweight_Semileptonic = xpos_Semileptonic->GetValue();
@@ -97,6 +112,12 @@ void TMVClassification()
     bgweight_W_1200to2500 = xpos_W_1200to2500->GetValue();
     TLeaf *xpos_W_0 = bkgTree_W_0->GetLeaf("w"); xpos_W_0->GetBranch()->GetEntry(1);
     bgweight_W_0 = xpos_W_0->GetValue();
+    TLeaf *xpos_qcd_80to170 = bkgTree_qcd_80to170->GetLeaf("w"); xpos_qcd_80to170->GetBranch()->GetEntry(1);
+    bgweight_qcd_80to170 = xpos_qcd_80to170->GetValue();
+    TLeaf *xpos_qcd_170to250 = bkgTree_qcd_170to250->GetLeaf("w"); xpos_qcd_170to250->GetBranch()->GetEntry(1);
+    bgweight_qcd_170to250 = xpos_qcd_170to250->GetValue();
+    TLeaf *xpos_qcd_250toInf = bkgTree_qcd_250toInf->GetLeaf("w"); xpos_qcd_250toInf->GetBranch()->GetEntry(1);
+    bgweight_qcd_250toInf = xpos_qcd_250toInf->GetValue();
     
     
     
@@ -112,6 +133,9 @@ void TMVClassification()
     dataloader->AddBackgroundTree(bkgTree_W_800to1200,bgweight_W_800to1200);
     dataloader->AddBackgroundTree(bkgTree_W_1200to2500,bgweight_W_1200to2500);
     dataloader->AddBackgroundTree(bkgTree_W_0,bgweight_W_0);
+    dataloader->AddBackgroundTree(bkgTree_qcd_80to170,bgweight_qcd_80to170);
+    dataloader->AddBackgroundTree(bkgTree_qcd_170to250,bgweight_qcd_170to250);
+    dataloader->AddBackgroundTree(bkgTree_qcd_250toInf,bgweight_qcd_250toInf);
 
     dataloader->AddVariable("h_pt", 'F');
     dataloader->AddVariable("mt", 'F');

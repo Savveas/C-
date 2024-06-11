@@ -41,7 +41,7 @@ void MyClass::Loop()
 //
 //       To read only selected branches, Insert statements like:
 // METHOD1:
-//    fChain->SetBranchStatus("*",0);  // disable all branches
+//    fChain->Set//BranchStatus("*",0);  // disable all branches
 //    fChain->SetBranchStatus("branchname",1);  // activate branchname
 // METHOD2: replace line
 //    fChain->GetEntry(jentry);       //read all branches
@@ -49,9 +49,9 @@ void MyClass::Loop()
 if (fChain == 0) return;
 
 
-
+TString dir="M50/";
   Long64_t nentries = fChain->GetEntriesFast();
-  //TFile f("histos_signal.root","recreate");
+  TFile f(dir+"histos_signal.root","recreate");
   //TFile f("histos_back_TTbarSemileptonic.root","recreate");
   //TFile f("histos_back_TTbarDileptonic.root","recreate");
   //TFile f("histos_back_TTbarHadronic.root","recreate");
@@ -64,7 +64,7 @@ if (fChain == 0) return;
   //TFile f("histos_back_WJetsToLNu1200to2500.root","recreate");
   //TFile f("histos_back_WJetsToLNu_0.root","recreate");
   //TFile f("histos_back_qcd_bctoE_80to170.root","recreate");
-  TFile f("histos_back_qcd_bctoE_170to250.root","recreate");
+  //TFile f("histos_back_qcd_bctoE_170to250.root","recreate");
   //TFile f("histos_back_qcd_bctoE_250toInf.root","recreate");
 
 
@@ -91,7 +91,7 @@ if (fChain == 0) return;
   float sigma_back_qcd_bctoE_80to170=3221000*Br_qcd_bctoe_80to170;
   float sigma_back_qcd_bctoE_170to250=105771*Br_qcd_bctoe_170to250;
   float sigma_back_qcd_bctoE_205toInf=21094.1*Br_qcd_bctoe_250toInf;
-  float L_integrated=41.5*pow(10.,3.);
+  float L_integrated=43.5*pow(10.,3.);
 
 
 
@@ -134,7 +134,7 @@ if (fChain == 0) return;
 
   float w(0.);
   float N_expected(0.);
-if (std::string(f.GetName()) == "histos_signal.root") {
+if (std::string(f.GetName()) == dir+ "histos_signal.root") {
   w = w_signal;
   N_expected= N_expected_signal;
   std::cout << " Signal weight = " << w_signal << std::endl;
@@ -559,7 +559,7 @@ if (bjet_mult<3) continue;
   float lep_phi=p_lepton.Phi();
   float lep_m=p_lepton.M();
   MT=sqrt(2*lep_pt*met_pt*(1-cos(d_phi)));
-if (MT<25 || met_pt<30)continue;
+if (MT<50 || met_pt<30)continue;
   count_N4++;
   mt=MT;
   h_mt->Fill(MT);
@@ -788,7 +788,7 @@ if (ientry < 0) break;
   std::cout << " Nevents at step 1 (at least 1 lepton) = " << count_N1 << " and eff_1 = " << (float)count_N1/(float)totalNumberofEvents << " and Nexpected " << N_expected << std::endl;
   std::cout << " Nevents at step 2 (at least 3 jets) = " << count_N2 << " and eff_2 =" << (float)count_N2/(float)totalNumberofEvents <<  " and Nexpected " << N_expected*((float)count_N2/(float)totalNumberofEvents) << std::endl;
   std::cout << " Nevents at step 3 (at least 3 b-jets) = " << count_N3 << " and eff_3 = " << (float)count_N3/(float)totalNumberofEvents <<  " and Nexpected " << N_expected*((float)count_N3/(float)totalNumberofEvents) << std::endl;;
-  std::cout << " Nevents at step 4 (MT > 25 and MET >30) = " << count_N4 << " and eff_4 = " << (float)count_N4/(float)totalNumberofEvents <<  " and Nexpected " << N_expected*((float)count_N4/(float)totalNumberofEvents) << std::endl;;
+  std::cout << " Nevents at step 4 (MT > 50 and MET >30) = " << count_N4 << " and eff_4 = " << (float)count_N4/(float)totalNumberofEvents <<  " and Nexpected " << N_expected*((float)count_N4/(float)totalNumberofEvents) << std::endl;;
 
 
 
