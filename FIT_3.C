@@ -32,11 +32,14 @@ BayesianMCMCOptions optMCMC;
 
 void FIT_3() {
 
-bool runMCstudy(false);
+bool runMCstudy(true);
 
-TString dir="M60/";
+TString dir="M50/";
 
-float nexp[8]={46.6743, 63.6314, 233.641, 424.398, 511.837, 548.093, 539.306, 556.62};
+float effg= 0.61;
+
+float nexp[8]={27.1623, 37.0305, 135.968, 246.98, 297.886, 318.965, 313.851, 323.927};
+
 
 // input files 
 TFile *file = new TFile(dir+"output_signal.root");
@@ -103,8 +106,11 @@ h_bkg->Add(h_qcd_80to170);
 h_bkg->Add(h_qcd_170to250);
 h_bkg->Add(h_qcd_250toInf);
 
+//float eff_filter= 0.61;
 // Nexp signal
-float sig_N = nexp[7]*0.61;
+float sig_N = nexp[6];
+//float sig_N = 233.64*0.61;
+
 
 float dil_N = 10107.8;
 float had_N = 55.0982;
@@ -116,10 +122,10 @@ float bkg_1_N=dil_N+had_N;
 float sem_N = 39415.7;
 
  ///Floats for calculating BR_hi(H->4b)-LAST STEP//////////
-float eff_filter= 0.61;
+
 float Br_Z_to_lep=0.1046+0.105+0.1075;
 float sigma_SM= 0.8839;
-float L_integrated=43.5*pow(10.,3.);
+float L_integrated=41.5*pow(10.,3.);
 
 float WtoLn_70to100= 59.051;
 float WtoLn_100to200= 256.979;
@@ -138,6 +144,7 @@ float qcd_bctoe_All=2322.62;
 float bkg_N = WtoLn_70to100 + WtoLn_100to200 + WtoLn_200to400 + WtoLn_400to600 + WtoLn_600to800 + WtoLn_800to1200 + WtoLn_1200to2500 + WtoLn_0 + qcd_bctoe_80to170 + qcd_bctoe_170to250 + qcd_bctoe_Inf;
 //Total
 float bkg_total_N = bkg_1_N + sem_N + bkg_N;
+
 
 float f_sem=sem_N/bkg_total_N;
 float f_bkg_1=bkg_1_N/bkg_total_N;
@@ -191,8 +198,8 @@ RooAddPdf model_0("model_0", "Background", RooArgList(bkgTotal), Nexp_bkgTotal);
 RooAddPdf model_1("model_1", "Signal + Background", RooArgList(sig_pdf, model_0), RooArgList(Nexp_sig, Nexp_bkgTotal));
 
 
-RooAddPdf model_0_th("model_0_th", "Background_th", RooArgList(bkg_1_pdf, sem_pdf, bkg_pdf), RooArgList(Nexp_bkg_1_th, Nexp_sem_th, Nexp_bkg_th));
-RooAddPdf model_1_th("model_1_th", "Signal + Background_th", RooArgList(sig_pdf, bkg_1_pdf, sem_pdf, bkg_pdf), RooArgList(Nexp_sig_th, Nexp_bkg_1_th, Nexp_sem_th, Nexp_bkg_th));
+//RooAddPdf model_0_th("model_0_th", "Background_th", RooArgList(bkg_1_pdf, sem_pdf, bkg_pdf), RooArgList(Nexp_bkg_1_th, Nexp_sem_th, Nexp_bkg_th));
+//model_RooAddPdf model_1_th("model_1_th", "Signal + Background_th", RooArgList(sig_pdf, bkg_1_pdf, sem_pdf, bkg_pdf), RooArgList(Nexp_sig_th, Nexp_bkg_1_th, Nexp_sem_th, Nexp_bkg_th));
 
 
 float Ntotal_B = bkg_1_N+sem_N+bkg_N;
@@ -229,7 +236,7 @@ Nexp_sem.setVal(Nexp_sem_th.getVal());
 // RootPlot 1
 TCanvas *c_Model_0 = new TCanvas("c_Model_0", "Model0 Fit", 800, 800);
 RooPlot* frame_t = output_BDT.frame(Title("")) ;
-frame_t->GetXaxis()->SetTitle("Model_0 Fit");
+frame_t->GetXaxis()->SetTitle("BDT score");
 frame_t->GetXaxis()->SetRangeUser(-0.8,0.8);
 data_B->plotOn(frame_t,Binning(rbin));
 model_0.plotOn(frame_t, Components(bkg_pdf), LineColor(kCyan)); 
@@ -258,7 +265,8 @@ std::cout << "NLL model 1B: " << lnL_model1_B << std::endl;
 TCanvas *c_Model_1 = new TCanvas("c_Model_1", "Model1 Fit", 800, 800);
 RooPlot* frame_t1 = output_BDT.frame(Title("")) ;
 data_B->plotOn(frame_t1,Binning(rbin));
-frame_t1->GetXaxis()->SetTitle("Model_1 Fit");
+frame_t1->GetXaxis()->SetTitle("BDT score");
+frame_t1->GetXaxis()->SetRangeUser(-0.8,0.8);
 model_1.plotOn(frame_t1, Components(bkg_pdf), LineColor(kCyan)); 
 model_1.plotOn(frame_t1, Components(bkg_1_pdf), LineColor(kRed)); 
 model_1.plotOn(frame_t1, Components(sem_pdf), LineColor(kViolet)); 
@@ -282,11 +290,12 @@ TLegend *legend_11 = new TLegend(0.75,0.75,0.90,0.90);
   Nexp_sem.setVal(Nexp_sem_th.getVal());
 
 //Toy 1 -- generate bkg only -- fit bkg only
+/*
 RooMCStudy * mcstudy_0_1 = new RooMCStudy( model_0,output_BDT,Binned(kTRUE), Silence(), Extended(), FitModel(model_0), FitOptions(Save(kTRUE),PrintEvalErrors(0)));
 
 mcstudy_0_1->generateAndFit(Ntoys,bkg_total_N);
 
-TCanvas *c_0_1 = new TCanvas("c_0_1", "Model0 Background Only", 1600, 600);
+TCanvas *c_0_1 = new TCanvas("c_0_1", "Background Only data", 1600, 600);
   c_0_1->Divide(3,1);
   c_0_1->cd(1);
   RooPlot* frame1 = mcstudy_0_1->plotParam(Nexp_bkgTotal, Bins(25),FitGauss(kTRUE));
@@ -297,12 +306,39 @@ TCanvas *c_0_1 = new TCanvas("c_0_1", "Model0 Background Only", 1600, 600);
   c_0_1->cd(3);
   RooPlot* frame3 = mcstudy_0_1->plotPull(Nexp_bkgTotal, Bins(25),FitGauss(kTRUE)) ;
   frame3->Draw();
+*/
 
 
-
-RooMCStudy * mcstudy_1_1 = new RooMCStudy(model_0_th,output_BDT,Binned(kTRUE), Silence(), Extended(), FitModel(model_1), FitOptions(Save(kTRUE),PrintEvalErrors(0)));
+RooMCStudy * mcstudy_1_1 = new RooMCStudy(model_1,output_BDT,Binned(kTRUE), Silence(), Extended(), FitModel(model_1), FitOptions(Save(kTRUE),PrintEvalErrors(0)));
 mcstudy_1_1->generateAndFit(Ntoys);
+TCanvas *c_0_2 = new TCanvas("c_0_2", "Background Only data", 1600, 600);
+  c_0_2->Divide(3,1);
+  c_0_2->cd(1);
+  RooPlot* frame11 = mcstudy_1_1->plotParam(Nexp_bkgTotal, Bins(25),FitGauss(kTRUE));
+  frame11->Draw();
+  c_0_2->cd(2);
+  RooPlot* frame21= mcstudy_1_1->plotError(Nexp_bkgTotal, Bins(50),FitGauss(kTRUE));
+  frame21->Draw();
+  c_0_2->cd(3);
+  RooPlot* frame31 = mcstudy_1_1->plotPull(Nexp_bkgTotal, Bins(25),FitGauss(kTRUE)) ;
+  frame31->Draw();
+
+
+TCanvas *c_0_3 = new TCanvas("c_0_3", "Background Only data", 1600, 600);
+  c_0_3->Divide(3,1);
+  c_0_3->cd(1);
+  RooPlot* frame12 = mcstudy_1_1->plotParam(Nexp_sig, Bins(25),FitGauss(kTRUE));
+  frame12->Draw();
+  c_0_3->cd(2);
+  RooPlot* frame22 = mcstudy_1_1->plotError(Nexp_sig, Bins(50),FitGauss(kTRUE));
+  frame22->Draw();
+  c_0_3->cd(3);
+  RooPlot* frame32 = mcstudy_1_1->plotPull(Nexp_sig, Bins(25),FitGauss(kTRUE)) ;
+  frame32->Draw();
+
 }
+cout<< "Nexp_bkg_total" <<bkg_total_N <<endl;
+//return;
  ////////////////MCMC Calculator/////////
  
 
@@ -340,7 +376,7 @@ mcstudy_1_1->generateAndFit(Ntoys);
   std::cout << "\n>>>> RESULT : " << optMCMC.confLevel * 100 << "% interval on " << Nexp_sig.GetName()
 	    << " is : [" << interval->LowerLimit(Nexp_sig) << ", " << interval->UpperLimit(Nexp_sig) << "] " << std::endl;
   double Nexp_sig_upper = interval->UpperLimit(Nexp_sig);
-  double BR_high = Nexp_sig_upper / (sigma_SM * Br_Z_to_lep * eff_filter * L_integrated);
+  double BR_high = Nexp_sig_upper / (sigma_SM * Br_Z_to_lep * effg * L_integrated);
 
   std::cout << "For Nexp_Sig upper limit = " << Nexp_sig_upper 
           << ", the BR_high is " << BR_high << std::endl;

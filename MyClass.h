@@ -248,12 +248,12 @@ MyClass::MyClass(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-   TString Dir="M50/";
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject(Dir+ "analysis_50.root");
+   TString Dir="M15/";
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject(Dir+ "M_15.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile(Dir+ "analysis_50.root");
+         f = new TFile(Dir+ "M_15.root");
       }
-      TDirectory * dir = (TDirectory*)f->Get(Dir+ "analysis_50.root:/mainNtuplizer");
+      TDirectory * dir = (TDirectory*)f->Get(Dir+ "M_15.root:/mainNtuplizer");
       dir->GetObject("data",tree);
 
       TH1F* nevtH = (TH1F *) f->Get("mainNtuplizer/nevents");

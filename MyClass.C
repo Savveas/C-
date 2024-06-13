@@ -49,7 +49,7 @@ void MyClass::Loop()
 if (fChain == 0) return;
 
 
-TString dir="M50/";
+TString dir="M15/";
   Long64_t nentries = fChain->GetEntriesFast();
   TFile f(dir+"histos_signal.root","recreate");
   //TFile f("histos_back_TTbarSemileptonic.root","recreate");
@@ -76,7 +76,7 @@ TString dir="M50/";
   float Br_qcd_bctoe_250toInf=0.03375;
 
 
-  float sigma_signal=1.37*Br_W_to_lep;
+  float sigma_signal=1.37*Br_W_to_lep*0.61;
   float sigma_back_Semileptonic=365.34*Br_W_to_lep;
   float sigma_back_Dileptonic=88.29*Br_W_to_lep;
   float sigma_back_Hadronic=377.96*Br_W_to_lep;
@@ -91,7 +91,7 @@ TString dir="M50/";
   float sigma_back_qcd_bctoE_80to170=3221000*Br_qcd_bctoe_80to170;
   float sigma_back_qcd_bctoE_170to250=105771*Br_qcd_bctoe_170to250;
   float sigma_back_qcd_bctoE_205toInf=21094.1*Br_qcd_bctoe_250toInf;
-  float L_integrated=43.5*pow(10.,3.);
+  float L_integrated=41.5*pow(10.,3.);
 
 
 
