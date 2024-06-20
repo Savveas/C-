@@ -32,12 +32,11 @@ BayesianMCMCOptions optMCMC;
 
 void FIT_3() {
 
-bool runMCstudy(true);
+bool runMCstudy(false);
 
-TString dir="M50/";
+TString dir="M15/";
 
 float effg= 0.61;
-
 float nexp[8]={27.1623, 37.0305, 135.968, 246.98, 297.886, 318.965, 313.851, 323.927};
 
 
@@ -108,7 +107,7 @@ h_bkg->Add(h_qcd_250toInf);
 
 //float eff_filter= 0.61;
 // Nexp signal
-float sig_N = nexp[6];
+float sig_N = nexp[1];
 //float sig_N = 233.64*0.61;
 
 
@@ -123,7 +122,7 @@ float sem_N = 39415.7;
 
  ///Floats for calculating BR_hi(H->4b)-LAST STEP//////////
 
-float Br_Z_to_lep=0.1046+0.105+0.1075;
+float Br_W_to_lep=0.1046+0.105+0.1075;
 float sigma_SM= 0.8839;
 float L_integrated=41.5*pow(10.,3.);
 
@@ -209,6 +208,9 @@ TRandom3 r;
 printf("Random number %i was generated\n", r.Poisson(Ntotal_B));
 float Nobs = r.Poisson(Ntotal_B);
 printf("Nobs %f was generated\n",Nobs);
+cout<< "Nexp_bkg_total " <<bkg_total_N <<endl;
+cout<< "Nobs " << Nobs <<endl;
+cout<< "Neppected signal "<<Nexp_sig<< endl;
 /*
 RooDataSet *data_B = model_0.generate(output_BDT, bkg_total_N);
 RooDataSet *data_SB = model_1.generate(output_BDT,Ntotal_SB);
@@ -337,7 +339,7 @@ TCanvas *c_0_3 = new TCanvas("c_0_3", "Background Only data", 1600, 600);
   frame32->Draw();
 
 }
-cout<< "Nexp_bkg_total" <<bkg_total_N <<endl;
+
 //return;
  ////////////////MCMC Calculator/////////
  
@@ -363,10 +365,17 @@ cout<< "Nexp_bkg_total" <<bkg_total_N <<endl;
   mcmc.SetProposalFunction(sp); // Pass the instance instead of a temporary object
   mcmc.SetNumIters(optMCMC.numIters);
   mcmc.SetNumBurnInSteps(optMCMC.numBurnInSteps);
-  mcmc.SetLeftSideTailFraction(0.);
+  mcmc.SetLeftSideTailFraction(0.5);
 
   MCMCInterval *interval = mcmc.GetInterval();
+  
+  //bc = ROOT.RooStats.BayesianCalculator(ws.data("data"), model_1)
+  //bc.SetConfidenceLevel(0.95)
+  //bc.SetLeftSideTailFraction(0.5) 
 
+  //bcInterval = bc.GetInterval()
+  float denominator =  (sigma_SM * Br_W_to_lep * effg * L_integrated);
+  
   // Plot results
   auto c1 = new TCanvas("IntervalPlot");
   MCMCIntervalPlot plot(*interval);
@@ -376,10 +385,34 @@ cout<< "Nexp_bkg_total" <<bkg_total_N <<endl;
   std::cout << "\n>>>> RESULT : " << optMCMC.confLevel * 100 << "% interval on " << Nexp_sig.GetName()
 	    << " is : [" << interval->LowerLimit(Nexp_sig) << ", " << interval->UpperLimit(Nexp_sig) << "] " << std::endl;
   double Nexp_sig_upper = interval->UpperLimit(Nexp_sig);
-  double BR_high = Nexp_sig_upper / (sigma_SM * Br_Z_to_lep * effg * L_integrated);
+  double BR_high = Nexp_sig_upper / denominator;
 
   std::cout << "For Nexp_Sig upper limit = " << Nexp_sig_upper 
           << ", the BR_high is " << BR_high << std::endl;
+          
+          
+  // Perform MCMC calculation for 86% confidence level
+  mcmc.SetConfidenceLevel(0.86); // Set confidence level to 86%
+
+  MCMCInterval *interval_86 = mcmc.GetInterval();
+
+  double lowerLimit_86 = interval_86->LowerLimit(Nexp_sig);
+  double upperLimit_86 = interval_86->UpperLimit(Nexp_sig);
+
+  std::cout << "\n>>>> RESULT : " << 86 << "% interval on " << Nexp_sig.GetName()
+            << " is : [" << interval_86->LowerLimit(Nexp_sig) << ", " << interval_86->UpperLimit(Nexp_sig) << "] " << std::endl;
+  double Nexp_Sig_upper_86 = interval_86->UpperLimit(Nexp_sig);
+
+  double BR_high_86 = Nexp_Sig_upper_86 / denominator;
+
+  std::cout << "For Nexp_Sig upper limit (86%) = " << Nexp_Sig_upper_86 
+            << ", the BR_high is " << BR_high_86 << std::endl;
+  
+  // Plot for 86% confidence level interval
+  auto c2 = new TCanvas("IntervalPlot_86", "MCMC Interval Plot (86%)", 800, 600);
+  MCMCIntervalPlot plot_86(*interval_86);
+  plot_86.Draw();
+
 
   gPad = c1;
    // observe one event while expecting one background event -> the 95% CL upper limit on s is 4.10
